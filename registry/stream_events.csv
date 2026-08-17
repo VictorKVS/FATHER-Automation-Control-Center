@@ -1,0 +1,7 @@
+event_id,event_time,stream_id,event_type,from_assignment,to_assignment,reason,evidence
+EVT-0001,2026-08-17T10:51:38+03:00,STREAM-02,redirect,FATHER Quant Lab,BOOK KB — сущности,Приоритет защищаемой базы BOOK·CRAFT,automation update confirmed
+EVT-0002,2026-08-17T10:51:40+03:00,STREAM-03,redirect,Доклад по FATHER,BOOK KB — хронология,Параллельное производство базы,automation update confirmed
+EVT-0003,2026-08-17T10:51:39+03:00,STREAM-04,redirect,FATHER Daily Build Report,BOOK KB — контроль,Независимый контроль и подготовка защиты,automation update confirmed
+EVT-0004,2026-08-17T10:51:37+03:00,OSINT-STREAM,resume,paused,OSINT,Первоначальное распределение,automation update confirmed
+EVT-0005,2026-08-17T10:53:17+03:00,OSINT-STREAM,pause,OSINT,paused,Уточнение пользователя: один поток Security KB и остальные BOOK KB,automation update confirmed
+EVT-0006,2026-08-17T10:53:17+03:00,STREAM-01,resume,paused,Security Knowledge Base,Уточнение пользователя: сохранить один поток Security KB,automation update confirmed
