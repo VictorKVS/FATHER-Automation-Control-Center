@@ -17,6 +17,7 @@
 
 ```bash
 python scripts/build_dashboard.py
+python scripts/estimate_capacity.py
 python -m unittest discover -s tests -v
 ```
 
@@ -24,10 +25,17 @@ python -m unittest discover -s tests -v
 
 - `registry/automations.json` — текущее назначение потоков;
 - `registry/factories.json` — каталог созданных фабрик и продуктовых контуров;
-- `registry/stream_events.csv` — неизменяемая история запусков, остановок и переназначений;
+- `registry/stream_events.csv` — неизменяемая история запусков, остановок и
+  переназначений;
+- `registry/workload_history.csv` — где использовались потоки, объём, сложность
+  и подтверждённые результаты;
+- `registry/capacity_model.json` — коэффициенты производительности 1–5 потоков;
 - `docs/METRICS.md` — правила расчёта времени, прогресса и загрузки;
+- `docs/CAPACITY_MODEL.md` — методика расчёта срока общей задачи;
 - `reports/CURRENT_STATUS.md` — автоматически сформированная сводка;
+- `reports/CAPACITY_ESTIMATE.md` — прогноз сроков по объёму и сложности;
 - `scripts/build_dashboard.py` — воспроизводимый генератор отчёта;
+- `scripts/estimate_capacity.py` — калькулятор объединения потоков;
 - `tests/test_registry.py` — проверки целостности реестра.
 
 ## Принципы доказательности
@@ -38,5 +46,16 @@ python -m unittest discover -s tests -v
 4. Каждое переназначение потока записывается отдельным событием.
 5. Остановленная задача сохраняет историю и причину остановки.
 6. Один поток может иметь только одно активное назначение.
+
+## Публикация
+
+Рекомендуемый режим репозитория — **private**, поскольку реестр содержит
+операционную карту проектов. После установки GitHub CLI:
+
+```powershell
+gh auth login
+Set-Location "G:\1\FATHER-AUTOMATION-CONTROL"
+gh repo create VictorKVS/FATHER-AUTOMATION-CONTROL --private --source . --remote origin --push
+```
 
 Секреты, токены, модели и пользовательские документы в реестр не включаются.
