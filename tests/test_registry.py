@@ -58,6 +58,17 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(values, sorted(values, reverse=True))
         self.assertGreater(values[-1], values[0] / 5)
 
+    def test_all_automations_are_registered(self):
+        inventory = json.loads((ROOT / "registry/automation_inventory.json").read_text(encoding="utf-8"))
+        self.assertEqual(inventory["total"], 12)
+        self.assertEqual(len(inventory["automations"]), 12)
+        self.assertEqual(len({item["automation_id"] for item in inventory["automations"]}), 12)
+        counts = {
+            status: sum(item["status"] == status for item in inventory["automations"])
+            for status in ("active", "paused", "completed")
+        }
+        self.assertEqual(counts, inventory["status_summary"])
+
 
 if __name__ == "__main__":
     unittest.main()
