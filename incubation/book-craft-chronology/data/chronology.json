@@ -1,0 +1,41 @@
+{
+  "world_id": "WORLD-NEVSKY-AFTER-MIDNIGHT",
+  "title": "Невский после полуночи",
+  "provenance": {
+    "mode": "manual_demo_seed",
+    "automatic_extraction": false,
+    "protected_source_text_included": false
+  },
+  "events": [
+    {
+      "id": "EVT-001",
+      "sequence": 1,
+      "time": "00:05",
+      "location": "LOC-NEVSKY-ENTRY",
+      "actors": ["CHAR-A"],
+      "movement": {"actor": "CHAR-A", "from": null, "to": "LOC-NEVSKY-ENTRY"},
+      "ownership": {"item": "ITEM-BRASS-KEY", "from": null, "to": "CHAR-A"},
+      "information": {"fact": "INFO-MEETING-PLACE", "learned_by": "CHAR-A"}
+    },
+    {
+      "id": "EVT-002",
+      "sequence": 2,
+      "time": "00:17",
+      "location": "LOC-NEVSKY-ARCH",
+      "actors": ["CHAR-A"],
+      "movement": {"actor": "CHAR-A", "from": "LOC-NEVSKY-ENTRY", "to": "LOC-NEVSKY-ARCH"},
+      "ownership": {"item": "ITEM-BRASS-KEY", "from": "CHAR-A", "to": "CHAR-A"},
+      "information": null
+    },
+    {
+      "id": "EVT-003",
+      "sequence": 3,
+      "time": "00:26",
+      "location": "LOC-NEVSKY-ARCH",
+      "actors": ["CHAR-A", "CHAR-B"],
+      "movement": null,
+      "ownership": {"item": "ITEM-BRASS-KEY", "from": "CHAR-A", "to": "CHAR-B"},
+      "information": {"fact": "INFO-MEETING-PLACE", "learned_by": "CHAR-B"}
+    }
+  ]
+}
