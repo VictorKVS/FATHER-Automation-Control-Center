@@ -6,3 +6,9 @@ WORK-0004,BOOK·CRAFT Knowledge Factory,Сущности BOOK KB,2026-08-17T10:5
 WORK-0005,BOOK·CRAFT Knowledge Factory,Хронология BOOK KB,2026-08-17T10:51:40+03:00,,1,L,high,20,,null,"Три события; время; места; владение",active,planned
 WORK-0006,BOOK·CRAFT Knowledge Factory,Контроль BOOK KB,2026-08-17T10:51:39+03:00,,1,M,high,12,,null,"Канон; противоречия; тесты; защита",active,planned
 WORK-0007,OSINT Factory,Автономная разработка OSINT,2026-08-12T22:25:52+03:00,2026-08-17T10:53:17+03:00,1,XL,critical,,,null,"OSINT остановлен по решению о перераспределении",paused,unknown-runtime
+WORK-0008,FATHER Engineering Competency Lab,FATHER Lab 3h Report,,,1,XL,high,,,null,"Учебно-исследовательский контур и Game Factory",paused,unknown-runtime
+WORK-0009,GitHub Showcase Factory,PORT-SITE-0001,,,1,L,medium,,,null,"GitHub-витрина и сайт",paused,unknown-runtime
+WORK-0010,FATHER Product Factory,FATHER Product Scenarios,,,1,XL,critical,,,null,"Сценарии S0→S10",paused,unknown-runtime
+WORK-0011,Professional KB Factory,Professional KB Factory,,,1,XL,critical,,,null,"Многодоменные профессиональные базы",paused,unknown-runtime
+WORK-0012,FATHER Reporting,Утренняя сводка FATHER,,,1,S,low,,,1,"Одноразовая сводка",completed,unknown-runtime
+WORK-0013,FATHER Product Factory,Ночной FATHER Build,,,1,L,high,,,6,"Шесть запланированных проходов",completed,unknown-runtime
