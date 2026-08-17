@@ -12,6 +12,7 @@ def load_json(path):
 def main():
     automation_data = load_json("registry/automations.json")
     factory_data = load_json("registry/factories.json")
+    inventory = load_json("registry/automation_inventory.json")
     streams = automation_data["streams"]
     active = [stream for stream in streams if stream["status"] == "active"]
     reserve = [stream for stream in streams if stream["status"] == "reserve"]
@@ -33,6 +34,10 @@ def main():
         f"- Загрузка: **{len(active) / automation_data['capacity']:.0%}**",
         f"- Плановая трудоёмкость известных активных этапов: **{planned} ч**",
         f"- Зафиксировано событий переназначения/управления: **{len(events)}**",
+        f"- Всего автоматических задач: **{inventory['total']}** "
+        f"(активных {inventory['status_summary']['active']}, "
+        f"остановленных {inventory['status_summary']['paused']}, "
+        f"завершённых {inventory['status_summary']['completed']})",
         "",
         "## Активные потоки",
         "",
