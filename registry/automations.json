@@ -1,0 +1,12 @@
+{
+  "snapshot_at": "2026-08-17T10:53:18+03:00",
+  "timezone": "Europe/Moscow",
+  "capacity": 5,
+  "streams": [
+    {"stream_id":"STREAM-01","automation_id":"6a7ced00c6408191aa4ac709688c96e4","title":"Аудит базы ИБ","factory_id":"SEC-KB-FACTORY","assignment":"Security Knowledge Base","status":"active","cadence":"hourly","stage":"evidence-base expansion and red-team audit","planned_stage_hours":null,"actual_runtime_hours":null,"progress_percent":null,"evidence_note":"Фактическое время исполнения недоступно в снимке автоматизаций; не оценено искусственно."},
+    {"stream_id":"STREAM-02","automation_id":"6a80e409660c8191adb62dd095db12fe","title":"BOOK KB — сущности","factory_id":"BOOK-KB-FACTORY","assignment":"Персонажи, места, предметы, организации и стабильные ID","status":"active","cadence":"hourly","stage":"MVP entity contract","planned_stage_hours":16,"actual_runtime_hours":null,"progress_percent":20,"evidence_note":"Процент отражает наличие синтетического контракта; автоматическое извлечение не доказано."},
+    {"stream_id":"STREAM-03","automation_id":"6a7f8562ffdc81918c5b07ee0faf1383","title":"BOOK KB — хронология","factory_id":"BOOK-KB-FACTORY","assignment":"События, время, места, перемещения, владение и получение информации","status":"active","cadence":"hourly","stage":"MVP chronology contract","planned_stage_hours":20,"actual_runtime_hours":null,"progress_percent":15,"evidence_note":"Три статических события существуют; автоматическое построение хронологии не доказано."},
+    {"stream_id":"STREAM-04","automation_id":"6a7d551ad9ec8191ae4b19100edf4296","title":"BOOK KB — контроль","factory_id":"BOOK-KB-FACTORY","assignment":"Проверка канона, тесты, отчёт и подготовка защиты","status":"active","cadence":"hourly","stage":"MVP verification and defense","planned_stage_hours":12,"actual_runtime_hours":null,"progress_percent":45,"evidence_note":"MIN/MED/MAX и UI-контракт зелёные; живой Windows-прогон остаётся открытым."},
+    {"stream_id":"STREAM-05","automation_id":null,"title":"Резервный поток","factory_id":null,"assignment":null,"status":"reserve","cadence":null,"stage":null,"planned_stage_hours":null,"actual_runtime_hours":0,"progress_percent":null,"evidence_note":"Свободен для потока источников и доказательств BOOK KB после отдельного решения."}
+  ]
+}
