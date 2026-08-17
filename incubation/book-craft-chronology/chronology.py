@@ -47,7 +47,12 @@ def diagnose(data: dict) -> list[dict]:
     events = sorted(data["events"], key=lambda event: event["sequence"])
     problems: list[dict] = []
     if [event["sequence"] for event in events] != [1, 2, 3]:
-        problems.append(issue("CHR-ORDER-001", None, "event_order", [1, 2, 3], [event["sequence"] for event in events]))
+        broken = next(
+            (event for expected, event in enumerate(data["events"], 1) if event["sequence"] != expected),
+            data["events"][0],
+        )
+        expected = data["events"].index(broken) + 1
+        problems.append(issue("CHR-ORDER-001", broken["id"], "event.sequence", expected, broken["sequence"]))
     if [event["time"] for event in events] != sorted(event["time"] for event in events):
         problems.append(issue("CHR-TIME-001", None, "event_time", "monotonic", [event["time"] for event in events]))
 

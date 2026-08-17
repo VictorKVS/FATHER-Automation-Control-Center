@@ -43,6 +43,13 @@ class ChronologyTests(unittest.TestCase):
         self.assertEqual("EVT-002", problems[0]["event"])
         self.assertEqual("LOC-NEVSKY-ENTRY", problems[0]["expected"])
 
+    def test_diagnostic_names_order_event(self):
+        problems = diagnose(mutate_for_diagnostic(self.data, "order"))
+        self.assertEqual("CHR-ORDER-001", problems[0]["code"])
+        self.assertEqual("EVT-002", problems[0]["event"])
+        self.assertEqual(2, problems[0]["expected"])
+        self.assertEqual(3, problems[0]["actual"])
+
     def test_diagnostic_names_ownership_event(self):
         problems = diagnose(mutate_for_diagnostic(self.data, "ownership"))
         self.assertEqual("CHR-OWNER-001", problems[0]["code"])
