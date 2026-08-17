@@ -8,6 +8,7 @@
 - Загрузка: **80%**
 - Плановая трудоёмкость известных активных этапов: **48 ч**
 - Зафиксировано событий переназначения/управления: **6**
+- Всего автоматических задач: **12** (активных 4, остановленных 5, завершённых 3)
 
 ## Активные потоки
 
@@ -53,5 +54,11 @@
 | Хронология BOOK KB | BOOK·CRAFT Knowledge Factory | 1 | L | high | 20 | н/д | active |
 | Контроль BOOK KB | BOOK·CRAFT Knowledge Factory | 1 | M | high | 12 | н/д | active |
 | Автономная разработка OSINT | OSINT Factory | 1 | XL | critical | н/д | н/д | paused |
+| FATHER Lab 3h Report | FATHER Engineering Competency Lab | 1 | XL | high | н/д | н/д | paused |
+| PORT-SITE-0001 | GitHub Showcase Factory | 1 | L | medium | н/д | н/д | paused |
+| FATHER Product Scenarios | FATHER Product Factory | 1 | XL | critical | н/д | н/д | paused |
+| Professional KB Factory | Professional KB Factory | 1 | XL | critical | н/д | н/д | paused |
+| Утренняя сводка FATHER | FATHER Reporting | 1 | S | low | н/д | н/д | completed |
+| Ночной FATHER Build | FATHER Product Factory | 1 | L | high | н/д | н/д | completed |
 
 > Фактическое время запусков не вычисляется из расписания. Если телеметрия запуска отсутствует, значение остаётся неизвестным.
