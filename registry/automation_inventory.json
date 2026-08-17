@@ -1,0 +1,19 @@
+{
+  "snapshot_at": "2026-08-17T11:08:10+03:00",
+  "total": 12,
+  "status_summary": {"active": 4, "paused": 5, "completed": 3},
+  "automations": [
+    {"automation_id":"6a7ced00c6408191aa4ac709688c96e4","title":"Аудит базы ИБ","factory":"Security Knowledge Factory","status":"active","cadence":"hourly","last_run_at":"2026-08-17T11:07:45+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7f8562ffdc81918c5b07ee0faf1383","title":"BOOK KB — хронология","factory":"BOOK·CRAFT Knowledge Factory","status":"active","cadence":"hourly","last_run_at":"2026-08-17T10:21:11+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7d551ad9ec8191b4c3b23ceb2c1996","title":"BOOK KB — контроль","factory":"BOOK·CRAFT Knowledge Factory","status":"active","cadence":"hourly","last_run_at":"2026-08-16T20:02:23+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a80e409660c8191adb62dd095db12fe","title":"BOOK KB — сущности","factory":"BOOK·CRAFT Knowledge Factory","status":"active","cadence":"hourly","last_run_at":"2026-08-17T07:57:45+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7cf2f0967081918aec9132af046e66","title":"Автономная разработка OSINT","factory":"OSINT Factory","status":"paused","cadence":"hourly","last_run_at":"2026-08-13T05:28:11+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a80ed55491c8191a665d223cf27da5c","title":"FATHER Lab 3h Report","factory":"FATHER Engineering Competency Lab","status":"paused","cadence":"every-3-hours","last_run_at":"2026-08-17T00:04:42+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7d6b40c9988191b4c3b23ceb2c1996","title":"PORT-SITE-0001 — GitHub-витрина и сайт","factory":"GitHub Showcase Factory","status":"paused","cadence":"hourly","last_run_at":"2026-08-16T01:00:14+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7d550b4e688191a92bd567d3637b47","title":"FATHER Product Scenarios","factory":"FATHER Product Factory","status":"paused","cadence":"every-2-hours","last_run_at":"2026-08-14T10:00:09+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7d54f9447c8191b7410f2ff2bb8a95","title":"Professional KB Factory","factory":"Professional KB Factory","status":"paused","cadence":"every-2-hours","last_run_at":"2026-08-13T17:05:38+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a82362f16a08191a11e3b3064d4264b","title":"BOOK·CRAFT ночной цикл","factory":"BOOK·CRAFT Knowledge Factory","status":"completed","cadence":"8-hourly-runs","last_run_at":"2026-08-17T08:16:19+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7cf2b39dfc8191ac0e4ad01d7498a1","title":"Утренняя сводка FATHER","factory":"FATHER Reporting","status":"completed","cadence":"one-time","last_run_at":"2026-08-13T09:00:27+03:00","actual_runtime_hours":null},
+    {"automation_id":"6a7cf2a96cd881919ba211081509e6bd","title":"Ночной FATHER Build","factory":"FATHER Product Factory","status":"completed","cadence":"6-hourly-runs","last_run_at":"2026-08-13T07:00:21+03:00","actual_runtime_hours":null}
+  ]
+}
