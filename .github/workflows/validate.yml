@@ -12,9 +12,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Rebuild dashboard
-        run: python scripts/build_dashboard.py
-      - name: Verify generated report is current
-        run: git diff --exit-code -- reports/CURRENT_STATUS.md
+      - name: Rebuild reports
+        run: |
+          python scripts/build_dashboard.py
+          python scripts/estimate_capacity.py
+      - name: Verify generated reports are current
+        run: git diff --exit-code -- reports/
       - name: Run registry tests
         run: python -m unittest discover -s tests -v
