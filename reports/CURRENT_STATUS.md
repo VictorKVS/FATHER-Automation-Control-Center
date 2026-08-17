@@ -42,4 +42,16 @@
 | 2026-08-17T10:53:17+03:00 | pause | OSINT | paused |
 | 2026-08-17T10:53:17+03:00 | resume | paused | Security Knowledge Base |
 
+## История использования потоков
+
+| Работа | Фабрика | Потоки | Объём | Сложность | План | Факт | Статус |
+|---|---|---:|---|---|---:|---:|---|
+| Аудит базы ИБ | Security Knowledge Factory | 1 | XL | critical | н/д | н/д | active |
+| DZ-6 M0→M1 ночной цикл | BOOK·CRAFT Knowledge Factory | 1 | M | high | 8 | н/д | completed |
+| Автономный Quant Lab | FATHER Quant Lab | 1 | L | high | н/д | н/д | redirected |
+| Сущности BOOK KB | BOOK·CRAFT Knowledge Factory | 1 | M | high | 16 | н/д | active |
+| Хронология BOOK KB | BOOK·CRAFT Knowledge Factory | 1 | L | high | 20 | н/д | active |
+| Контроль BOOK KB | BOOK·CRAFT Knowledge Factory | 1 | M | high | 12 | н/д | active |
+| Автономная разработка OSINT | OSINT Factory | 1 | XL | critical | н/д | н/д | paused |
+
 > Фактическое время запусков не вычисляется из расписания. Если телеметрия запуска отсутствует, значение остаётся неизвестным.
