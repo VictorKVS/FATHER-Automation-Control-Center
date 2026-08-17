@@ -14,6 +14,16 @@ class ChronologyError(ValueError):
     pass
 
 
+def issue(code: str, event_id: str | None, relation: str, expected, actual) -> dict:
+    return {
+        "code": code,
+        "event": event_id,
+        "relation": relation,
+        "expected": expected,
+        "actual": actual,
+    }
+
+
 def load_data() -> dict:
     return json.loads(DATA.read_text(encoding="utf-8"))
 
@@ -32,13 +42,14 @@ def validate_min(data: dict) -> None:
             raise ChronologyError(f"incomplete event: {event.get('id')}")
 
 
-def validate_med(data: dict) -> None:
+def diagnose(data: dict) -> list[dict]:
     validate_min(data)
     events = sorted(data["events"], key=lambda event: event["sequence"])
+    problems: list[dict] = []
     if [event["sequence"] for event in events] != [1, 2, 3]:
-        raise ChronologyError("sequence must be contiguous: 1, 2, 3")
+        problems.append(issue("CHR-ORDER-001", None, "event_order", [1, 2, 3], [event["sequence"] for event in events]))
     if [event["time"] for event in events] != sorted(event["time"] for event in events):
-        raise ChronologyError("event time must be monotonic")
+        problems.append(issue("CHR-TIME-001", None, "event_time", "monotonic", [event["time"] for event in events]))
 
     positions: dict[str, str] = {}
     owners: dict[str, str] = {}
@@ -49,19 +60,19 @@ def validate_med(data: dict) -> None:
             actor = movement["actor"]
             previous = positions.get(actor)
             if movement["from"] != previous:
-                raise ChronologyError(f"movement discontinuity at {event['id']}")
+                problems.append(issue("CHR-MOVE-001", event["id"], "movement.from", previous, movement["from"]))
             if movement["to"] != event["location"]:
-                raise ChronologyError(f"movement destination mismatch at {event['id']}")
+                problems.append(issue("CHR-MOVE-002", event["id"], "movement.to", event["location"], movement["to"]))
             positions[actor] = movement["to"]
         for actor in event["actors"]:
             if actor in positions and positions[actor] != event["location"]:
-                raise ChronologyError(f"actor location conflict at {event['id']}")
+                problems.append(issue("CHR-LOC-001", event["id"], f"actor_location.{actor}", event["location"], positions[actor]))
 
         transfer = event.get("ownership")
         if transfer:
             item = transfer["item"]
             if owners.get(item) != transfer["from"]:
-                raise ChronologyError(f"ownership discontinuity at {event['id']}")
+                problems.append(issue("CHR-OWNER-001", event["id"], f"ownership.from.{item}", owners.get(item), transfer["from"]))
             owners[item] = transfer["to"]
 
         info = event.get("information")
@@ -69,9 +80,16 @@ def validate_med(data: dict) -> None:
             informed.add((info["learned_by"], info["fact"]))
 
     if owners.get("ITEM-BRASS-KEY") != "CHAR-B":
-        raise ChronologyError("final ownership is not demonstrated")
+        problems.append(issue("CHR-OWNER-002", "EVT-003", "ownership.final.ITEM-BRASS-KEY", "CHAR-B", owners.get("ITEM-BRASS-KEY")))
     if ("CHAR-A", "INFO-MEETING-PLACE") not in informed or ("CHAR-B", "INFO-MEETING-PLACE") not in informed:
-        raise ChronologyError("information acquisition chain is incomplete")
+        problems.append(issue("CHR-INFO-001", "EVT-003", "information.acquisition.INFO-MEETING-PLACE", ["CHAR-A", "CHAR-B"], sorted(actor for actor, fact in informed if fact == "INFO-MEETING-PLACE")))
+    return problems
+
+
+def validate_med(data: dict) -> None:
+    problems = diagnose(data)
+    if problems:
+        raise ChronologyError(json.dumps(problems[0], ensure_ascii=False, sort_keys=True))
 
 
 def validate_max(data: dict) -> None:
@@ -111,6 +129,19 @@ def query_event(data: dict, event_id: str) -> str:
     }, ensure_ascii=False, indent=2)
 
 
+def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
+    mutated = copy.deepcopy(data)
+    if mutation == "order":
+        mutated["events"][1]["sequence"] = 3
+    elif mutation == "movement":
+        mutated["events"][1]["movement"]["from"] = "LOC-IMPOSSIBLE"
+    elif mutation == "ownership":
+        mutated["events"][2]["ownership"]["from"] = "CHAR-B"
+    elif mutation == "information":
+        mutated["events"][2]["information"] = None
+    return mutated
+
+
 def build_archive() -> Path:
     validate_max(load_data())
     output = ROOT / "build" / "book-craft-chronology-clean.zip"
@@ -129,6 +160,8 @@ def main() -> None:
     check.add_argument("--level", choices=("min", "med", "max", "all"), default="all")
     query = sub.add_parser("query")
     query.add_argument("--event", required=True)
+    diagnostic = sub.add_parser("diagnose")
+    diagnostic.add_argument("--mutation", choices=("order", "movement", "ownership", "information"))
     sub.add_parser("build")
     args = parser.parse_args()
     data = load_data()
@@ -140,6 +173,10 @@ def main() -> None:
         print(f"GREEN {args.level.upper()}")
     elif args.command == "query":
         print(query_event(data, args.event))
+    elif args.command == "diagnose":
+        target = mutate_for_diagnostic(data, args.mutation) if args.mutation else data
+        problems = diagnose(target)
+        print(json.dumps({"status": "CONFLICT" if problems else "GREEN", "issues": problems}, ensure_ascii=False, indent=2))
     else:
         print(build_archive())
 

@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ChronologyError, build_archive, load_data, query_event, validate_max, validate_med, validate_min
+from chronology import ChronologyError, build_archive, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min
 
 
 class ChronologyTests(unittest.TestCase):
@@ -36,6 +36,25 @@ class ChronologyTests(unittest.TestCase):
         invalid["events"][-1]["id"] = "EVT-004"
         with self.assertRaises(ChronologyError):
             validate_min(invalid)
+
+    def test_diagnostic_names_movement_event(self):
+        problems = diagnose(mutate_for_diagnostic(self.data, "movement"))
+        self.assertEqual("CHR-MOVE-001", problems[0]["code"])
+        self.assertEqual("EVT-002", problems[0]["event"])
+        self.assertEqual("LOC-NEVSKY-ENTRY", problems[0]["expected"])
+
+    def test_diagnostic_names_ownership_event(self):
+        problems = diagnose(mutate_for_diagnostic(self.data, "ownership"))
+        self.assertEqual("CHR-OWNER-001", problems[0]["code"])
+        self.assertEqual("EVT-003", problems[0]["event"])
+
+    def test_diagnostic_names_information_event(self):
+        problems = diagnose(mutate_for_diagnostic(self.data, "information"))
+        self.assertEqual("CHR-INFO-001", problems[0]["code"])
+        self.assertEqual("EVT-003", problems[0]["event"])
+
+    def test_clean_seed_has_no_diagnostics(self):
+        self.assertEqual([], diagnose(self.data))
 
     def test_clean_build(self):
         archive = build_archive()

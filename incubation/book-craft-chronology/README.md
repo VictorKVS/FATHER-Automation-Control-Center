@@ -10,7 +10,10 @@ Run:
 python -m unittest discover -s tests -v
 python chronology.py check --level all
 python chronology.py query --event EVT-003
+python chronology.py diagnose --mutation movement
 python chronology.py build
 ```
 
 The build writes `build/book-craft-chronology-clean.zip`. Generated output is not committed.
+
+`diagnose` returns stable conflict codes, the exact event, relation, expected value, and actual value. Mutations are test-only and never alter the three-event seed.
