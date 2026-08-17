@@ -24,6 +24,7 @@ python -m unittest discover -s tests -v
 ## Структура
 
 - `registry/automations.json` — текущее назначение потоков;
+- `registry/automation_inventory.json` — все 12 автоматических задач и их жизненный цикл;
 - `registry/factories.json` — каталог созданных фабрик и продуктовых контуров;
 - `registry/stream_events.csv` — неизменяемая история запусков, остановок и
   переназначений;
@@ -32,6 +33,7 @@ python -m unittest discover -s tests -v
 - `registry/capacity_model.json` — коэффициенты производительности 1–5 потоков;
 - `docs/METRICS.md` — правила расчёта времени, прогресса и загрузки;
 - `docs/CAPACITY_MODEL.md` — методика расчёта срока общей задачи;
+- `docs/AUTOMATION_PASSPORT.md` — единый контракт учёта новых задач и запусков;
 - `reports/CURRENT_STATUS.md` — автоматически сформированная сводка;
 - `reports/CAPACITY_ESTIMATE.md` — прогноз сроков по объёму и сложности;
 - `scripts/build_dashboard.py` — воспроизводимый генератор отчёта;
