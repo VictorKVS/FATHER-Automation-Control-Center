@@ -61,3 +61,5 @@ gh repo create VictorKVS/FATHER-AUTOMATION-CONTROL --private --source . --remote
 ```
 
 Секреты, токены, модели и пользовательские документы в реестр не включаются.
+
+- [Промежуточный дневник производства](reports/PRODUCTION_JOURNAL.md)
