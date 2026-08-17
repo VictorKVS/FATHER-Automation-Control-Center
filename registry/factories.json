@@ -1,0 +1,12 @@
+{
+  "factories": [
+    {"factory_id":"SEC-KB-FACTORY","name":"Security Knowledge Factory","repository":"VictorKVS/KNOWLEDGE_CORE","status":"active","active_streams":1,"purpose":"Доказательная нормативная и инженерная база информационной безопасности"},
+    {"factory_id":"BOOK-KB-FACTORY","name":"BOOK·CRAFT Knowledge Factory","repository":"planned","status":"active-mvp","active_streams":3,"purpose":"База литературного мира, хронология, канон и контроль противоречий"},
+    {"factory_id":"OSINT-FACTORY","name":"OSINT Factory","repository":"VictorKVS/OSINT_deepseek","status":"paused","active_streams":0,"purpose":"Сбор, проверка и маршрутизация открытых данных"},
+    {"factory_id":"FATHER-PRODUCT-FACTORY","name":"FATHER Product Factory","repository":"VictorKVS/PX00","status":"paused","active_streams":0,"purpose":"Последовательные доказательные сценарии выпуска продуктов"},
+    {"factory_id":"PROFESSIONAL-KB-FACTORY","name":"Professional KB Factory","repository":"VictorKVS/KNOWLEDGE_CORE","status":"paused","active_streams":0,"purpose":"Многодоменные профессиональные доказательные базы знаний"},
+    {"factory_id":"ENGINEERING-COMPETENCY-FACTORY","name":"FATHER Engineering Competency Lab","repository":"FATHER-Engineering-Competency-Lab","status":"paused","active_streams":0,"purpose":"Учебно-исследовательский конвейер компетенций и продуктов"},
+    {"factory_id":"MEDIA-FACTORY","name":"FATHER Media Lab","repository":"VictorKVS/father-media-lab","status":"paused","active_streams":0,"purpose":"Производство и проверка медиаартефактов"},
+    {"factory_id":"QUANT-FACTORY","name":"FATHER Quant Lab","repository":"VictorKVS/father-quant-lab","status":"redirected","active_streams":0,"purpose":"Доказательные финансовые эксперименты без LIVE-торговли"}
+  ]
+}
