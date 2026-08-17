@@ -1,0 +1,8 @@
+work_id,factory,assignment,started_at,ended_at,stream_count,volume_class,complexity,planned_hours,actual_runtime_hours,scheduled_runs,verified_output,status,evidence_quality
+WORK-0001,Security Knowledge Factory,Аудит базы ИБ,2026-08-13T02:00:00+03:00,,1,XL,critical,,,null,"Нормативная evidence-base; фактическая длительность запусков не экспортирована",active,partial
+WORK-0002,BOOK·CRAFT Knowledge Factory,DZ-6 M0→M1 ночной цикл,2026-08-17T01:14:07+03:00,2026-08-17T08:16:19+03:00,1,M,high,8,,8,"M0 98%; M1 96%; MIN/MED/MAX/MIN-UI/MED-UI и build PASS",completed,verified-contract
+WORK-0003,FATHER Quant Lab,Автономный Quant Lab,2026-08-16T01:53:12+03:00,2026-08-17T10:51:38+03:00,1,L,high,,,null,"История сохранена; поток перенаправлен",redirected,unknown-runtime
+WORK-0004,BOOK·CRAFT Knowledge Factory,Сущности BOOK KB,2026-08-17T10:51:38+03:00,,1,M,high,16,,null,"Контракт сущностей и стабильные ID",active,planned
+WORK-0005,BOOK·CRAFT Knowledge Factory,Хронология BOOK KB,2026-08-17T10:51:40+03:00,,1,L,high,20,,null,"Три события; время; места; владение",active,planned
+WORK-0006,BOOK·CRAFT Knowledge Factory,Контроль BOOK KB,2026-08-17T10:51:39+03:00,,1,M,high,12,,null,"Канон; противоречия; тесты; защита",active,planned
+WORK-0007,OSINT Factory,Автономная разработка OSINT,2026-08-12T22:25:52+03:00,2026-08-17T10:53:17+03:00,1,XL,critical,,,null,"OSINT остановлен по решению о перераспределении",paused,unknown-runtime
