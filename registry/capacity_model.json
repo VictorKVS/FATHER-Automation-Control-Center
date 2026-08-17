@@ -1,0 +1,14 @@
+{
+  "model_version": "1.0",
+  "status": "planning-estimate",
+  "warning": "Коэффициенты являются плановыми до накопления фактической телеметрии запусков.",
+  "stream_efficiency": {"1": 1.0, "2": 0.88, "3": 0.78, "4": 0.70, "5": 0.65},
+  "complexity_classes": {
+    "S": {"name": "малый", "work_hours": 8, "integration_base_hours": 1},
+    "M": {"name": "средний", "work_hours": 40, "integration_base_hours": 3},
+    "L": {"name": "сложный", "work_hours": 120, "integration_base_hours": 8},
+    "XL": {"name": "исследовательский", "work_hours": 300, "integration_base_hours": 20}
+  },
+  "integration_growth_per_extra_stream": 0.15,
+  "formula": "elapsed_hours = work_hours / (stream_count * efficiency) + integration_base_hours * (1 + growth * (stream_count - 1))"
+}
