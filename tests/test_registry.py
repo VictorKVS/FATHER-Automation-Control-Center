@@ -1,9 +1,11 @@
 import csv
+import importlib.util
 import json
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
 
 class RegistryTests(unittest.TestCase):
     @classmethod
@@ -37,6 +39,25 @@ class RegistryTests(unittest.TestCase):
         with (ROOT / "registry/stream_events.csv").open(encoding="utf-8", newline="") as file:
             events = list(csv.DictReader(file))
         self.assertEqual(len({event["event_id"] for event in events}), len(events))
+
+    def test_workload_history_does_not_invent_runtime(self):
+        with (ROOT / "registry/workload_history.csv").open(encoding="utf-8", newline="") as file:
+            rows = list(csv.DictReader(file))
+        self.assertGreaterEqual(len(rows), 7)
+        self.assertTrue(any(row["actual_runtime_hours"] == "" for row in rows))
+
+    def test_capacity_estimates_improve_but_are_not_linear(self):
+        model = json.loads((ROOT / "registry/capacity_model.json").read_text(encoding="utf-8"))
+        spec = importlib.util.spec_from_file_location("estimate_capacity", ROOT / "scripts/estimate_capacity.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        values = [
+            module.estimate(40, 3, n, model["stream_efficiency"][str(n)], model["integration_growth_per_extra_stream"])
+            for n in range(1, 6)
+        ]
+        self.assertEqual(values, sorted(values, reverse=True))
+        self.assertGreater(values[-1], values[0] / 5)
+
 
 if __name__ == "__main__":
     unittest.main()
