@@ -162,6 +162,36 @@ def write_diagnostic_report(data: dict) -> Path:
     return REPORT
 
 
+def verify_diagnostic_report(data: dict, report_path: Path = REPORT) -> Path:
+    expected = diagnostic_report(data)
+    try:
+        actual = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-REPORT-001", None, "report.read", "valid JSON report", str(error)
+        ), ensure_ascii=False, sort_keys=True)) from error
+
+    comparisons = (
+        ("CHR-REPORT-002", "report.schema_version", expected["schema_version"], actual.get("schema_version")),
+        ("CHR-REPORT-003", "report.source", expected["source"], actual.get("source")),
+        ("CHR-REPORT-004", "report.events", {
+            "event_count": expected["event_count"], "event_ids": expected["event_ids"]
+        }, {
+            "event_count": actual.get("event_count"), "event_ids": actual.get("event_ids")
+        }),
+    )
+    for code, relation, expected_value, actual_value in comparisons:
+        if actual_value != expected_value:
+            raise ChronologyError(json.dumps(issue(
+                code, None, relation, expected_value, actual_value
+            ), ensure_ascii=False, sort_keys=True))
+    if actual != expected:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-REPORT-005", None, "report.content", expected, actual
+        ), ensure_ascii=False, sort_keys=True))
+    return report_path
+
+
 def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
     mutated = copy.deepcopy(data)
     if mutation == "order":
@@ -179,6 +209,7 @@ def build_archive() -> Path:
     data = load_data()
     validate_max(data)
     write_diagnostic_report(data)
+    verify_diagnostic_report(data)
     output = ROOT / "build" / "book-craft-chronology-clean.zip"
     output.parent.mkdir(exist_ok=True)
     allowed = ["README.md", "MATURITY_ROADMAP.md", "chronology.py", "data/chronology.json", "reports/chronology-diagnostics.json", "tests/test_chronology.py"]
@@ -198,6 +229,8 @@ def main() -> None:
     diagnostic = sub.add_parser("diagnose")
     diagnostic.add_argument("--mutation", choices=("order", "movement", "ownership", "information"))
     sub.add_parser("report")
+    verify = sub.add_parser("verify-report")
+    verify.add_argument("--path", type=Path, default=REPORT)
     sub.add_parser("build")
     args = parser.parse_args()
     data = load_data()
@@ -215,6 +248,8 @@ def main() -> None:
         print(json.dumps({"status": "CONFLICT" if problems else "GREEN", "issues": problems}, ensure_ascii=False, indent=2))
     elif args.command == "report":
         print(write_diagnostic_report(data))
+    elif args.command == "verify-report":
+        print(f"GREEN REPORT VERIFIED {verify_diagnostic_report(data, args.path)}")
     else:
         print(build_archive())
 

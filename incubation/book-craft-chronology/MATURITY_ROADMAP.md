@@ -10,3 +10,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M1.2 complete:** a deterministic diagnostic report identifies the broken event and relation for order, movement, ownership, and information conflicts. Editing remains out of scope.
 
 **M1.3 complete:** the clean seed produces a byte-stable diagnostics artifact with canonical input digest for independent control-stream verification.
+
+**M1.4 complete:** `verify-report` recomputes the canonical input digest and exact three-event report, rejecting missing, malformed, stale, or tampered artifacts before a clean build is archived.

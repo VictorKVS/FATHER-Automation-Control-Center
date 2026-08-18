@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import REPORT, ChronologyError, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, write_diagnostic_report
+from chronology import REPORT, ChronologyError, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_diagnostic_report, write_diagnostic_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -75,6 +75,35 @@ class ChronologyTests(unittest.TestCase):
         write_diagnostic_report(self.data)
         committed = json.loads(REPORT.read_text(encoding="utf-8"))
         self.assertEqual(diagnostic_report(self.data), committed)
+
+    def test_verifies_current_report(self):
+        write_diagnostic_report(self.data)
+        self.assertEqual(REPORT, verify_diagnostic_report(self.data))
+
+    def test_rejects_stale_report_digest(self):
+        report = diagnostic_report(self.data)
+        report["source"]["sha256"] = "0" * 64
+        path = ROOT / "build" / "stale-report.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(report), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-REPORT-003"):
+            verify_diagnostic_report(self.data, path)
+
+    def test_rejects_tampered_report_events(self):
+        report = diagnostic_report(self.data)
+        report["event_ids"][-1] = "EVT-004"
+        path = ROOT / "build" / "tampered-report.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(report), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-REPORT-004"):
+            verify_diagnostic_report(self.data, path)
+
+    def test_rejects_malformed_report(self):
+        path = ROOT / "build" / "malformed-report.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text("not-json", encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-REPORT-001"):
+            verify_diagnostic_report(self.data, path)
 
     def test_clean_build(self):
         archive = build_archive()
