@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data" / "chronology.json"
+REPORT = ROOT / "reports" / "chronology-diagnostics.json"
 
 
 class ChronologyError(ValueError):
@@ -134,6 +136,32 @@ def query_event(data: dict, event_id: str) -> str:
     }, ensure_ascii=False, indent=2)
 
 
+def diagnostic_report(data: dict) -> dict:
+    problems = diagnose(data)
+    canonical_source = json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return {
+        "schema_version": "book-craft-chronology-diagnostics/1.0",
+        "world_id": data["world_id"],
+        "source": {
+            "mode": data["provenance"]["mode"],
+            "automatic_extraction": data["provenance"]["automatic_extraction"],
+            "sha256": hashlib.sha256(canonical_source).hexdigest(),
+        },
+        "event_count": len(data["events"]),
+        "event_ids": [event["id"] for event in data["events"]],
+        "checks": ["event_order", "event_time", "location_movement", "ownership", "information_acquisition"],
+        "status": "CONFLICT" if problems else "GREEN",
+        "issue_count": len(problems),
+        "issues": problems,
+    }
+
+
+def write_diagnostic_report(data: dict) -> Path:
+    REPORT.parent.mkdir(exist_ok=True)
+    REPORT.write_text(json.dumps(diagnostic_report(data), ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return REPORT
+
+
 def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
     mutated = copy.deepcopy(data)
     if mutation == "order":
@@ -148,10 +176,12 @@ def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
 
 
 def build_archive() -> Path:
-    validate_max(load_data())
+    data = load_data()
+    validate_max(data)
+    write_diagnostic_report(data)
     output = ROOT / "build" / "book-craft-chronology-clean.zip"
     output.parent.mkdir(exist_ok=True)
-    allowed = ["README.md", "MATURITY_ROADMAP.md", "chronology.py", "data/chronology.json", "tests/test_chronology.py"]
+    allowed = ["README.md", "MATURITY_ROADMAP.md", "chronology.py", "data/chronology.json", "reports/chronology-diagnostics.json", "tests/test_chronology.py"]
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for relative in allowed:
             archive.write(ROOT / relative, relative)
@@ -167,6 +197,7 @@ def main() -> None:
     query.add_argument("--event", required=True)
     diagnostic = sub.add_parser("diagnose")
     diagnostic.add_argument("--mutation", choices=("order", "movement", "ownership", "information"))
+    sub.add_parser("report")
     sub.add_parser("build")
     args = parser.parse_args()
     data = load_data()
@@ -182,6 +213,8 @@ def main() -> None:
         target = mutate_for_diagnostic(data, args.mutation) if args.mutation else data
         problems = diagnose(target)
         print(json.dumps({"status": "CONFLICT" if problems else "GREEN", "issues": problems}, ensure_ascii=False, indent=2))
+    elif args.command == "report":
+        print(write_diagnostic_report(data))
     else:
         print(build_archive())
 

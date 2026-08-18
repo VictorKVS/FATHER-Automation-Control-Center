@@ -8,3 +8,5 @@
 This increment closes **M1.1**: all four relationship types are validated over the fixed three-event seed, including negative mutation checks. It does not claim M1 complete.
 
 **M1.2 complete:** a deterministic diagnostic report identifies the broken event and relation for order, movement, ownership, and information conflicts. Editing remains out of scope.
+
+**M1.3 complete:** the clean seed produces a byte-stable diagnostics artifact with canonical input digest for independent control-stream verification.

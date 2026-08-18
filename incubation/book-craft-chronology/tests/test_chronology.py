@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ChronologyError, build_archive, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min
+from chronology import REPORT, ChronologyError, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, write_diagnostic_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -62,6 +62,19 @@ class ChronologyTests(unittest.TestCase):
 
     def test_clean_seed_has_no_diagnostics(self):
         self.assertEqual([], diagnose(self.data))
+
+    def test_diagnostic_report_is_deterministic(self):
+        first = diagnostic_report(self.data)
+        second = diagnostic_report(copy.deepcopy(self.data))
+        self.assertEqual(first, second)
+        self.assertEqual("GREEN", first["status"])
+        self.assertEqual(3, first["event_count"])
+        self.assertFalse(first["source"]["automatic_extraction"])
+
+    def test_committed_report_matches_generator(self):
+        write_diagnostic_report(self.data)
+        committed = json.loads(REPORT.read_text(encoding="utf-8"))
+        self.assertEqual(diagnostic_report(self.data), committed)
 
     def test_clean_build(self):
         archive = build_archive()

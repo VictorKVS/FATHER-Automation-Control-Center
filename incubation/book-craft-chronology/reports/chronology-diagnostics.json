@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "event_order",
+    "event_time",
+    "location_movement",
+    "ownership",
+    "information_acquisition"
+  ],
+  "event_count": 3,
+  "event_ids": [
+    "EVT-001",
+    "EVT-002",
+    "EVT-003"
+  ],
+  "issue_count": 0,
+  "issues": [],
+  "schema_version": "book-craft-chronology-diagnostics/1.0",
+  "source": {
+    "automatic_extraction": false,
+    "mode": "manual_demo_seed",
+    "sha256": "c448c942a79c04d1c3088518e02568f67bc72947ddf1c1d01d857a1cb968c89d"
+  },
+  "status": "GREEN",
+  "world_id": "WORLD-NEVSKY-AFTER-MIDNIGHT"
+}
