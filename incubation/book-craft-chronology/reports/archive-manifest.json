@@ -12,9 +12,9 @@
       "sha256": "c06ceb39ee81ad57c12cb44b3e4df9b0be38b46fa8bd7403619ecdf7382abc72"
     },
     {
-      "bytes": 18440,
+      "bytes": 18435,
       "path": "chronology.py",
-      "sha256": "8b611421ea5498a9235dad479a6ada46497b6dd1a34f4f5da9ed5dbba81c5533"
+      "sha256": "0fdaef54249660fdab7022f1a135696391f9118f108a99e9fabcabea4e310a0a"
     },
     {
       "bytes": 1315,
@@ -27,9 +27,9 @@
       "sha256": "15684075e547e3acc67fce406798199d9a94589d2059813a1d3d4e3cfa45def2"
     },
     {
-      "bytes": 9121,
+      "bytes": 9452,
       "path": "tests/test_chronology.py",
-      "sha256": "49b1e4b6e7853539b069bcb75a00277d2c8586c36e64b9ecc551d04a74e95252"
+      "sha256": "f1d5f4f98325684f4bc9b57d77daa77bdd97d7c4dfcd190b9bdb24325122f283"
     }
   ],
   "payload_file_count": 6,

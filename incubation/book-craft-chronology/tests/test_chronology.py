@@ -154,6 +154,13 @@ class ChronologyTests(unittest.TestCase):
         write_release_checksum(archive)
         self.assertEqual(archive, verify_release_checksum(RELEASE, archive))
 
+    def test_verifies_renamed_archive_copy_against_release(self):
+        archive = build_archive()
+        write_release_checksum(archive)
+        renamed = ROOT / "build" / "downloaded-from-drive.zip"
+        renamed.write_bytes(archive.read_bytes())
+        self.assertEqual(renamed, verify_release_checksum(RELEASE, renamed))
+
     def test_rejects_tampered_external_release_checksum(self):
         archive = build_archive()
         release = release_checksum(archive)

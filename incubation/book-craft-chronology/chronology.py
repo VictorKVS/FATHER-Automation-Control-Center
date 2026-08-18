@@ -313,7 +313,7 @@ def release_checksum(archive_path: Path = ARCHIVE) -> dict:
     content = archive_path.read_bytes()
     return {
         "schema_version": "book-craft-chronology-release/1.0",
-        "artifact": archive_path.name,
+        "artifact": ARCHIVE.name,
         "algorithm": "sha256",
         "bytes": len(content),
         "sha256": hashlib.sha256(content).hexdigest(),

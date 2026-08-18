@@ -1,8 +1,8 @@
 {
   "algorithm": "sha256",
   "artifact": "book-craft-chronology-clean.zip",
-  "bytes": 10431,
+  "bytes": 10483,
   "member_count": 7,
   "schema_version": "book-craft-chronology-release/1.0",
-  "sha256": "43a2dd6513cb3ab5f58e8fbae58a027849d9765960d6fb7318dd08ff95429d63"
+  "sha256": "e3048fb4668d0139142b88ee4c4c074dd905fc425fe65721ab624366eefd7ede"
 }
