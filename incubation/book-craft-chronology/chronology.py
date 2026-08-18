@@ -535,6 +535,54 @@ def verify_repair_dry_run_report(
     return report_path
 
 
+def m2_gate(data: dict, dry_run_report_path: Path = DRY_RUN_REPORT) -> dict:
+    source_snapshot = copy.deepcopy(data)
+    validation = validation_matrix(data)
+    preview = repair_preview(data, "movement")
+    approved_review = review_repair(data, "movement", "approve")
+    rejected_review = review_repair(data, "movement", "reject")
+    approved_dry_run = dry_run_repair(data, "movement", "approve")
+    rejected_dry_run = dry_run_repair(data, "movement", "reject")
+    verify_diagnostic_report(data)
+    verify_repair_dry_run_report(data, dry_run_report_path)
+    stages = {
+        "preview": preview["status"],
+        "review_approve": approved_review["status"],
+        "review_reject": rejected_review["status"],
+        "dry_run_approve": approved_dry_run["status"],
+        "dry_run_reject": rejected_dry_run["status"],
+        "dry_run_report": "VERIFIED",
+    }
+    expected_stages = {
+        "preview": "PREVIEW_ONLY",
+        "review_approve": "REVIEW_APPROVED",
+        "review_reject": "REVIEW_REJECTED",
+        "dry_run_approve": "DRY_RUN_GREEN",
+        "dry_run_reject": "DRY_RUN_SKIPPED",
+        "dry_run_report": "VERIFIED",
+    }
+    if stages != expected_stages:
+        raise ChronologyError("M2.6 stage contract is not GREEN")
+    if any(gate["status"] != "GREEN" for gate in validation.values()):
+        raise ChronologyError("M2.6 MIN/MED/MAX gate is not GREEN")
+    if data != source_snapshot:
+        raise ChronologyError("M2.6 gate changed canonical source data")
+    return {
+        "schema_version": "book-craft-chronology-m2-gate/1.0",
+        "status": "GREEN",
+        "m2_status": "DONE_FROZEN",
+        "scope": "movement_fixture_only",
+        "source": diagnostic_report(data)["source"],
+        "event_count": len(data["events"]),
+        "stages": stages,
+        "validation": validation,
+        "proposal_sha256": approved_review["proposal_sha256"],
+        "automatic_apply": False,
+        "canonical_data_written": False,
+        "m3_automatic_extraction_authorized": False,
+    }
+
+
 def build_archive() -> Path:
     data = load_data()
     validate_max(data)
@@ -542,6 +590,7 @@ def build_archive() -> Path:
     verify_diagnostic_report(data)
     write_repair_dry_run_report(data)
     verify_repair_dry_run_report(data)
+    m2_gate(data)
     write_archive_manifest()
     verify_archive_manifest()
     output = ARCHIVE
@@ -583,6 +632,8 @@ def main() -> None:
     sub.add_parser("dry-run-report")
     verify_dry_run = sub.add_parser("verify-dry-run-report")
     verify_dry_run.add_argument("--path", type=Path, default=DRY_RUN_REPORT)
+    m2 = sub.add_parser("check-m2")
+    m2.add_argument("--dry-run-report-path", type=Path, default=DRY_RUN_REPORT)
     sub.add_parser("report")
     verify = sub.add_parser("verify-report")
     verify.add_argument("--path", type=Path, default=REPORT)
@@ -620,6 +671,8 @@ def main() -> None:
         print(write_repair_dry_run_report(data))
     elif args.command == "verify-dry-run-report":
         print(f"GREEN DRY-RUN REPORT VERIFIED {verify_repair_dry_run_report(data, args.path)}")
+    elif args.command == "check-m2":
+        print(json.dumps(m2_gate(data, args.dry_run_report_path), ensure_ascii=False, indent=2, sort_keys=True))
     elif args.command == "report":
         print(write_diagnostic_report(data))
     elif args.command == "verify-report":

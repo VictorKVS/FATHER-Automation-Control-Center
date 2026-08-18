@@ -18,6 +18,7 @@ python chronology.py dry-run-repair --mutation movement --decision approve
 python chronology.py dry-run-repair --mutation movement --decision reject
 python chronology.py dry-run-report
 python chronology.py verify-dry-run-report
+python chronology.py check-m2
 python chronology.py report
 python chronology.py verify-report
 python chronology.py manifest
@@ -41,6 +42,8 @@ The build writes `build/book-craft-chronology-clean.zip`. Generated output is no
 `dry-run-report` writes deterministic `reports/repair-dry-run.json`, bound to the canonical source digest and reviewed proposal digest. It has no timestamp and records only the approved transient simulation, never a canonical data write.
 
 `verify-dry-run-report` independently recomputes the approved dry-run and rejects malformed JSON, a stale source digest, a changed proposal binding, or any other content mismatch.
+
+`check-m2` is the single end-to-end acceptance gate for preview, both review decisions, both dry-run branches, report verification, and MIN/MED/MAX. A GREEN result marks the bounded M2 workflow `DONE_FROZEN`; it does not authorize automatic extraction or canonical data writes.
 
 `report` writes deterministic `reports/chronology-diagnostics.json` with the checked event IDs, check set, result, and SHA-256 of canonical static input. It contains no timestamp, model output, or protected text.
 

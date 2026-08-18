@@ -30,3 +30,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M2.4 complete:** `dry-run-report` persists a deterministic, timestamp-free approved dry-run bound to both the canonical source SHA-256 and proposal SHA-256. The report is included in the clean archive without writing canonical data.
 
 **M2.5 complete:** `verify-dry-run-report` independently recomputes the approved dry-run and rejects malformed, stale, proposal-tampered, or otherwise changed report content before build packaging.
+
+**M2.6 complete — M2 DONE/FROZEN:** `check-m2` is the single end-to-end gate for preview, approve/reject review, approved/skipped dry-run, report verification, and MIN/MED/MAX. It preserves the three-event manual seed and explicitly leaves M3 automatic extraction unauthorized.

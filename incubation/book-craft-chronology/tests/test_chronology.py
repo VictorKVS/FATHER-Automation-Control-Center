@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, DRY_RUN_REPORT, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, dry_run_repair, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, verify_repair_dry_run_report, write_archive_manifest, write_diagnostic_report, write_release_checksum, write_repair_dry_run_report
+from chronology import ARCHIVE_PAYLOAD, DRY_RUN_REPORT, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, dry_run_repair, load_data, m2_gate, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, verify_repair_dry_run_report, write_archive_manifest, write_diagnostic_report, write_release_checksum, write_repair_dry_run_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -199,6 +199,55 @@ class ChronologyTests(unittest.TestCase):
         path.write_text(json.dumps(report), encoding="utf-8")
         with self.assertRaisesRegex(ChronologyError, "CHR-DRYRUN-REPORT-005"):
             verify_repair_dry_run_report(self.data, path)
+
+    def test_m2_gate_is_deterministic_and_frozen(self):
+        write_diagnostic_report(self.data)
+        write_repair_dry_run_report(self.data)
+        first = m2_gate(self.data)
+        second = m2_gate(copy.deepcopy(self.data))
+        self.assertEqual(first, second)
+        self.assertEqual("GREEN", first["status"])
+        self.assertEqual("DONE_FROZEN", first["m2_status"])
+
+    def test_m2_gate_covers_workflow_and_validation(self):
+        write_diagnostic_report(self.data)
+        write_repair_dry_run_report(self.data)
+        result = m2_gate(self.data)
+        self.assertEqual(
+            {
+                "preview": "PREVIEW_ONLY",
+                "review_approve": "REVIEW_APPROVED",
+                "review_reject": "REVIEW_REJECTED",
+                "dry_run_approve": "DRY_RUN_GREEN",
+                "dry_run_reject": "DRY_RUN_SKIPPED",
+                "dry_run_report": "VERIFIED",
+            },
+            result["stages"],
+        )
+        self.assertEqual(
+            {"MIN": "GREEN", "MED": "GREEN", "MAX": "GREEN"},
+            {name: gate["status"] for name, gate in result["validation"].items()},
+        )
+
+    def test_m2_gate_rejects_tampered_dry_run_report(self):
+        write_diagnostic_report(self.data)
+        report = dry_run_repair(self.data, "movement", "approve")
+        report["status"] = "DRY_RUN_RED"
+        path = ROOT / "build" / "m2-tampered-dry-run.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(report), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-DRYRUN-REPORT-005"):
+            m2_gate(self.data, path)
+
+    def test_m2_gate_never_changes_canonical_source(self):
+        write_diagnostic_report(self.data)
+        write_repair_dry_run_report(self.data)
+        before = copy.deepcopy(self.data)
+        result = m2_gate(self.data)
+        self.assertFalse(result["automatic_apply"])
+        self.assertFalse(result["canonical_data_written"])
+        self.assertFalse(result["m3_automatic_extraction_authorized"])
+        self.assertEqual(before, self.data)
 
     def test_clean_seed_has_no_diagnostics(self):
         self.assertEqual([], diagnose(self.data))
