@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, DRY_RUN_REPORT, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, dry_run_repair, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum, write_repair_dry_run_report
+from chronology import ARCHIVE_PAYLOAD, DRY_RUN_REPORT, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, dry_run_repair, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, verify_repair_dry_run_report, write_archive_manifest, write_diagnostic_report, write_release_checksum, write_repair_dry_run_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -161,6 +161,44 @@ class ChronologyTests(unittest.TestCase):
     def test_repair_dry_run_report_is_timestamp_free(self):
         report = dry_run_repair(self.data, "movement", "approve")
         self.assertNotIn("timestamp", json.dumps(report, ensure_ascii=False))
+
+    def test_verifies_current_repair_dry_run_report(self):
+        write_repair_dry_run_report(self.data)
+        self.assertEqual(DRY_RUN_REPORT, verify_repair_dry_run_report(self.data))
+
+    def test_rejects_malformed_repair_dry_run_report(self):
+        path = ROOT / "build" / "malformed-dry-run.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text("not-json", encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-DRYRUN-REPORT-001"):
+            verify_repair_dry_run_report(self.data, path)
+
+    def test_rejects_stale_repair_dry_run_source(self):
+        report = dry_run_repair(self.data, "movement", "approve")
+        report["source"]["sha256"] = "0" * 64
+        path = ROOT / "build" / "stale-dry-run.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(report), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-DRYRUN-REPORT-003"):
+            verify_repair_dry_run_report(self.data, path)
+
+    def test_rejects_tampered_repair_dry_run_proposal(self):
+        report = dry_run_repair(self.data, "movement", "approve")
+        report["review"]["proposal_sha256"] = "0" * 64
+        path = ROOT / "build" / "tampered-dry-run.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(report), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-DRYRUN-REPORT-004"):
+            verify_repair_dry_run_report(self.data, path)
+
+    def test_rejects_other_repair_dry_run_tampering(self):
+        report = dry_run_repair(self.data, "movement", "approve")
+        report["status"] = "DRY_RUN_RED"
+        path = ROOT / "build" / "altered-dry-run.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(report), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-DRYRUN-REPORT-005"):
+            verify_repair_dry_run_report(self.data, path)
 
     def test_clean_seed_has_no_diagnostics(self):
         self.assertEqual([], diagnose(self.data))

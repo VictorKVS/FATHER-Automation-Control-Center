@@ -483,12 +483,65 @@ def write_repair_dry_run_report(data: dict) -> Path:
     return DRY_RUN_REPORT
 
 
+def verify_repair_dry_run_report(
+    data: dict,
+    report_path: Path = DRY_RUN_REPORT,
+) -> Path:
+    expected = dry_run_repair(data, "movement", "approve")
+    try:
+        actual = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-DRYRUN-REPORT-001", None, "dry_run_report.read", "valid JSON report", str(error)
+        ), ensure_ascii=False, sort_keys=True)) from error
+    actual_dict = actual if isinstance(actual, dict) else {}
+    actual_review = actual_dict.get("review")
+    actual_review = actual_review if isinstance(actual_review, dict) else {}
+    comparisons = (
+        (
+            "CHR-DRYRUN-REPORT-002",
+            "dry_run_report.schema_version",
+            expected["schema_version"],
+            actual_dict.get("schema_version"),
+        ),
+        (
+            "CHR-DRYRUN-REPORT-003",
+            "dry_run_report.source",
+            expected["source"],
+            actual_dict.get("source"),
+        ),
+        (
+            "CHR-DRYRUN-REPORT-004",
+            "dry_run_report.proposal_binding",
+            {
+                "proposal": expected["proposal"],
+                "proposal_sha256": expected["review"]["proposal_sha256"],
+            },
+            {
+                "proposal": actual_dict.get("proposal"),
+                "proposal_sha256": actual_review.get("proposal_sha256"),
+            },
+        ),
+    )
+    for code, relation, expected_value, actual_value in comparisons:
+        if actual_value != expected_value:
+            raise ChronologyError(json.dumps(issue(
+                code, None, relation, expected_value, actual_value
+            ), ensure_ascii=False, sort_keys=True))
+    if actual != expected:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-DRYRUN-REPORT-005", None, "dry_run_report.content", expected, actual
+        ), ensure_ascii=False, sort_keys=True))
+    return report_path
+
+
 def build_archive() -> Path:
     data = load_data()
     validate_max(data)
     write_diagnostic_report(data)
     verify_diagnostic_report(data)
     write_repair_dry_run_report(data)
+    verify_repair_dry_run_report(data)
     write_archive_manifest()
     verify_archive_manifest()
     output = ARCHIVE
@@ -528,6 +581,8 @@ def main() -> None:
     dry_run.add_argument("--mutation", choices=("movement",), required=True)
     dry_run.add_argument("--decision", choices=("approve", "reject"), required=True)
     sub.add_parser("dry-run-report")
+    verify_dry_run = sub.add_parser("verify-dry-run-report")
+    verify_dry_run.add_argument("--path", type=Path, default=DRY_RUN_REPORT)
     sub.add_parser("report")
     verify = sub.add_parser("verify-report")
     verify.add_argument("--path", type=Path, default=REPORT)
@@ -563,6 +618,8 @@ def main() -> None:
         print(json.dumps(dry_run_repair(data, args.mutation, args.decision), ensure_ascii=False, indent=2, sort_keys=True))
     elif args.command == "dry-run-report":
         print(write_repair_dry_run_report(data))
+    elif args.command == "verify-dry-run-report":
+        print(f"GREEN DRY-RUN REPORT VERIFIED {verify_repair_dry_run_report(data, args.path)}")
     elif args.command == "report":
         print(write_diagnostic_report(data))
     elif args.command == "verify-report":

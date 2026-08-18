@@ -28,3 +28,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M2.3 complete:** `dry-run-repair` applies an approved movement proposal only to a transient fixture copy and reports diagnostics plus MIN/MED/MAX before and after. Rejected proposals are skipped; canonical data is never written.
 
 **M2.4 complete:** `dry-run-report` persists a deterministic, timestamp-free approved dry-run bound to both the canonical source SHA-256 and proposal SHA-256. The report is included in the clean archive without writing canonical data.
+
+**M2.5 complete:** `verify-dry-run-report` independently recomputes the approved dry-run and rejects malformed, stale, proposal-tampered, or otherwise changed report content before build packaging.
