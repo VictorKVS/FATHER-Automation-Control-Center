@@ -14,3 +14,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M1.4 complete:** `verify-report` recomputes the canonical input digest and exact three-event report, rejecting missing, malformed, stale, or tampered artifacts before a clean build is archived.
 
 **M1.5 complete:** the clean archive carries a deterministic manifest with the byte size and SHA-256 of every payload file; build verifies it before packaging.
+
+**M1.6 complete:** `verify-archive` reopens the produced ZIP, enforces the exact seven-member allowlist, and verifies every embedded payload against the embedded manifest.

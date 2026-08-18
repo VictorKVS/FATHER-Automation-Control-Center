@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data" / "chronology.json"
 REPORT = ROOT / "reports" / "chronology-diagnostics.json"
 MANIFEST = ROOT / "reports" / "archive-manifest.json"
+ARCHIVE = ROOT / "build" / "book-craft-chronology-clean.zip"
 ARCHIVE_PAYLOAD = (
     "README.md",
     "MATURITY_ROADMAP.md",
@@ -242,6 +243,68 @@ def verify_archive_manifest(manifest_path: Path = MANIFEST) -> Path:
     return manifest_path
 
 
+def verify_archive(archive_path: Path = ARCHIVE) -> Path:
+    expected_members = [*ARCHIVE_PAYLOAD, "reports/archive-manifest.json"]
+    try:
+        with zipfile.ZipFile(archive_path) as archive:
+            members = archive.namelist()
+            if len(members) != len(expected_members) or set(members) != set(expected_members):
+                raise ChronologyError(json.dumps(issue(
+                    "CHR-ARCHIVE-002", None, "archive.members",
+                    sorted(expected_members), sorted(members),
+                ), ensure_ascii=False, sort_keys=True))
+
+            manifest = json.loads(archive.read("reports/archive-manifest.json").decode("utf-8"))
+            entries = manifest.get("files") if isinstance(manifest, dict) else None
+            if not isinstance(entries, list) or not all(isinstance(entry, dict) for entry in entries):
+                raise ChronologyError(json.dumps(issue(
+                    "CHR-ARCHIVE-003", None, "archive.manifest", "valid file entries", entries
+                ), ensure_ascii=False, sort_keys=True))
+
+            expected_descriptor = {
+                "schema_version": "book-craft-clean-archive-manifest/1.0",
+                "algorithm": "sha256",
+                "payload_file_count": len(ARCHIVE_PAYLOAD),
+                "paths": list(ARCHIVE_PAYLOAD),
+            }
+            actual_descriptor = {
+                "schema_version": manifest.get("schema_version"),
+                "algorithm": manifest.get("algorithm"),
+                "payload_file_count": manifest.get("payload_file_count"),
+                "paths": [entry.get("path") for entry in entries],
+            }
+            if actual_descriptor != expected_descriptor:
+                raise ChronologyError(json.dumps(issue(
+                    "CHR-ARCHIVE-003", None, "archive.manifest",
+                    expected_descriptor, actual_descriptor,
+                ), ensure_ascii=False, sort_keys=True))
+
+            for entry in entries:
+                content = archive.read(entry["path"])
+                expected_file = {
+                    "path": entry["path"],
+                    "bytes": entry.get("bytes"),
+                    "sha256": entry.get("sha256"),
+                }
+                actual_file = {
+                    "path": entry["path"],
+                    "bytes": len(content),
+                    "sha256": hashlib.sha256(content).hexdigest(),
+                }
+                if actual_file != expected_file:
+                    raise ChronologyError(json.dumps(issue(
+                        "CHR-ARCHIVE-004", None, f"archive.payload.{entry['path']}",
+                        expected_file, actual_file,
+                    ), ensure_ascii=False, sort_keys=True))
+    except ChronologyError:
+        raise
+    except (OSError, KeyError, UnicodeDecodeError, json.JSONDecodeError, zipfile.BadZipFile) as error:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-ARCHIVE-001", None, "archive.read", "valid clean ZIP", str(error)
+        ), ensure_ascii=False, sort_keys=True)) from error
+    return archive_path
+
+
 def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
     mutated = copy.deepcopy(data)
     if mutation == "order":
@@ -262,12 +325,13 @@ def build_archive() -> Path:
     verify_diagnostic_report(data)
     write_archive_manifest()
     verify_archive_manifest()
-    output = ROOT / "build" / "book-craft-chronology-clean.zip"
+    output = ARCHIVE
     output.parent.mkdir(exist_ok=True)
     allowed = (*ARCHIVE_PAYLOAD, "reports/archive-manifest.json")
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for relative in allowed:
             archive.write(ROOT / relative, relative)
+    verify_archive(output)
     return output
 
 
@@ -286,6 +350,8 @@ def main() -> None:
     sub.add_parser("manifest")
     verify_manifest = sub.add_parser("verify-manifest")
     verify_manifest.add_argument("--path", type=Path, default=MANIFEST)
+    verify_zip = sub.add_parser("verify-archive")
+    verify_zip.add_argument("--path", type=Path, default=ARCHIVE)
     sub.add_parser("build")
     args = parser.parse_args()
     data = load_data()
@@ -309,6 +375,8 @@ def main() -> None:
         print(write_archive_manifest())
     elif args.command == "verify-manifest":
         print(f"GREEN MANIFEST VERIFIED {verify_archive_manifest(args.path)}")
+    elif args.command == "verify-archive":
+        print(f"GREEN ARCHIVE VERIFIED {verify_archive(args.path)}")
     else:
         print(build_archive())
 

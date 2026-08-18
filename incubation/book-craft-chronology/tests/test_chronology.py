@@ -2,12 +2,13 @@ import copy
 import json
 import sys
 import unittest
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, MANIFEST, REPORT, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_archive_manifest, verify_diagnostic_report, write_archive_manifest, write_diagnostic_report
+from chronology import ARCHIVE_PAYLOAD, MANIFEST, REPORT, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, write_archive_manifest, write_diagnostic_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -124,10 +125,35 @@ class ChronologyTests(unittest.TestCase):
         with self.assertRaisesRegex(ChronologyError, "CHR-MANIFEST-002"):
             verify_archive_manifest(path)
 
+    def test_verifies_built_archive_contents(self):
+        archive = build_archive()
+        self.assertEqual(archive, verify_archive(archive))
+
+    def test_rejects_archive_with_extra_member(self):
+        source = build_archive()
+        path = ROOT / "build" / "extra-member.zip"
+        with zipfile.ZipFile(source) as original, zipfile.ZipFile(path, "w") as modified:
+            for member in original.namelist():
+                modified.writestr(member, original.read(member))
+            modified.writestr("unexpected.txt", "not allowed")
+        with self.assertRaisesRegex(ChronologyError, "CHR-ARCHIVE-002"):
+            verify_archive(path)
+
+    def test_rejects_archive_with_tampered_payload(self):
+        source = build_archive()
+        path = ROOT / "build" / "tampered-payload.zip"
+        with zipfile.ZipFile(source) as original, zipfile.ZipFile(path, "w") as modified:
+            for member in original.namelist():
+                content = original.read(member)
+                if member == "README.md":
+                    content += b"tampered"
+                modified.writestr(member, content)
+        with self.assertRaisesRegex(ChronologyError, "CHR-ARCHIVE-004"):
+            verify_archive(path)
+
     def test_clean_build(self):
         archive = build_archive()
         self.assertTrue(archive.exists())
-        import zipfile
         with zipfile.ZipFile(archive) as built:
             self.assertEqual(
                 [*ARCHIVE_PAYLOAD, "reports/archive-manifest.json"],

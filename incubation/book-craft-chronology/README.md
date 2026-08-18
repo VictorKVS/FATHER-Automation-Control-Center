@@ -16,6 +16,7 @@ python chronology.py verify-report
 python chronology.py manifest
 python chronology.py verify-manifest
 python chronology.py build
+python chronology.py verify-archive
 ```
 
 The build writes `build/book-craft-chronology-clean.zip`. Generated output is not committed.
@@ -27,3 +28,5 @@ The build writes `build/book-craft-chronology-clean.zip`. Generated output is no
 `verify-report` independently recomputes the expected report and rejects missing, malformed, stale, or tampered content. This is an integrity and consistency check for the manual seed, not automatic extraction or cryptographic authenticity.
 
 `manifest` writes deterministic `reports/archive-manifest.json` with the byte size and SHA-256 of all six payload files. `verify-manifest` rejects stale or tampered payload metadata; the manifest itself is the seventh archive entry and is intentionally not self-hashed.
+
+`verify-archive` reads the finished ZIP without extracting it, rejects missing or additional members, and compares every embedded payload byte-for-byte through its size and SHA-256 in the embedded manifest.
