@@ -2,19 +2,19 @@
   "algorithm": "sha256",
   "files": [
     {
-      "bytes": 1935,
+      "bytes": 2194,
       "path": "README.md",
-      "sha256": "abbedb9e68d46bc152b70521dfcc59da826ba652b20bc75980c71b9768e63e68"
+      "sha256": "2343d8f3eb1aaf893cc00350f694479ee5858ddf6b8359a8989f67bba65bcb14"
     },
     {
-      "bytes": 1391,
+      "bytes": 1564,
       "path": "MATURITY_ROADMAP.md",
-      "sha256": "107e6d84a5c9fc0bdd3c5bcef28acc9d1de4aa74af3c3845ed8408dfeb8dd77d"
+      "sha256": "221924aac4797864e85a36f735b8c375ef4fc829a42712811491035f08312a8f"
     },
     {
-      "bytes": 16065,
+      "bytes": 16503,
       "path": "chronology.py",
-      "sha256": "8af7b3d50822a477c2a88db8a5f1533fd99e181a91f40402197306a48da0c88a"
+      "sha256": "81fe9aaeca5b7d05b8975f5afd6400e44ab4295874fb28e47be2de0e4d1583f9"
     },
     {
       "bytes": 1315,
@@ -27,9 +27,9 @@
       "sha256": "15684075e547e3acc67fce406798199d9a94589d2059813a1d3d4e3cfa45def2"
     },
     {
-      "bytes": 7102,
+      "bytes": 7792,
       "path": "tests/test_chronology.py",
-      "sha256": "3c16d228d4ab1f2651cb570f28ff62f6303ef61aae32024aba18fc676ae56679"
+      "sha256": "c16d51660873da27505a8e1715fd5eddcab881e3966579e82f8ab81f3089910b"
     }
   ],
   "payload_file_count": 6,

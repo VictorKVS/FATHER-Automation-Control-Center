@@ -12,6 +12,8 @@ DATA = ROOT / "data" / "chronology.json"
 REPORT = ROOT / "reports" / "chronology-diagnostics.json"
 MANIFEST = ROOT / "reports" / "archive-manifest.json"
 ARCHIVE = ROOT / "build" / "book-craft-chronology-clean.zip"
+ZIP_DATE_TIME = (1980, 1, 1, 0, 0, 0)
+ZIP_MODE = 0o100644
 ARCHIVE_PAYLOAD = (
     "README.md",
     "MATURITY_ROADMAP.md",
@@ -328,9 +330,18 @@ def build_archive() -> Path:
     output = ARCHIVE
     output.parent.mkdir(exist_ok=True)
     allowed = (*ARCHIVE_PAYLOAD, "reports/archive-manifest.json")
-    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for relative in allowed:
-            archive.write(ROOT / relative, relative)
+            member = zipfile.ZipInfo(relative, date_time=ZIP_DATE_TIME)
+            member.compress_type = zipfile.ZIP_DEFLATED
+            member.create_system = 3
+            member.external_attr = ZIP_MODE << 16
+            archive.writestr(
+                member,
+                (ROOT / relative).read_bytes(),
+                compress_type=zipfile.ZIP_DEFLATED,
+                compresslevel=9,
+            )
     verify_archive(output)
     return output
 

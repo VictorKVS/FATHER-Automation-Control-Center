@@ -30,3 +30,5 @@ The build writes `build/book-craft-chronology-clean.zip`. Generated output is no
 `manifest` writes deterministic `reports/archive-manifest.json` with the byte size and SHA-256 of all six payload files. `verify-manifest` rejects stale or tampered payload metadata; the manifest itself is the seventh archive entry and is intentionally not self-hashed.
 
 `verify-archive` reads the finished ZIP without extracting it, rejects missing or additional members, and compares every embedded payload byte-for-byte through its size and SHA-256 in the embedded manifest.
+
+Clean ZIP output is reproducible: member order, timestamp (`1980-01-01 00:00:00`), Unix file mode (`0644`), and compression level are fixed. Unchanged inputs therefore produce a byte-identical archive and SHA-256 on consecutive builds in the same toolchain.

@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import json
 import sys
 import unittest
@@ -8,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, MANIFEST, REPORT, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, write_archive_manifest, write_diagnostic_report
+from chronology import ARCHIVE_PAYLOAD, MANIFEST, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, write_archive_manifest, write_diagnostic_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -128,6 +129,20 @@ class ChronologyTests(unittest.TestCase):
     def test_verifies_built_archive_contents(self):
         archive = build_archive()
         self.assertEqual(archive, verify_archive(archive))
+
+    def test_build_is_byte_reproducible(self):
+        first = build_archive().read_bytes()
+        second = build_archive().read_bytes()
+        self.assertEqual(first, second)
+        self.assertEqual(hashlib.sha256(first).hexdigest(), hashlib.sha256(second).hexdigest())
+
+    def test_build_has_canonical_zip_metadata(self):
+        archive = build_archive()
+        with zipfile.ZipFile(archive) as built:
+            for member in built.infolist():
+                self.assertEqual(ZIP_DATE_TIME, member.date_time)
+                self.assertEqual(3, member.create_system)
+                self.assertEqual(ZIP_MODE, member.external_attr >> 16)
 
     def test_rejects_archive_with_extra_member(self):
         source = build_archive()
