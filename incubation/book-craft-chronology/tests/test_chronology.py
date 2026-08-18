@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
+from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
 
 
 class ChronologyTests(unittest.TestCase):
@@ -86,6 +86,34 @@ class ChronologyTests(unittest.TestCase):
         target = mutate_for_diagnostic(self.data, "movement")
         target["events"][1]["movement"]["from"] = preview["proposal"]["to"]
         self.assertEqual([], diagnose(target))
+
+    def test_approved_repair_review_is_deterministic_and_bound(self):
+        first = review_repair(self.data, "movement", "approve")
+        second = review_repair(copy.deepcopy(self.data), "movement", "approve")
+        proposal = repair_preview(self.data, "movement")["proposal"]
+        canonical = json.dumps(proposal, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        self.assertEqual(first, second)
+        self.assertEqual("REVIEW_APPROVED", first["status"])
+        self.assertEqual(hashlib.sha256(canonical).hexdigest(), first["proposal_sha256"])
+
+    def test_rejected_repair_review_is_explicit(self):
+        review = review_repair(self.data, "movement", "reject")
+        self.assertEqual("REVIEW_REJECTED", review["status"])
+        self.assertEqual("reject", review["decision"])
+        self.assertEqual("explicit_cli_argument", review["decision_origin"])
+
+    def test_repair_review_never_applies_or_writes(self):
+        before = copy.deepcopy(self.data)
+        for decision in ("approve", "reject"):
+            review = review_repair(self.data, "movement", decision)
+            self.assertFalse(review["automatic_apply"])
+            self.assertFalse(review["source_data_written"])
+            self.assertFalse(review["reviewer_identity_verified"])
+        self.assertEqual(before, self.data)
+
+    def test_repair_review_rejects_unknown_decision(self):
+        with self.assertRaisesRegex(ChronologyError, "M2.2 decision"):
+            review_repair(self.data, "movement", "maybe")
 
     def test_clean_seed_has_no_diagnostics(self):
         self.assertEqual([], diagnose(self.data))

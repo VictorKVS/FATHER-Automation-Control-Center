@@ -386,6 +386,29 @@ def repair_preview(data: dict, mutation: str) -> dict:
     }
 
 
+def review_repair(data: dict, mutation: str, decision: str) -> dict:
+    if decision not in ("approve", "reject"):
+        raise ChronologyError("M2.2 decision must be approve or reject")
+    preview = repair_preview(data, mutation)
+    canonical_proposal = json.dumps(
+        preview["proposal"], ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    return {
+        "schema_version": "book-craft-chronology-repair-review/1.0",
+        "status": "REVIEW_APPROVED" if decision == "approve" else "REVIEW_REJECTED",
+        "source": preview["source"],
+        "fixture": mutation,
+        "decision": decision,
+        "decision_origin": "explicit_cli_argument",
+        "reviewer_identity_verified": False,
+        "proposal_sha256": hashlib.sha256(canonical_proposal).hexdigest(),
+        "proposal": preview["proposal"],
+        "automatic_apply": False,
+        "source_data_written": False,
+        "required_validation": preview["required_validation"],
+    }
+
+
 def build_archive() -> Path:
     data = load_data()
     validate_max(data)
@@ -423,6 +446,9 @@ def main() -> None:
     diagnostic.add_argument("--mutation", choices=("order", "movement", "ownership", "information"))
     repair = sub.add_parser("plan-repair")
     repair.add_argument("--mutation", choices=("movement",), required=True)
+    review = sub.add_parser("review-repair")
+    review.add_argument("--mutation", choices=("movement",), required=True)
+    review.add_argument("--decision", choices=("approve", "reject"), required=True)
     sub.add_parser("report")
     verify = sub.add_parser("verify-report")
     verify.add_argument("--path", type=Path, default=REPORT)
@@ -452,6 +478,8 @@ def main() -> None:
         print(json.dumps({"status": "CONFLICT" if problems else "GREEN", "issues": problems}, ensure_ascii=False, indent=2))
     elif args.command == "plan-repair":
         print(json.dumps(repair_preview(data, args.mutation), ensure_ascii=False, indent=2, sort_keys=True))
+    elif args.command == "review-repair":
+        print(json.dumps(review_repair(data, args.mutation, args.decision), ensure_ascii=False, indent=2, sort_keys=True))
     elif args.command == "report":
         print(write_diagnostic_report(data))
     elif args.command == "verify-report":

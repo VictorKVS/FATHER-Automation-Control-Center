@@ -22,3 +22,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M1.8 complete:** `archive-release.json` anchors the reproducible ZIP size and SHA-256 outside the ZIP; `verify-release` compares any supplied archive with that separately versioned record.
 
 **M2.1 complete:** `plan-repair --mutation movement` returns a deterministic preview for the `EVT-002` movement conflict, including the exact replacement and required validation, without writing or automatically applying data.
+
+**M2.2 complete:** `review-repair` records an explicit `approve` or `reject` decision bound to the movement proposal by SHA-256. It does not authenticate reviewer identity, apply the proposal, or write chronology data.
