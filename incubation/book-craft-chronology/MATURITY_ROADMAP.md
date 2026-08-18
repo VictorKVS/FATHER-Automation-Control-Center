@@ -18,3 +18,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M1.6 complete:** `verify-archive` reopens the produced ZIP, enforces the exact seven-member allowlist, and verifies every embedded payload against the embedded manifest.
 
 **M1.7 complete:** clean builds use canonical ZIP timestamps, file modes, member order, and compression settings; two consecutive builds are required to be byte-identical.
+
+**M1.8 complete:** `archive-release.json` anchors the reproducible ZIP size and SHA-256 outside the ZIP; `verify-release` compares any supplied archive with that separately versioned record.

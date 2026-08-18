@@ -12,6 +12,7 @@ DATA = ROOT / "data" / "chronology.json"
 REPORT = ROOT / "reports" / "chronology-diagnostics.json"
 MANIFEST = ROOT / "reports" / "archive-manifest.json"
 ARCHIVE = ROOT / "build" / "book-craft-chronology-clean.zip"
+RELEASE = ROOT / "reports" / "archive-release.json"
 ZIP_DATE_TIME = (1980, 1, 1, 0, 0, 0)
 ZIP_MODE = 0o100644
 ARCHIVE_PAYLOAD = (
@@ -307,6 +308,46 @@ def verify_archive(archive_path: Path = ARCHIVE) -> Path:
     return archive_path
 
 
+def release_checksum(archive_path: Path = ARCHIVE) -> dict:
+    verify_archive(archive_path)
+    content = archive_path.read_bytes()
+    return {
+        "schema_version": "book-craft-chronology-release/1.0",
+        "artifact": archive_path.name,
+        "algorithm": "sha256",
+        "bytes": len(content),
+        "sha256": hashlib.sha256(content).hexdigest(),
+        "member_count": len(ARCHIVE_PAYLOAD) + 1,
+    }
+
+
+def write_release_checksum(archive_path: Path = ARCHIVE) -> Path:
+    RELEASE.parent.mkdir(exist_ok=True)
+    RELEASE.write_text(
+        json.dumps(release_checksum(archive_path), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return RELEASE
+
+
+def verify_release_checksum(
+    release_path: Path = RELEASE,
+    archive_path: Path = ARCHIVE,
+) -> Path:
+    expected = release_checksum(archive_path)
+    try:
+        actual = json.loads(release_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-RELEASE-001", None, "release.read", "valid JSON release checksum", str(error)
+        ), ensure_ascii=False, sort_keys=True)) from error
+    if actual != expected:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-RELEASE-002", None, "release.content", expected, actual
+        ), ensure_ascii=False, sort_keys=True))
+    return archive_path
+
+
 def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
     mutated = copy.deepcopy(data)
     if mutation == "order":
@@ -363,6 +404,10 @@ def main() -> None:
     verify_manifest.add_argument("--path", type=Path, default=MANIFEST)
     verify_zip = sub.add_parser("verify-archive")
     verify_zip.add_argument("--path", type=Path, default=ARCHIVE)
+    sub.add_parser("release")
+    verify_release = sub.add_parser("verify-release")
+    verify_release.add_argument("--release-path", type=Path, default=RELEASE)
+    verify_release.add_argument("--archive-path", type=Path, default=ARCHIVE)
     sub.add_parser("build")
     args = parser.parse_args()
     data = load_data()
@@ -388,6 +433,10 @@ def main() -> None:
         print(f"GREEN MANIFEST VERIFIED {verify_archive_manifest(args.path)}")
     elif args.command == "verify-archive":
         print(f"GREEN ARCHIVE VERIFIED {verify_archive(args.path)}")
+    elif args.command == "release":
+        print(write_release_checksum())
+    elif args.command == "verify-release":
+        print(f"GREEN RELEASE VERIFIED {verify_release_checksum(args.release_path, args.archive_path)}")
     else:
         print(build_archive())
 

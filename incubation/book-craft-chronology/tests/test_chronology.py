@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, MANIFEST, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, write_archive_manifest, write_diagnostic_report
+from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, release_checksum, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
 
 
 class ChronologyTests(unittest.TestCase):
@@ -143,6 +143,33 @@ class ChronologyTests(unittest.TestCase):
                 self.assertEqual(ZIP_DATE_TIME, member.date_time)
                 self.assertEqual(3, member.create_system)
                 self.assertEqual(ZIP_MODE, member.external_attr >> 16)
+
+    def test_release_checksum_is_deterministic(self):
+        archive = build_archive()
+        self.assertEqual(release_checksum(archive), release_checksum(archive))
+        self.assertEqual(7, release_checksum(archive)["member_count"])
+
+    def test_verifies_external_release_checksum(self):
+        archive = build_archive()
+        write_release_checksum(archive)
+        self.assertEqual(archive, verify_release_checksum(RELEASE, archive))
+
+    def test_rejects_tampered_external_release_checksum(self):
+        archive = build_archive()
+        release = release_checksum(archive)
+        release["sha256"] = "0" * 64
+        path = ROOT / "build" / "tampered-release.json"
+        path.write_text(json.dumps(release), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-RELEASE-002"):
+            verify_release_checksum(path, archive)
+
+    def test_rejects_archive_not_matching_external_release(self):
+        archive = build_archive()
+        write_release_checksum(archive)
+        path = ROOT / "build" / "changed-after-release.zip"
+        path.write_bytes(archive.read_bytes() + b"changed")
+        with self.assertRaisesRegex(ChronologyError, "CHR-RELEASE-002"):
+            verify_release_checksum(RELEASE, path)
 
     def test_rejects_archive_with_extra_member(self):
         source = build_archive()
