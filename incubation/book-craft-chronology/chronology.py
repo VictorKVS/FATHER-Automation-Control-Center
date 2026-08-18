@@ -361,6 +361,31 @@ def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
     return mutated
 
 
+def repair_preview(data: dict, mutation: str) -> dict:
+    if mutation != "movement":
+        raise ChronologyError("M2.1 supports movement preview only")
+    target = mutate_for_diagnostic(data, mutation)
+    problems = diagnose(target)
+    conflict = problems[0]
+    return {
+        "schema_version": "book-craft-chronology-repair-preview/1.0",
+        "status": "PREVIEW_ONLY",
+        "source": diagnostic_report(data)["source"],
+        "fixture": mutation,
+        "conflict": conflict,
+        "proposal": {
+            "event": conflict["event"],
+            "path": conflict["relation"],
+            "operation": "replace",
+            "from": conflict["actual"],
+            "to": conflict["expected"],
+        },
+        "automatic_apply": False,
+        "source_data_written": False,
+        "required_validation": ["MIN", "MED", "MAX"],
+    }
+
+
 def build_archive() -> Path:
     data = load_data()
     validate_max(data)
@@ -396,6 +421,8 @@ def main() -> None:
     query.add_argument("--event", required=True)
     diagnostic = sub.add_parser("diagnose")
     diagnostic.add_argument("--mutation", choices=("order", "movement", "ownership", "information"))
+    repair = sub.add_parser("plan-repair")
+    repair.add_argument("--mutation", choices=("movement",), required=True)
     sub.add_parser("report")
     verify = sub.add_parser("verify-report")
     verify.add_argument("--path", type=Path, default=REPORT)
@@ -423,6 +450,8 @@ def main() -> None:
         target = mutate_for_diagnostic(data, args.mutation) if args.mutation else data
         problems = diagnose(target)
         print(json.dumps({"status": "CONFLICT" if problems else "GREEN", "issues": problems}, ensure_ascii=False, indent=2))
+    elif args.command == "plan-repair":
+        print(json.dumps(repair_preview(data, args.mutation), ensure_ascii=False, indent=2, sort_keys=True))
     elif args.command == "report":
         print(write_diagnostic_report(data))
     elif args.command == "verify-report":

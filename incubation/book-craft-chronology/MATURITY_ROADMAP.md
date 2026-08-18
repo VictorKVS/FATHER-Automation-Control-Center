@@ -20,3 +20,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M1.7 complete:** clean builds use canonical ZIP timestamps, file modes, member order, and compression settings; two consecutive builds are required to be byte-identical.
 
 **M1.8 complete:** `archive-release.json` anchors the reproducible ZIP size and SHA-256 outside the ZIP; `verify-release` compares any supplied archive with that separately versioned record.
+
+**M2.1 complete:** `plan-repair --mutation movement` returns a deterministic preview for the `EVT-002` movement conflict, including the exact replacement and required validation, without writing or automatically applying data.

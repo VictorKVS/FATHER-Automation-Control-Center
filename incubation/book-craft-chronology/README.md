@@ -11,6 +11,7 @@ python -m unittest discover -s tests -v
 python chronology.py check --level all
 python chronology.py query --event EVT-003
 python chronology.py diagnose --mutation movement
+python chronology.py plan-repair --mutation movement
 python chronology.py report
 python chronology.py verify-report
 python chronology.py manifest
@@ -24,6 +25,8 @@ python chronology.py verify-release
 The build writes `build/book-craft-chronology-clean.zip`. Generated output is not committed.
 
 `diagnose` returns stable conflict codes, the exact event, relation, expected value, and actual value. Mutations are test-only and never alter the three-event seed.
+
+`plan-repair --mutation movement` produces a deterministic preview for the controlled `EVT-002` movement fixture. It names the exact replacement and MIN/MED/MAX acceptance requirement but never writes or automatically changes chronology data.
 
 `report` writes deterministic `reports/chronology-diagnostics.json` with the checked event IDs, check set, result, and SHA-256 of canonical static input. It contains no timestamp, model output, or protected text.
 

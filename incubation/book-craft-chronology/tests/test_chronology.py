@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, release_checksum, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
+from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
 
 
 class ChronologyTests(unittest.TestCase):
@@ -61,6 +61,31 @@ class ChronologyTests(unittest.TestCase):
         problems = diagnose(mutate_for_diagnostic(self.data, "information"))
         self.assertEqual("CHR-INFO-001", problems[0]["code"])
         self.assertEqual("EVT-003", problems[0]["event"])
+
+    def test_movement_repair_preview_is_deterministic(self):
+        first = repair_preview(self.data, "movement")
+        second = repair_preview(copy.deepcopy(self.data), "movement")
+        self.assertEqual(first, second)
+        self.assertEqual("PREVIEW_ONLY", first["status"])
+        self.assertFalse(first["automatic_apply"])
+
+    def test_movement_repair_preview_is_exact(self):
+        preview = repair_preview(self.data, "movement")
+        self.assertEqual("EVT-002", preview["proposal"]["event"])
+        self.assertEqual("movement.from", preview["proposal"]["path"])
+        self.assertEqual("LOC-IMPOSSIBLE", preview["proposal"]["from"])
+        self.assertEqual("LOC-NEVSKY-ENTRY", preview["proposal"]["to"])
+
+    def test_repair_preview_does_not_mutate_source(self):
+        before = copy.deepcopy(self.data)
+        repair_preview(self.data, "movement")
+        self.assertEqual(before, self.data)
+
+    def test_repair_preview_proposal_clears_fixture_conflict(self):
+        preview = repair_preview(self.data, "movement")
+        target = mutate_for_diagnostic(self.data, "movement")
+        target["events"][1]["movement"]["from"] = preview["proposal"]["to"]
+        self.assertEqual([], diagnose(target))
 
     def test_clean_seed_has_no_diagnostics(self):
         self.assertEqual([], diagnose(self.data))
