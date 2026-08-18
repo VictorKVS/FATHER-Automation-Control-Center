@@ -26,3 +26,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M2.2 complete:** `review-repair` records an explicit `approve` or `reject` decision bound to the movement proposal by SHA-256. It does not authenticate reviewer identity, apply the proposal, or write chronology data.
 
 **M2.3 complete:** `dry-run-repair` applies an approved movement proposal only to a transient fixture copy and reports diagnostics plus MIN/MED/MAX before and after. Rejected proposals are skipped; canonical data is never written.
+
+**M2.4 complete:** `dry-run-report` persists a deterministic, timestamp-free approved dry-run bound to both the canonical source SHA-256 and proposal SHA-256. The report is included in the clean archive without writing canonical data.

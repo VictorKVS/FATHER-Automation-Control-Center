@@ -16,6 +16,7 @@ python chronology.py review-repair --mutation movement --decision approve
 python chronology.py review-repair --mutation movement --decision reject
 python chronology.py dry-run-repair --mutation movement --decision approve
 python chronology.py dry-run-repair --mutation movement --decision reject
+python chronology.py dry-run-report
 python chronology.py report
 python chronology.py verify-report
 python chronology.py manifest
@@ -36,11 +37,13 @@ The build writes `build/book-craft-chronology-clean.zip`. Generated output is no
 
 `dry-run-repair` applies an approved proposal only to a transient fixture copy and reports diagnostics plus MIN/MED/MAX before and after. A rejected proposal is skipped. Canonical chronology data is never written.
 
+`dry-run-report` writes deterministic `reports/repair-dry-run.json`, bound to the canonical source digest and reviewed proposal digest. It has no timestamp and records only the approved transient simulation, never a canonical data write.
+
 `report` writes deterministic `reports/chronology-diagnostics.json` with the checked event IDs, check set, result, and SHA-256 of canonical static input. It contains no timestamp, model output, or protected text.
 
 `verify-report` independently recomputes the expected report and rejects missing, malformed, stale, or tampered content. This is an integrity and consistency check for the manual seed, not automatic extraction or cryptographic authenticity.
 
-`manifest` writes deterministic `reports/archive-manifest.json` with the byte size and SHA-256 of all six payload files. `verify-manifest` rejects stale or tampered payload metadata; the manifest itself is the seventh archive entry and is intentionally not self-hashed.
+`manifest` writes deterministic `reports/archive-manifest.json` with the byte size and SHA-256 of all seven payload files. `verify-manifest` rejects stale or tampered payload metadata; the manifest itself is the eighth archive entry and is intentionally not self-hashed.
 
 `verify-archive` reads the finished ZIP without extracting it, rejects missing or additional members, and compares every embedded payload byte-for-byte through its size and SHA-256 in the embedded manifest.
 

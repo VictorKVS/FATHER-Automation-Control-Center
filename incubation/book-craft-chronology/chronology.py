@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data" / "chronology.json"
 REPORT = ROOT / "reports" / "chronology-diagnostics.json"
+DRY_RUN_REPORT = ROOT / "reports" / "repair-dry-run.json"
 MANIFEST = ROOT / "reports" / "archive-manifest.json"
 ARCHIVE = ROOT / "build" / "book-craft-chronology-clean.zip"
 RELEASE = ROOT / "reports" / "archive-release.json"
@@ -21,6 +22,7 @@ ARCHIVE_PAYLOAD = (
     "chronology.py",
     "data/chronology.json",
     "reports/chronology-diagnostics.json",
+    "reports/repair-dry-run.json",
     "tests/test_chronology.py",
 )
 
@@ -467,11 +469,26 @@ def dry_run_repair(data: dict, mutation: str, decision: str) -> dict:
     return result
 
 
+def write_repair_dry_run_report(data: dict) -> Path:
+    DRY_RUN_REPORT.parent.mkdir(exist_ok=True)
+    DRY_RUN_REPORT.write_text(
+        json.dumps(
+            dry_run_repair(data, "movement", "approve"),
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    return DRY_RUN_REPORT
+
+
 def build_archive() -> Path:
     data = load_data()
     validate_max(data)
     write_diagnostic_report(data)
     verify_diagnostic_report(data)
+    write_repair_dry_run_report(data)
     write_archive_manifest()
     verify_archive_manifest()
     output = ARCHIVE
@@ -510,6 +527,7 @@ def main() -> None:
     dry_run = sub.add_parser("dry-run-repair")
     dry_run.add_argument("--mutation", choices=("movement",), required=True)
     dry_run.add_argument("--decision", choices=("approve", "reject"), required=True)
+    sub.add_parser("dry-run-report")
     sub.add_parser("report")
     verify = sub.add_parser("verify-report")
     verify.add_argument("--path", type=Path, default=REPORT)
@@ -543,6 +561,8 @@ def main() -> None:
         print(json.dumps(review_repair(data, args.mutation, args.decision), ensure_ascii=False, indent=2, sort_keys=True))
     elif args.command == "dry-run-repair":
         print(json.dumps(dry_run_repair(data, args.mutation, args.decision), ensure_ascii=False, indent=2, sort_keys=True))
+    elif args.command == "dry-run-report":
+        print(write_repair_dry_run_report(data))
     elif args.command == "report":
         print(write_diagnostic_report(data))
     elif args.command == "verify-report":

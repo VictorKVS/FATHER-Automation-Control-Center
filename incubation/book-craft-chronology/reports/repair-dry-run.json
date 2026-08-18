@@ -1,0 +1,63 @@
+{
+  "after": {
+    "issues": [],
+    "validation": {
+      "MAX": {
+        "status": "GREEN"
+      },
+      "MED": {
+        "status": "GREEN"
+      },
+      "MIN": {
+        "status": "GREEN"
+      }
+    }
+  },
+  "automatic_apply": false,
+  "before": {
+    "issues": [
+      {
+        "actual": "LOC-IMPOSSIBLE",
+        "code": "CHR-MOVE-001",
+        "event": "EVT-002",
+        "expected": "LOC-NEVSKY-ENTRY",
+        "relation": "movement.from"
+      }
+    ],
+    "validation": {
+      "MAX": {
+        "error": "{\"actual\": \"LOC-IMPOSSIBLE\", \"code\": \"CHR-MOVE-001\", \"event\": \"EVT-002\", \"expected\": \"LOC-NEVSKY-ENTRY\", \"relation\": \"movement.from\"}",
+        "status": "RED"
+      },
+      "MED": {
+        "error": "{\"actual\": \"LOC-IMPOSSIBLE\", \"code\": \"CHR-MOVE-001\", \"event\": \"EVT-002\", \"expected\": \"LOC-NEVSKY-ENTRY\", \"relation\": \"movement.from\"}",
+        "status": "RED"
+      },
+      "MIN": {
+        "status": "GREEN"
+      }
+    }
+  },
+  "canonical_data_written": false,
+  "fixture": "movement",
+  "proposal": {
+    "event": "EVT-002",
+    "from": "LOC-IMPOSSIBLE",
+    "operation": "replace",
+    "path": "movement.from",
+    "to": "LOC-NEVSKY-ENTRY"
+  },
+  "review": {
+    "decision": "approve",
+    "proposal_sha256": "d9c3a17ca7172cadea5d2206be855f3b4f5602d4060ed2cb40a986b3f834245c",
+    "reviewer_identity_verified": false
+  },
+  "schema_version": "book-craft-chronology-repair-dry-run/1.0",
+  "source": {
+    "automatic_extraction": false,
+    "mode": "manual_demo_seed",
+    "sha256": "c448c942a79c04d1c3088518e02568f67bc72947ddf1c1d01d857a1cb968c89d"
+  },
+  "status": "DRY_RUN_GREEN",
+  "transient_copy_applied": true
+}

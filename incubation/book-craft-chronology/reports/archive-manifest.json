@@ -2,19 +2,19 @@
   "algorithm": "sha256",
   "files": [
     {
-      "bytes": 3542,
+      "bytes": 3818,
       "path": "README.md",
-      "sha256": "25fc21c96195682ce8be3f9112eafa6f8f867e1512ea35dcb0706bc70cb42c2e"
+      "sha256": "d2491481382d78cb1d6a95746452f00f937ab3b51aa535ff55e0d3b020a34021"
     },
     {
-      "bytes": 2436,
+      "bytes": 2672,
       "path": "MATURITY_ROADMAP.md",
-      "sha256": "8d39da738e2d9536586b07e2949cb6cf46e581fcfb3ec134add1ef035620019a"
+      "sha256": "109eafbdb3e99a6a2b4cd91a6f33e251d3efb901b023a3e3c8d97de52fa6e692"
     },
     {
-      "bytes": 23564,
+      "bytes": 24192,
       "path": "chronology.py",
-      "sha256": "3f4a48371ab079464ed63155eda6f8d4025d0630dfa5042eae4d36c1f0982895"
+      "sha256": "41cf8c8fef17663406a95f03e7a2da583ea08696eb633bd5acbd5cd098873349"
     },
     {
       "bytes": 1315,
@@ -27,11 +27,16 @@
       "sha256": "15684075e547e3acc67fce406798199d9a94589d2059813a1d3d4e3cfa45def2"
     },
     {
-      "bytes": 13878,
+      "bytes": 1683,
+      "path": "reports/repair-dry-run.json",
+      "sha256": "315edd19f20f7ef83de0b6e07bf8bca9b326251a529d40247f8a9e82ec46b9e4"
+    },
+    {
+      "bytes": 14817,
       "path": "tests/test_chronology.py",
-      "sha256": "c697a37d5b29d072e03602d62b384e647ddd5d77ff208976cf013906500ffc8b"
+      "sha256": "ba9982ceea98d83b33b20a29bda7af376bc247a77176bacaff3c3a5ea8316a8a"
     }
   ],
-  "payload_file_count": 6,
+  "payload_file_count": 7,
   "schema_version": "book-craft-clean-archive-manifest/1.0"
 }

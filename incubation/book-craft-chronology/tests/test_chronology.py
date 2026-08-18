@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, dry_run_repair, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
+from chronology import ARCHIVE_PAYLOAD, DRY_RUN_REPORT, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, dry_run_repair, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum, write_repair_dry_run_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -146,6 +146,22 @@ class ChronologyTests(unittest.TestCase):
         self.assertFalse(result["canonical_data_written"])
         self.assertEqual(before, self.data)
 
+    def test_persisted_repair_dry_run_report_matches_generator(self):
+        path = write_repair_dry_run_report(self.data)
+        actual = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(DRY_RUN_REPORT, path)
+        self.assertEqual(dry_run_repair(self.data, "movement", "approve"), actual)
+
+    def test_repair_dry_run_report_binds_source_and_proposal(self):
+        report = dry_run_repair(self.data, "movement", "approve")
+        review = review_repair(self.data, "movement", "approve")
+        self.assertEqual(diagnostic_report(self.data)["source"], report["source"])
+        self.assertEqual(review["proposal_sha256"], report["review"]["proposal_sha256"])
+
+    def test_repair_dry_run_report_is_timestamp_free(self):
+        report = dry_run_repair(self.data, "movement", "approve")
+        self.assertNotIn("timestamp", json.dumps(report, ensure_ascii=False))
+
     def test_clean_seed_has_no_diagnostics(self):
         self.assertEqual([], diagnose(self.data))
 
@@ -193,7 +209,7 @@ class ChronologyTests(unittest.TestCase):
 
     def test_archive_manifest_is_deterministic(self):
         self.assertEqual(archive_manifest(), archive_manifest())
-        self.assertEqual(6, archive_manifest()["payload_file_count"])
+        self.assertEqual(7, archive_manifest()["payload_file_count"])
         self.assertEqual(list(ARCHIVE_PAYLOAD), [entry["path"] for entry in archive_manifest()["files"]])
 
     def test_verifies_current_archive_manifest(self):
@@ -231,7 +247,7 @@ class ChronologyTests(unittest.TestCase):
     def test_release_checksum_is_deterministic(self):
         archive = build_archive()
         self.assertEqual(release_checksum(archive), release_checksum(archive))
-        self.assertEqual(7, release_checksum(archive)["member_count"])
+        self.assertEqual(8, release_checksum(archive)["member_count"])
 
     def test_verifies_external_release_checksum(self):
         archive = build_archive()
