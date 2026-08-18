@@ -409,6 +409,64 @@ def review_repair(data: dict, mutation: str, decision: str) -> dict:
     }
 
 
+def validation_matrix(data: dict) -> dict:
+    results = {}
+    for name, validator in (("MIN", validate_min), ("MED", validate_med), ("MAX", validate_max)):
+        try:
+            validator(data)
+        except ChronologyError as error:
+            results[name] = {"status": "RED", "error": str(error)}
+        else:
+            results[name] = {"status": "GREEN"}
+    return results
+
+
+def dry_run_repair(data: dict, mutation: str, decision: str) -> dict:
+    source_snapshot = copy.deepcopy(data)
+    review = review_repair(data, mutation, decision)
+    target = mutate_for_diagnostic(data, mutation)
+    before = {
+        "issues": diagnose(target),
+        "validation": validation_matrix(target),
+    }
+    result = {
+        "schema_version": "book-craft-chronology-repair-dry-run/1.0",
+        "status": "DRY_RUN_SKIPPED" if decision == "reject" else "DRY_RUN_PENDING",
+        "source": review["source"],
+        "fixture": mutation,
+        "review": {
+            "decision": review["decision"],
+            "proposal_sha256": review["proposal_sha256"],
+            "reviewer_identity_verified": review["reviewer_identity_verified"],
+        },
+        "proposal": review["proposal"],
+        "before": before,
+        "after": None,
+        "transient_copy_applied": False,
+        "automatic_apply": False,
+        "canonical_data_written": False,
+    }
+    if decision == "approve":
+        proposal = review["proposal"]
+        event = next(event for event in target["events"] if event["id"] == proposal["event"])
+        if event["movement"]["from"] != proposal["from"]:
+            raise ChronologyError("M2.3 proposal no longer matches the transient fixture")
+        event["movement"]["from"] = proposal["to"]
+        after = {
+            "issues": diagnose(target),
+            "validation": validation_matrix(target),
+        }
+        result["after"] = after
+        result["transient_copy_applied"] = True
+        result["status"] = "DRY_RUN_GREEN" if (
+            not after["issues"]
+            and all(gate["status"] == "GREEN" for gate in after["validation"].values())
+        ) else "DRY_RUN_RED"
+    if data != source_snapshot:
+        raise ChronologyError("M2.3 dry-run changed canonical source data")
+    return result
+
+
 def build_archive() -> Path:
     data = load_data()
     validate_max(data)
@@ -449,6 +507,9 @@ def main() -> None:
     review = sub.add_parser("review-repair")
     review.add_argument("--mutation", choices=("movement",), required=True)
     review.add_argument("--decision", choices=("approve", "reject"), required=True)
+    dry_run = sub.add_parser("dry-run-repair")
+    dry_run.add_argument("--mutation", choices=("movement",), required=True)
+    dry_run.add_argument("--decision", choices=("approve", "reject"), required=True)
     sub.add_parser("report")
     verify = sub.add_parser("verify-report")
     verify.add_argument("--path", type=Path, default=REPORT)
@@ -480,6 +541,8 @@ def main() -> None:
         print(json.dumps(repair_preview(data, args.mutation), ensure_ascii=False, indent=2, sort_keys=True))
     elif args.command == "review-repair":
         print(json.dumps(review_repair(data, args.mutation, args.decision), ensure_ascii=False, indent=2, sort_keys=True))
+    elif args.command == "dry-run-repair":
+        print(json.dumps(dry_run_repair(data, args.mutation, args.decision), ensure_ascii=False, indent=2, sort_keys=True))
     elif args.command == "report":
         print(write_diagnostic_report(data))
     elif args.command == "verify-report":

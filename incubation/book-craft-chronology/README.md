@@ -14,6 +14,8 @@ python chronology.py diagnose --mutation movement
 python chronology.py plan-repair --mutation movement
 python chronology.py review-repair --mutation movement --decision approve
 python chronology.py review-repair --mutation movement --decision reject
+python chronology.py dry-run-repair --mutation movement --decision approve
+python chronology.py dry-run-repair --mutation movement --decision reject
 python chronology.py report
 python chronology.py verify-report
 python chronology.py manifest
@@ -31,6 +33,8 @@ The build writes `build/book-craft-chronology-clean.zip`. Generated output is no
 `plan-repair --mutation movement` produces a deterministic preview for the controlled `EVT-002` movement fixture. It names the exact replacement and MIN/MED/MAX acceptance requirement but never writes or automatically changes chronology data.
 
 `review-repair` records an explicit `approve` or `reject` CLI decision bound to the preview proposal by SHA-256. Reviewer identity is not authenticated, and neither decision applies the proposal or writes chronology data.
+
+`dry-run-repair` applies an approved proposal only to a transient fixture copy and reports diagnostics plus MIN/MED/MAX before and after. A rejected proposal is skipped. Canonical chronology data is never written.
 
 `report` writes deterministic `reports/chronology-diagnostics.json` with the checked event IDs, check set, result, and SHA-256 of canonical static input. It contains no timestamp, model output, or protected text.
 

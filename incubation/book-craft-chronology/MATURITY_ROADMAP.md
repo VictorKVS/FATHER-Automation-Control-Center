@@ -24,3 +24,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M2.1 complete:** `plan-repair --mutation movement` returns a deterministic preview for the `EVT-002` movement conflict, including the exact replacement and required validation, without writing or automatically applying data.
 
 **M2.2 complete:** `review-repair` records an explicit `approve` or `reject` decision bound to the movement proposal by SHA-256. It does not authenticate reviewer identity, apply the proposal, or write chronology data.
+
+**M2.3 complete:** `dry-run-repair` applies an approved movement proposal only to a transient fixture copy and reports diagnostics plus MIN/MED/MAX before and after. Rejected proposals are skipped; canonical data is never written.

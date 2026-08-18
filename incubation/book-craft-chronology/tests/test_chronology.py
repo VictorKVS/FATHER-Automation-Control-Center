@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
+from chronology import ARCHIVE_PAYLOAD, MANIFEST, RELEASE, REPORT, ZIP_DATE_TIME, ZIP_MODE, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, dry_run_repair, load_data, mutate_for_diagnostic, query_event, release_checksum, repair_preview, review_repair, validate_max, validate_med, validate_min, verify_archive, verify_archive_manifest, verify_diagnostic_report, verify_release_checksum, write_archive_manifest, write_diagnostic_report, write_release_checksum
 
 
 class ChronologyTests(unittest.TestCase):
@@ -114,6 +114,37 @@ class ChronologyTests(unittest.TestCase):
     def test_repair_review_rejects_unknown_decision(self):
         with self.assertRaisesRegex(ChronologyError, "M2.2 decision"):
             review_repair(self.data, "movement", "maybe")
+
+    def test_approved_repair_dry_run_is_deterministic_and_green(self):
+        first = dry_run_repair(self.data, "movement", "approve")
+        second = dry_run_repair(copy.deepcopy(self.data), "movement", "approve")
+        self.assertEqual(first, second)
+        self.assertEqual("DRY_RUN_GREEN", first["status"])
+        self.assertEqual([], first["after"]["issues"])
+        self.assertTrue(first["transient_copy_applied"])
+
+    def test_repair_dry_run_shows_validation_before_and_after(self):
+        result = dry_run_repair(self.data, "movement", "approve")
+        self.assertEqual("GREEN", result["before"]["validation"]["MIN"]["status"])
+        self.assertEqual("RED", result["before"]["validation"]["MED"]["status"])
+        self.assertEqual("RED", result["before"]["validation"]["MAX"]["status"])
+        self.assertEqual(
+            {"MIN": "GREEN", "MED": "GREEN", "MAX": "GREEN"},
+            {name: gate["status"] for name, gate in result["after"]["validation"].items()},
+        )
+
+    def test_rejected_repair_dry_run_is_skipped(self):
+        result = dry_run_repair(self.data, "movement", "reject")
+        self.assertEqual("DRY_RUN_SKIPPED", result["status"])
+        self.assertIsNone(result["after"])
+        self.assertFalse(result["transient_copy_applied"])
+
+    def test_repair_dry_run_never_changes_canonical_source(self):
+        before = copy.deepcopy(self.data)
+        result = dry_run_repair(self.data, "movement", "approve")
+        self.assertFalse(result["automatic_apply"])
+        self.assertFalse(result["canonical_data_written"])
+        self.assertEqual(before, self.data)
 
     def test_clean_seed_has_no_diagnostics(self):
         self.assertEqual([], diagnose(self.data))
