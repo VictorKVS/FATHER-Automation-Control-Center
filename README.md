@@ -34,6 +34,8 @@ python -m unittest discover -s tests -v
 - `docs/METRICS.md` — правила расчёта времени, прогресса и загрузки;
 - `docs/CAPACITY_MODEL.md` — методика расчёта срока общей задачи;
 - `docs/AUTOMATION_PASSPORT.md` — единый контракт учёта новых задач и запусков;
+- `docs/SESSION_CONTINUITY_PROTOCOL.md` — аварийное завершение, команды
+  «закрываем день» и «открываем день», восстановление контекста;
 - `reports/CURRENT_STATUS.md` — автоматически сформированная сводка;
 - `reports/CAPACITY_ESTIMATE.md` — прогноз сроков по объёму и сложности;
 - `scripts/build_dashboard.py` — воспроизводимый генератор отчёта;
@@ -63,3 +65,4 @@ gh repo create VictorKVS/FATHER-AUTOMATION-CONTROL --private --source . --remote
 Секреты, токены, модели и пользовательские документы в реестр не включаются.
 
 - [Промежуточный дневник производства](reports/PRODUCTION_JOURNAL.md)
+- [Протокол непрерывности сессий](docs/SESSION_CONTINUITY_PROTOCOL.md)
