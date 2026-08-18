@@ -1,7 +1,7 @@
 # FATHER — протокол непрерывности сессий разработки
 
 **Код:** FATHER-OPS-SESSION-001  
-**Версия:** 1.1  
+**Версия:** 1.2  
 **Статус:** обязательный рабочий протокол  
 **Команды:** `закрываем день`, `открываем день`, `аварийное закрытие`
 
@@ -191,6 +191,22 @@ decisions:
 risks:
 open_questions:
 priority_for_next_session:
+metrics:
+  automation_commands_total:
+  automation_commands_completed:
+  automation_commands_with_evidence:
+  tasks_detected:
+  tasks_reported:
+  completed_tasks_with_evidence:
+  changed_repositories:
+  updated_project_readmes:
+  repositories_with_test_status:
+  lost_commands:
+  lost_tasks:
+  unexplained_conflicts:
+  recovery_time_minutes:
+  continuity_score:
+  gate: FAIL | MIN | MED | MAX
 integrity_status: green | yellow | red
 ```
 
@@ -200,7 +216,9 @@ integrity_status: green | yellow | red
 - `yellow` — часть результатов или локальных изменений не подтверждена;
 - `red` — возможна потеря данных, конфликт или небезопасное продолжение.
 
-Закрытие считается завершённым только после записи отчёта в репозиторий либо явного указания, почему запись невозможна.
+Расчёт показателей и пороги gate выполняются по [METRICS.md](METRICS.md). Числитель, знаменатель и источник каждого процента должны быть доступны для проверки.
+
+Закрытие считается завершённым только после записи отчёта в репозиторий либо явного указания, почему запись невозможна. Штатное закрытие не считается зелёным, пока не рассчитан `continuity_score` и не определён gate.
 
 ## 4. Аварийное закрытие
 
@@ -286,6 +304,7 @@ integrity_status: green | yellow | red
 4. Расхождения и блокеры.
 5. План дня: минимум / средний / максимум.
 6. Первый безопасный шаг.
+7. Метрики прошлого закрытия: continuity score, gate и непройденные условия.
 
 ## 8. Критерий успешности
 
