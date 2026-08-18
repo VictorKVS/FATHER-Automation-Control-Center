@@ -12,3 +12,5 @@ This increment closes **M1.1**: all four relationship types are validated over t
 **M1.3 complete:** the clean seed produces a byte-stable diagnostics artifact with canonical input digest for independent control-stream verification.
 
 **M1.4 complete:** `verify-report` recomputes the canonical input digest and exact three-event report, rejecting missing, malformed, stale, or tampered artifacts before a clean build is archived.
+
+**M1.5 complete:** the clean archive carries a deterministic manifest with the byte size and SHA-256 of every payload file; build verifies it before packaging.

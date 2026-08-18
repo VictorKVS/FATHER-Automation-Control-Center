@@ -10,6 +10,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data" / "chronology.json"
 REPORT = ROOT / "reports" / "chronology-diagnostics.json"
+MANIFEST = ROOT / "reports" / "archive-manifest.json"
+ARCHIVE_PAYLOAD = (
+    "README.md",
+    "MATURITY_ROADMAP.md",
+    "chronology.py",
+    "data/chronology.json",
+    "reports/chronology-diagnostics.json",
+    "tests/test_chronology.py",
+)
 
 
 class ChronologyError(ValueError):
@@ -192,6 +201,47 @@ def verify_diagnostic_report(data: dict, report_path: Path = REPORT) -> Path:
     return report_path
 
 
+def archive_manifest() -> dict:
+    files = []
+    for relative in ARCHIVE_PAYLOAD:
+        content = (ROOT / relative).read_bytes()
+        files.append({
+            "path": relative,
+            "bytes": len(content),
+            "sha256": hashlib.sha256(content).hexdigest(),
+        })
+    return {
+        "schema_version": "book-craft-clean-archive-manifest/1.0",
+        "algorithm": "sha256",
+        "payload_file_count": len(files),
+        "files": files,
+    }
+
+
+def write_archive_manifest() -> Path:
+    MANIFEST.parent.mkdir(exist_ok=True)
+    MANIFEST.write_text(
+        json.dumps(archive_manifest(), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return MANIFEST
+
+
+def verify_archive_manifest(manifest_path: Path = MANIFEST) -> Path:
+    expected = archive_manifest()
+    try:
+        actual = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-MANIFEST-001", None, "manifest.read", "valid JSON manifest", str(error)
+        ), ensure_ascii=False, sort_keys=True)) from error
+    if actual != expected:
+        raise ChronologyError(json.dumps(issue(
+            "CHR-MANIFEST-002", None, "manifest.content", expected, actual
+        ), ensure_ascii=False, sort_keys=True))
+    return manifest_path
+
+
 def mutate_for_diagnostic(data: dict, mutation: str) -> dict:
     mutated = copy.deepcopy(data)
     if mutation == "order":
@@ -210,9 +260,11 @@ def build_archive() -> Path:
     validate_max(data)
     write_diagnostic_report(data)
     verify_diagnostic_report(data)
+    write_archive_manifest()
+    verify_archive_manifest()
     output = ROOT / "build" / "book-craft-chronology-clean.zip"
     output.parent.mkdir(exist_ok=True)
-    allowed = ["README.md", "MATURITY_ROADMAP.md", "chronology.py", "data/chronology.json", "reports/chronology-diagnostics.json", "tests/test_chronology.py"]
+    allowed = (*ARCHIVE_PAYLOAD, "reports/archive-manifest.json")
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for relative in allowed:
             archive.write(ROOT / relative, relative)
@@ -231,6 +283,9 @@ def main() -> None:
     sub.add_parser("report")
     verify = sub.add_parser("verify-report")
     verify.add_argument("--path", type=Path, default=REPORT)
+    sub.add_parser("manifest")
+    verify_manifest = sub.add_parser("verify-manifest")
+    verify_manifest.add_argument("--path", type=Path, default=MANIFEST)
     sub.add_parser("build")
     args = parser.parse_args()
     data = load_data()
@@ -250,6 +305,10 @@ def main() -> None:
         print(write_diagnostic_report(data))
     elif args.command == "verify-report":
         print(f"GREEN REPORT VERIFIED {verify_diagnostic_report(data, args.path)}")
+    elif args.command == "manifest":
+        print(write_archive_manifest())
+    elif args.command == "verify-manifest":
+        print(f"GREEN MANIFEST VERIFIED {verify_archive_manifest(args.path)}")
     else:
         print(build_archive())
 

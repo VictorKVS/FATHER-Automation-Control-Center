@@ -1,0 +1,37 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "bytes": 1691,
+      "path": "README.md",
+      "sha256": "61003c22ecda57e07b9e72d1d1db98036fa83f7dd0f9cddfbc9f183db6af082d"
+    },
+    {
+      "bytes": 1218,
+      "path": "MATURITY_ROADMAP.md",
+      "sha256": "9d8cfc789bde0814d8a5a2aed6c56bacb49885e50f398fe57f5fe60c91569597"
+    },
+    {
+      "bytes": 12696,
+      "path": "chronology.py",
+      "sha256": "a48e1d6dfb817bbc166eaef624251e9e6abb7c70e6164d1fa50a6effb85b8a07"
+    },
+    {
+      "bytes": 1315,
+      "path": "data/chronology.json",
+      "sha256": "d06f3c03dabc84c00b2392b3d6bbeb935ef573d2a5ab75bbcfe90e6c19dc690f"
+    },
+    {
+      "bytes": 547,
+      "path": "reports/chronology-diagnostics.json",
+      "sha256": "15684075e547e3acc67fce406798199d9a94589d2059813a1d3d4e3cfa45def2"
+    },
+    {
+      "bytes": 5864,
+      "path": "tests/test_chronology.py",
+      "sha256": "dc6bea2f9df6fcf5266d98ffd190634f42efc4f566147e149f29f17278d1ea47"
+    }
+  ],
+  "payload_file_count": 6,
+  "schema_version": "book-craft-clean-archive-manifest/1.0"
+}

@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from chronology import REPORT, ChronologyError, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_diagnostic_report, write_diagnostic_report
+from chronology import ARCHIVE_PAYLOAD, MANIFEST, REPORT, ChronologyError, archive_manifest, build_archive, diagnostic_report, diagnose, load_data, mutate_for_diagnostic, query_event, validate_max, validate_med, validate_min, verify_archive_manifest, verify_diagnostic_report, write_archive_manifest, write_diagnostic_report
 
 
 class ChronologyTests(unittest.TestCase):
@@ -105,9 +105,34 @@ class ChronologyTests(unittest.TestCase):
         with self.assertRaisesRegex(ChronologyError, "CHR-REPORT-001"):
             verify_diagnostic_report(self.data, path)
 
+    def test_archive_manifest_is_deterministic(self):
+        self.assertEqual(archive_manifest(), archive_manifest())
+        self.assertEqual(6, archive_manifest()["payload_file_count"])
+        self.assertEqual(list(ARCHIVE_PAYLOAD), [entry["path"] for entry in archive_manifest()["files"]])
+
+    def test_verifies_current_archive_manifest(self):
+        write_diagnostic_report(self.data)
+        write_archive_manifest()
+        self.assertEqual(MANIFEST, verify_archive_manifest())
+
+    def test_rejects_tampered_archive_manifest(self):
+        manifest = archive_manifest()
+        manifest["files"][0]["sha256"] = "0" * 64
+        path = ROOT / "build" / "tampered-manifest.json"
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(json.dumps(manifest), encoding="utf-8")
+        with self.assertRaisesRegex(ChronologyError, "CHR-MANIFEST-002"):
+            verify_archive_manifest(path)
+
     def test_clean_build(self):
         archive = build_archive()
         self.assertTrue(archive.exists())
+        import zipfile
+        with zipfile.ZipFile(archive) as built:
+            self.assertEqual(
+                [*ARCHIVE_PAYLOAD, "reports/archive-manifest.json"],
+                built.namelist(),
+            )
 
 
 if __name__ == "__main__":
