@@ -4,3 +4,4 @@ __pycache__/
 .env.*
 secrets/
 models/
+reports/model_inventory/generated/
