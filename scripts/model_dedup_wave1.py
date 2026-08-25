@@ -30,7 +30,7 @@ PREFERRED_CANONICAL_PREFIXES = (
 
 # Explicitly never target these locations in Wave 1.
 PROTECTED_TARGET_PREFIXES = (
-    r"C:\",
+    "C:\\",
     r"G:\1\OSINT_deepseek",
     r"G:\1\FATHER-Automation-Control-Center",
     r"G:\1\OTUS",
