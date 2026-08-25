@@ -1,4 +1,4 @@
-from scripts.model_dedup_wave1 import build_actions
+from scripts.model_dedup_wave1 import PROTECTED_TARGET_PREFIXES, build_actions
 
 
 def group(group_id, sha, size, paths):
@@ -8,6 +8,10 @@ def group(group_id, sha, size, paths):
         "size_bytes_each": size,
         "paths": paths,
     }
+
+
+def test_protected_c_root_literal_is_valid():
+    assert "C:\\" in PROTECTED_TARGET_PREFIXES
 
 
 def test_prefers_active_osint_g_copy_as_canonical():
@@ -29,7 +33,7 @@ def test_prefers_active_osint_g_copy_as_canonical():
     actions = build_actions(payload)
     assert len(actions) == 2
     assert all(a.canonical == r"G:\1\OSINT_deepseek\data\models\x.gguf" for a in actions)
-    assert all(r"\Прежде\" in a.target for a in actions)
+    assert all("\\Прежде\\" in a.target for a in actions)
 
 
 def test_keeps_one_g_archive_copy_when_only_c_survivor_is_outside_wave():
