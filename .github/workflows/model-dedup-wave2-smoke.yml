@@ -4,9 +4,12 @@ on:
   pull_request:
     paths:
       - "scripts/model_dedup_wave2.py"
+      - "scripts/model_dedup_wave2_apply.py"
       - "tests/test_model_dedup_wave2.py"
+      - "tests/test_model_dedup_wave2_apply.py"
       - "RUN_MODEL_DEDUP_WAVE2_PLAN.cmd"
       - "RUN_MODEL_DEDUP_WAVE2_VERIFY.cmd"
+      - "RUN_MODEL_DEDUP_WAVE2_APPLY.cmd"
       - ".github/workflows/model-dedup-wave2-smoke.yml"
   workflow_dispatch:
 
@@ -19,6 +22,8 @@ jobs:
         with:
           python-version: "3.12"
       - name: Compile Wave 2A code
-        run: python -m py_compile scripts/model_dedup_wave1.py scripts/model_dedup_wave2.py tests/test_model_dedup_wave2.py
+        run: python -m py_compile scripts/model_dedup_wave1.py scripts/model_dedup_wave2.py scripts/model_dedup_wave2_apply.py tests/test_model_dedup_wave2.py tests/test_model_dedup_wave2_apply.py
       - name: Run Wave 2A regression tests
-        run: python tests/test_model_dedup_wave2.py -v
+        run: |
+          python tests/test_model_dedup_wave2.py -v
+          python tests/test_model_dedup_wave2_apply.py -v
