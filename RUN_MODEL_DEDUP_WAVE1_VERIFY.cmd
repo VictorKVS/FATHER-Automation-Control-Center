@@ -10,6 +10,9 @@ echo This command recomputes SHA-256 for every Wave 1 target and its
 echo canonical survivor. It DOES NOT modify, move, link or delete files.
 echo.
 
+python -m py_compile scripts\model_dedup_wave1.py
+if errorlevel 1 goto :fail
+
 python scripts\model_dedup_wave1.py --mode verify
 if errorlevel 1 goto :fail
 
