@@ -1,4 +1,9 @@
+import sys
 import unittest
+from pathlib import Path
+
+# Keep direct execution (`python tests/test_model_dedup_wave2.py`) deterministic.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from scripts.model_dedup_wave2 import build_actions
 
@@ -72,7 +77,13 @@ class Wave2SelectionTests(unittest.TestCase):
         }
         actions = build_actions(payload)
         self.assertEqual(len(actions), 2)
-        self.assertTrue(all("stable-diffusion-webui-OLD" in a.target or "AI\\ComfyUI" in a.target for a in actions))
+        self.assertTrue(
+            all(
+                "stable-diffusion-webui-OLD" in action.target
+                or "AI\\ComfyUI" in action.target
+                for action in actions
+            )
+        )
 
     def test_same_name_different_sha_is_never_combined(self):
         payload = {
