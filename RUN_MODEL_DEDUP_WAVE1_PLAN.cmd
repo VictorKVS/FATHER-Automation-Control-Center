@@ -11,6 +11,9 @@ echo It selects exact SHA-256 duplicates eligible for path-preserving
 echo NTFS hardlink consolidation on G:.
 echo.
 
+python -m py_compile scripts\model_dedup_wave1.py
+if errorlevel 1 goto :fail
+
 python scripts\model_dedup_wave1.py --mode plan
 if errorlevel 1 goto :fail
 
