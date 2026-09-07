@@ -21,9 +21,60 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Prepare evidence directory
+        shell: pwsh
+        run: New-Item -ItemType Directory -Force .test-results\logs | Out-Null
       - name: Compile Wave 2A code
-        run: python -m py_compile scripts/model_dedup_wave1.py scripts/model_dedup_wave2.py scripts/model_dedup_wave2_apply.py tests/test_model_dedup_wave2.py tests/test_model_dedup_wave2_apply.py
-      - name: Run Wave 2A regression tests
+        shell: pwsh
         run: |
-          python tests/test_model_dedup_wave2.py -v
-          python tests/test_model_dedup_wave2_apply.py -v
+          python -m py_compile scripts/model_dedup_wave1.py scripts/model_dedup_wave2.py scripts/model_dedup_wave2_apply.py tests/test_model_dedup_wave2.py tests/test_model_dedup_wave2_apply.py 2>&1 | Tee-Object -FilePath .test-results\logs\compile.log
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run Wave 2A regression tests
+        shell: pwsh
+        run: |
+          python tests/test_model_dedup_wave2.py -v 2>&1 | Tee-Object -FilePath .test-results\logs\test-wave2.log
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tests/test_model_dedup_wave2_apply.py -v 2>&1 | Tee-Object -FilePath .test-results\logs\test-wave2-apply.log
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Write smoke manifest
+        if: always()
+        shell: pwsh
+        env:
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          @'
+          import json, os, platform, sys
+          from datetime import datetime, timezone
+          from pathlib import Path
+          root = Path('.test-results')
+          root.mkdir(parents=True, exist_ok=True)
+          files = [str(p.relative_to(root)).replace('\\','/') for p in root.rglob('*') if p.is_file()]
+          data = {
+            'schema_version': '1.0',
+            'project': 'FATHER-Automation-Control-Center',
+            'repository': os.environ.get('GITHUB_REPOSITORY'),
+            'commit_sha': os.environ.get('GITHUB_SHA'),
+            'ref': os.environ.get('GITHUB_REF'),
+            'workflow': os.environ.get('GITHUB_WORKFLOW'),
+            'run_id': os.environ.get('GITHUB_RUN_ID'),
+            'run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
+            'archived_at_utc': datetime.now(timezone.utc).isoformat(),
+            'status': os.environ.get('JOB_STATUS','unknown').upper(),
+            'runtime': {'python': sys.version, 'platform': platform.platform()},
+            'commands': [
+              'python -m py_compile wave2 sources/tests',
+              'python tests/test_model_dedup_wave2.py -v',
+              'python tests/test_model_dedup_wave2_apply.py -v'
+            ],
+            'result_files': sorted(files)
+          }
+          (root / 'manifest.json').write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
+          '@ | python -
+      - name: Archive Wave 2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-evidence-father-automation-wave2-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: .test-results
+          if-no-files-found: warn
+          retention-days: 90
