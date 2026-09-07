@@ -13,10 +13,63 @@ jobs:
         with:
           python-version: "3.12"
       - name: Rebuild reports
+        shell: bash
         run: |
-          python scripts/build_dashboard.py
-          python scripts/estimate_capacity.py
+          set -o pipefail
+          mkdir -p .test-results/logs
+          {
+            python scripts/build_dashboard.py
+            python scripts/estimate_capacity.py
+          } 2>&1 | tee .test-results/logs/rebuild-reports.log
       - name: Verify generated reports are current
-        run: git diff --exit-code -- reports/
+        shell: bash
+        run: |
+          set -o pipefail
+          git diff --exit-code -- reports/ 2>&1 | tee .test-results/logs/report-diff.log
       - name: Run registry tests
-        run: python -m unittest discover -s tests -v
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m unittest discover -s tests -v 2>&1 | tee .test-results/logs/unittest.log
+      - name: Write validation manifest
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          python - <<'PY'
+          import json, os, platform, sys
+          from datetime import datetime, timezone
+          from pathlib import Path
+          root = Path('.test-results')
+          root.mkdir(parents=True, exist_ok=True)
+          files = [str(p.relative_to(root)).replace('\\','/') for p in root.rglob('*') if p.is_file()]
+          data = {
+            'schema_version': '1.0',
+            'project': 'FATHER-Automation-Control-Center',
+            'repository': os.environ.get('GITHUB_REPOSITORY'),
+            'commit_sha': os.environ.get('GITHUB_SHA'),
+            'ref': os.environ.get('GITHUB_REF'),
+            'workflow': os.environ.get('GITHUB_WORKFLOW'),
+            'run_id': os.environ.get('GITHUB_RUN_ID'),
+            'run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
+            'archived_at_utc': datetime.now(timezone.utc).isoformat(),
+            'status': os.environ.get('JOB_STATUS','unknown').upper(),
+            'runtime': {'python': sys.version, 'platform': platform.platform()},
+            'commands': [
+              'python scripts/build_dashboard.py',
+              'python scripts/estimate_capacity.py',
+              'git diff --exit-code -- reports/',
+              'python -m unittest discover -s tests -v'
+            ],
+            'result_files': sorted(files)
+          }
+          (root / 'manifest.json').write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+      - name: Archive validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-evidence-father-automation-validate-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          path: .test-results
+          if-no-files-found: warn
+          retention-days: 90
