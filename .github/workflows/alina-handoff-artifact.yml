@@ -1,0 +1,37 @@
+name: ALINA Handoff Artifact
+
+on:
+  workflow_dispatch:
+    inputs:
+      handoff_version:
+        description: "Handoff version, e.g. V05"
+        required: true
+        default: "V05"
+  push:
+    paths:
+      - "handoff/_upload/**"
+
+permissions:
+  contents: read
+
+jobs:
+  publish-handoff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate upload area
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d handoff/_upload
+          find handoff/_upload -maxdepth 2 -type f -print
+          test "$(find handoff/_upload -type f | wc -l)" -gt 0
+      - name: Upload ALINA handoff artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ALINA-${{ github.event.inputs.handoff_version || 'AUTO' }}-${{ github.run_number }}
+          path: handoff/_upload/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 6
