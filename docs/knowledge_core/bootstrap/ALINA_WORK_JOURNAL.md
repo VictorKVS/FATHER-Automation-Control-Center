@@ -245,3 +245,18 @@
 - risk: over-asking for clarification can block autonomous research; under-asking can encode false assumptions. A later C04 decision rule must distinguish CLARIFY vs RESEARCH vs EXPLICIT_ASSUMPTION vs BLOCK.
 - next_step: review T00 passport/scheme for completeness, then derive the next task from C00 rather than coding T00.
 - priority: P0
+
+
+## Entry 0016 — ALINA web presence, 3D avatar and extreme-collapse requirement
+
+- operation: UI_REQUIREMENT_CAPTURE
+- target: ALINA Control Center
+- trigger: visual references define ALINA as a luminous synthetic female avatar/3D projection and require the Knowledge Base to be available immediately through a polished website with extreme progressive collapse.
+- objective: capture the visual/interaction intent now without violating the analysis-first rule by prematurely coding the site.
+- decision: ALINA Control Center is a projection over canonical FATHER Knowledge Core, not a separate truth store. ALINA has a replaceable 3D visual-presence component and progressive disclosure from full workspace to minimal live indicator.
+- reference_effect: supplied images are treated as visual-language references, not evidence of biometric/AI-scanner capabilities.
+- collapse_rule: presentation may collapse aggressively while analytical/task/provenance state remains recoverable.
+- resilience_rule: 3D rendering must never be required for analytical correctness; fallback/reduced-motion/lightweight modes are mandatory design considerations.
+- knowledge_ui_effect: site must expose navigable Knowledge/Evidence/Source/Decision/Task/Competency/Learning/Regulatory/Impact projections and reverse trace where data exists.
+- next_artifact: before website code, create ALINA Control Center analytical passport, then notation/screen-state scheme, then test specification, then implementation.
+- priority: P0
