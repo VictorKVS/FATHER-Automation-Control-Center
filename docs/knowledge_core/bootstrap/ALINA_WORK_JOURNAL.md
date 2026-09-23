@@ -442,3 +442,19 @@
 - backlog_effect: UI-005 advanced to NOTATION_DRAFT.
 - next_step: UI-006 low-fidelity end-to-end MVP wireframes.
 - priority: P0
+
+
+## Entry 0029 — UI-006 first end-to-end MVP wireframes drafted
+
+- operation: MVP_WIREFRAME_COMPOSITION
+- trigger: UI-001..UI-005 now define room, avatar, workspace objects, Agent Stack and provenance navigation; first complete user-facing composition is required before tests/code.
+- objective: test information hierarchy and daily-work comfort conceptually before visual polish.
+- screens: A default/welcome; B document/knowledge work; C provenance drill-down; D Agent Stack; E long-session focus; F minimal/avatar-hidden; G future team-presence concept.
+- primary_rule: Work Table dominates ordinary work; task boards are secondary; ALINA remains present but must not obstruct; provenance/status is progressively disclosed.
+- comfort_rule: Focus Mode deliberately removes visual noise for long reading/coding/analysis sessions.
+- future_team_rule: additional employee avatars appear on demand because a task needs them, not as a permanent crowd.
+- degradation_rule: workspace remains usable with avatar hidden/unavailable.
+- visual_rule: dark technical room, restrained luminous geometry, readability above glow; no game-HUD wall of panels.
+- backlog_effect: UI-006 advanced to WIREFRAME_DRAFT; production code remains blocked.
+- next_step: UI-007 Pre-Implementation Test Specification.
+- priority: P0
