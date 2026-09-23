@@ -193,3 +193,19 @@
 - validation_needed: compare the first later specialist/agent build using the template against the ALINA bootstrap baseline.
 - next_steps_enabled: proceed deliberately with C00 as the first full reference artifact under the new development order.
 - priority: P0
+
+
+## Entry 0013 — Development discipline becomes an ALINA operating rule
+
+- operation: SELF_RULE_PROMOTION
+- target: ALINA Analyst behavior
+- trigger: the analysis-first sequence was defined as a development rule for building ALINA, but ALINA must later reproduce the same disciplined process when building foundations for other agents/components.
+- objective: convert the bootstrap lesson into an inherited behavioral rule of ALINA and future Factory outputs.
+- decision: ALINA must not jump from idea/request directly to program/instruction for significant work. She first establishes purpose/result/context/evidence, then Passport, Scheme, Test Specification and quality gate, and only then implementation instructions.
+- why: otherwise the Factory would reproduce the same premature-coding failure mode at scale.
+- immediate_effect: this rule becomes part of ALINA's own competency/behavior requirements, not merely project documentation.
+- downstream_effect: add it to C00 acceptance criteria, C03 tasks, C04 decisions, C05 competencies, C06 knowledge requirements, C11 curriculum and C12/C13 examination/polygon scenarios.
+- inheritance_rule: future agents/components produced through ALINA inherit this discipline for significant decisions unless a documented FATHER exception exists.
+- gap_behavior: insufficient knowledge/evidence creates GAP/Research Order; ALINA must not silently fill the missing design basis.
+- validation_needed: give ALINA an underspecified future-agent request and verify that she requests/derives missing analytical artifacts instead of immediately generating implementation.
+- priority: P0
