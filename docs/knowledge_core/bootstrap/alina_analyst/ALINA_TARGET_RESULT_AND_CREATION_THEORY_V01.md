@@ -367,3 +367,102 @@ The journal records the chronological development story; FDR records the normati
 ### Architecture consequence
 
 No future ALINA subsystem should become an opaque monolith. If a block cannot explain its contract, evidence, state, metrics, dependencies and replacement conditions, it is not ready for promotion into the foundation.
+
+
+## 13. Analysis-First Artifact Production Gate
+
+No production program, executable component or operational instruction may be created merely from an idea. Every significant FATHER/ALINA block must pass an analysis-first artifact sequence.
+
+```text
+NEED / PROBLEM
+      ↓
+ANALYTICAL PASSPORT
+      ↓
+SCHEME / NOTATION
+      ↓
+TEST SPECIFICATION
+      ↓
+REVIEW / QUALITY GATE
+      ↓
+PROGRAM OR EXECUTABLE INSTRUCTION
+      ↓
+TEST EXECUTION
+      ↓
+EVIDENCE / METRICS / RELEASE DECISION
+```
+
+### Stage 1 — Analytical Passport
+
+Before implementation, describe in sufficient detail:
+- why the block exists;
+- problem and target result;
+- responsibility and boundaries;
+- what it does and explicitly does not do;
+- users/callers/consumers;
+- inputs and their semantics;
+- outputs and their semantics;
+- internal logical stages;
+- dependencies;
+- assumptions and constraints;
+- state and lifecycle;
+- error/failure behavior;
+- security/legal/data requirements where applicable;
+- evidence and design decisions;
+- metrics and intended operating envelope;
+- extension/replacement points;
+- downstream impact.
+
+Gate: if purpose, boundaries, contracts or expected result are unclear, implementation is BLOCKED.
+
+### Stage 2 — Scheme / Notation
+
+Create a concise visual/formal representation derived from the passport. It must show at minimum:
+- incoming flows/interfaces;
+- outgoing flows/interfaces;
+- internal blocks/stages;
+- key state transitions where relevant;
+- external dependencies;
+- error/fallback paths where relevant;
+- short annotation of each element.
+
+The notation is a compressed model of the passport, not a substitute for analysis. Use the notation appropriate to the object (e.g. component/data-flow/state/sequence/BPMN/UML/graph schema) and record which notation/profile is used.
+
+Gate: scheme must be consistent with the passport and expose missing/ambiguous interfaces before coding.
+
+### Stage 3 — Test Specification Before Implementation
+
+Tests are designed from the passport, contracts, risks and expected results before production code/instructions. Describe:
+- what is being verified and why;
+- preconditions;
+- input/test data;
+- workload/context;
+- expected output/invariants;
+- negative/boundary/failure cases;
+- metrics and validity scope;
+- acceptance threshold;
+- regression conditions;
+- A/B/n comparison plan where relevant;
+- evidence to retain from the run.
+
+Gate: if the result cannot be tested meaningfully, the block is not sufficiently specified for implementation.
+
+### Stage 4 — Program / Instruction
+
+Only after Passport + Scheme + Test Specification pass review may the implementation artifact be created. Code and operational instructions must reference the upstream artifact IDs/versions from which they were derived.
+
+### Change rule
+
+A material implementation change starts with analysis of its impact. If it changes purpose, contract, behavior, metric validity, dependencies or risk, update the Passport/Scheme/Test Specification first; then change code/instruction. Emergency fixes may use an expedited path but require retrospective documentation and regression evidence.
+
+### Required trace
+
+```text
+FDR / REQUIREMENT
+  -> PASSPORT
+  -> SCHEME
+  -> TEST SPEC
+  -> IMPLEMENTATION
+  -> TEST RUN
+  -> METRICS / EVIDENCE
+  -> RELEASE / REJECT / REWORK
+```
