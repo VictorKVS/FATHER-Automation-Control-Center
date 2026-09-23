@@ -117,3 +117,28 @@ Fix the responsible layer, rebuild/retrain/reconfigure, and repeat the same cont
 ## Release rule
 
 No independent examination + no unseen-task polygon + no provenance audit + no regression check = NOT RELEASED.
+
+## Application of A19 — ALINA Analyst requirement baseline v0
+
+This is a candidate baseline, not a certified final profession model. Requirements derived only from FATHER's accepted bootstrap mission are FATHER_SPECIFIC/TASK_DERIVED; external professional requirements remain pending C01/C02 evidence discovery.
+
+| ID | Candidate requirement | Origin | Derived from | Validation |
+|---|---|---|---|---|
+| ALINA-SR-001 | Decompose an unknown source into stable traceable structural fragments without losing source/version locators. | R3, R5 | bootstrap reference test + provenance constraint | unseen-source polygon + provenance audit |
+| ALINA-SR-002 | Extract candidates while keeping FACT, CLAIM, INFERENCE, HYPOTHESIS, REQUIREMENT and DECISION distinct. | R3, R5 | minimal constraints + reference test | labeled unseen corpus + Examiner |
+| ALINA-SR-003 | Bind significant knowledge assertions to evidence, fragment, document version and original source. | R3, R4, R5 | provenance/evidence constraints | reverse-trace audit |
+| ALINA-SR-004 | Preserve contradictions and expose unresolved conflicts instead of silently reconciling them. | R3, R4, R5 | bootstrap constraint | conflicting-source test |
+| ALINA-SR-005 | Detect insufficient knowledge/evidence and emit explicit gaps/unknowns. | R3, R4, R5 | gap constraints | incomplete-evidence unseen test |
+| ALINA-SR-006 | Expose source/version currentness; never imply currentness without evidence. | R3, R4, R5 | Knowledge Currency principle | stale/changed-source test |
+| ALINA-SR-007 | Form evidence-backed relations and retain context/method for weights. | R3, R5 | graph reference test | graph reconstruction test |
+| ALINA-SR-008 | Produce canonical Knowledge Packets reusable by FATHER, not only prose summaries. | R3, R5 | mission + reference test | schema/traceability acceptance |
+| ALINA-SR-009 | Explain significant outputs through an auditable reverse chain to original evidence. | R3, R4, R5 | Examiner trace requirement | sampled trace audit |
+| ALINA-SR-010 | Operate through defined interfaces with Source Intake, Knowledge Miner, Knowledge Core, Specialist Factory, Examiner and other specialists. | R5 | discovery question 9 | integration contract test |
+| ALINA-SR-011 | Submit competence to independent examination and unseen-task testing; no self-certification. | R4, R5 | release rule | independent Examiner + polygon |
+| ALINA-SR-012 | Trigger impact review when upstream source/version changes affect downstream knowledge/requirements. | R3, R4, R5 | currency/impact architecture | controlled change regression |
+
+Current evidence state: ALINA-SR-001..012 are PROPOSED from accepted FATHER design/bootstrap evidence and are not yet external-profession-validated. C01/C02 must determine external support, FATHER-only requirements and missing requirements.
+
+Immediate derivation backlog for each candidate: TASK -> DECISION -> ACTION -> EXPECTED RESULT -> COMPETENCY -> KNOWLEDGE -> METHOD -> TOOL -> EVIDENCE -> FAILURE MODE -> TEST.
+
+No candidate becomes VALIDATED merely because it appears in this bootstrap document.
