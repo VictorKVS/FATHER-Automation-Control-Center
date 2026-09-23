@@ -231,3 +231,86 @@ Thus the same architecture is simultaneously executable, measurable, experimenta
 ## 10. Effect on Agent Foundation Package
 
 The previously defined Agent Foundation Package remains the logical output, but every section must be decomposable into versioned objects/components and linked through explicit interfaces. Task Graph, Decision Graph, Competency Graph, Knowledge Requirements, evidence, methods, tools, evaluation and currency are not static report chapters; they become addressable graph objects that can evolve independently under compatibility and impact controls.
+
+
+## 11. Principle of Context-Valid Metrics and Component Passport Tests
+
+A component is not competitive merely because it has a metric. A metric is meaningful only inside a declared operating context and workload. Therefore every component passport must answer before comparison:
+
+**Does this metric/test make sense for this component under these inputs, workload, constraints and expected use?**
+
+If the answer is NO or UNKNOWN, the metric must not be used to select a winner or promote a replacement.
+
+### Mandatory Component Passport test context
+
+```text
+TEST_CONTEXT
+├── question: does_this_test_make_sense_here?
+├── purpose_of_test
+├── workload_profile
+├── input_distribution
+├── input_size / complexity
+├── concurrency / throughput regime
+├── latency constraints
+├── resource constraints
+├── quality target
+├── failure/risk class
+├── environment / hardware / software
+├── dependencies and versions
+├── dataset / fixture version
+├── warm/cold/cache state where relevant
+├── repetitions / sample size
+├── baseline / competitors
+├── metric definitions
+├── metric validity scope
+├── invalidation conditions
+└── evidence / test run IDs
+```
+
+### Metric validity rule
+
+A metric value is stored with its measurement context. Never compare naked values detached from context.
+
+```text
+METRIC_RESULT =
+(value, metric_definition, component_version, test_context_id,
+ workload, dataset, environment, method, timestamp, run_id)
+```
+
+Comparison is permitted only after a comparability gate checks that the relevant contexts are equivalent or that a documented normalization/comparison method exists.
+
+### Competition gate
+
+```text
+Candidate A + Candidate B
+        ↓
+Same component contract?
+        ↓
+Test meaningful for this use case?
+        ↓
+Comparable inputs/workload/environment?
+        ↓
+Enough observations / stable result?
+        ↓
+Local metric improvement?
+        ↓
+No unacceptable downstream regression?
+        ↓
+PROMOTION CANDIDATE
+```
+
+A faster component under an unrealistic workload is not automatically better. A more accurate component whose latency/cost violates the target operating envelope is not automatically better. The decision must be conditional on the intended use context.
+
+### Passport question set
+
+Every block passport must explicitly record:
+1. What job is this block expected to perform?
+2. Under what inputs and workload?
+3. Which metric represents success for that job?
+4. Why is that metric valid here?
+5. Under what conditions does the metric stop being valid/comparable?
+6. What baseline/alternative is being compared?
+7. What downstream outcome can this local metric affect?
+8. What regression would invalidate an apparent local win?
+
+These questions become visible in ALINA Control Center and are part of experiment/release gates.
