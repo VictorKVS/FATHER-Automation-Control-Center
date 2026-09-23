@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://father.local/contracts/board-state.schema.json",
+  "title": "BoardState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "objectRef",
+    "state",
+    "relationToPrimary",
+    "dataStatus"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objectRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state": {
+      "enum": [
+        "OPEN",
+        "PINNED",
+        "MINIMIZED",
+        "CLOSED"
+      ]
+    },
+    "relationToPrimary": {
+      "type": "string"
+    },
+    "dataStatus": {
+      "enum": [
+        "REAL",
+        "DEMO",
+        "PLANNED",
+        "UNAVAILABLE",
+        "STALE",
+        "UNKNOWN"
+      ]
+    }
+  }
+}
