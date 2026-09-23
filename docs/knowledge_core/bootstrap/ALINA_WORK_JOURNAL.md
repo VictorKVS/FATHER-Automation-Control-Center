@@ -57,3 +57,17 @@
 - how_to_improve: research primary standards, professional bodies and academic frameworks for each gap; register evidence in C02.
 - next_action: create C02 Source & Evidence Register and continue evidence discovery.
 - priority: P0
+
+## Entry 0005 — C02 Source & Evidence Register v0.1
+
+- operation: SOURCE_AND_EVIDENCE_DISCOVERY
+- target: ALINA Analyst
+- result: C02_V01_CREATED
+- sources_added: ISO 30401:2018; ISO/DIS 30401; OMG ODM; Cochrane Handbook; NIST AI RMF/AIRC; NIST AI 600-1; retained ODNI/CIA/W3C sources from C01.
+- important_currency_finding: ISO 30401:2018 is published but has amendments and a replacement draft in progress; NIST AI RMF 1.0 is under revision. This validates the need to store source currentness separately from source authority.
+- capability_updates: knowledge-management lifecycle; ontology/semantic representation; systematic evidence synthesis; AI TEVV/evaluation.
+- caution: domain-specific methods (e.g. Cochrane healthcare review methodology) are evidence sources for method principles, not universal rules for all FATHER domains.
+- changed: created C02_SOURCE_EVIDENCE_REGISTER_V01.md; linked sources to candidate ALINA requirements.
+- remaining_gaps: competency/instructional engineering; decision science; data/metadata quality; regulatory research; graph engineering evaluation; LLM/agent benchmarks.
+- next_action: evidence pass on competency formation + decision science, then update ALINA requirements and C03 Task Graph.
+- priority: P0
