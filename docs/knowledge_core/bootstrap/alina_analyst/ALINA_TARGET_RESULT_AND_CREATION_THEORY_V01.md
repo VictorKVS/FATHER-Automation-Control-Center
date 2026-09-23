@@ -314,3 +314,56 @@ Every block passport must explicitly record:
 8. What regression would invalidate an apparent local win?
 
 These questions become visible in ALINA Control Center and are part of experiment/release gates.
+
+
+## 12. ALINA Foundation Quality Attributes and FATHER Decision Record Rule
+
+ALINA is foundational infrastructure for future FATHER agents. Therefore every architectural and behavioral decision affecting ALINA must be recorded under FATHER governance and must optimize not only immediate function but long-term inspectability and evolution.
+
+Mandatory foundation quality attributes:
+
+- TRANSPARENT — inputs, transformations, evidence, decisions, outputs, metrics and changes are traceable.
+- PREDICTABLE — contracts, state transitions, failure modes and expected behavior are explicit and testable; stochastic behavior is bounded/observed rather than hidden.
+- ADAPTABLE — behavior/configuration/knowledge can change by context without rewriting the whole system.
+- EXTENSIBLE — new components, methods, models, sources, metrics and specialists can be added through stable contracts.
+- MODULAR — meaningful responsibilities are isolated behind interfaces.
+- REPLACEABLE — implementations can be substituted with compatibility, regression and rollback controls.
+- OBSERVABLE — execution, quality, cost, latency, resource use and failures are measurable.
+- EVIDENCE-TRACEABLE — significant claims and decisions can be traced to evidence or explicitly labeled assumptions/design decisions.
+- VERSIONED — artifacts, contracts, knowledge, metrics and decisions preserve history.
+- TESTABLE — each significant component has context-valid tests and quality gates.
+- FAIL-SAFE / RECOVERABLE — failures are visible; fallback, quarantine or rollback behavior is defined where required.
+- GOVERNED — promotion, supersession and release follow explicit authority and independent evaluation rules.
+
+### FATHER Decision Record (FDR)
+
+Every significant decision must have an addressable decision object, not only prose in a journal:
+
+```text
+FDR
+├── decision_id / version / status
+├── problem / trigger
+├── scope
+├── desired outcome
+├── context / constraints
+├── evidence / assumptions
+├── alternatives considered
+├── decision and rationale
+├── affected components/contracts
+├── expected effects
+├── risks / trade-offs
+├── metrics / tests / acceptance gate
+├── downstream impact
+├── provenance
+├── owner / approver where applicable
+├── effective_from
+├── review trigger / next review
+├── supersedes / superseded_by
+└── rollback / reversal conditions
+```
+
+The journal records the chronological development story; FDR records the normative current decision. They link to each other but serve different purposes.
+
+### Architecture consequence
+
+No future ALINA subsystem should become an opaque monolith. If a block cannot explain its contract, evidence, state, metrics, dependencies and replacement conditions, it is not ready for promotion into the foundation.
