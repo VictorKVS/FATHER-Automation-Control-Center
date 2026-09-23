@@ -648,3 +648,20 @@
 - validation_status: NEAR_GREEN, RETEST_REQUIRED. Build remains unexecuted because the failing test stopped the job.
 - next_step: inspect new CI run; if tests pass, analyze TypeScript/Vite build independently and fix any build-only gaps before M1 baseline release.
 - priority: P0
+
+
+## Entry 0042 — All M1 tests GREEN; first build-only gaps identified and repaired
+
+- operation: TEST_GATE_PASSED_BUILD_GATE_REPAIR
+- evidence: GitHub Actions run 35853497939.
+- test_result: 4/4 test files passed; 14/14 tests passed; Vitest duration 2.62 s.
+- contract_result: JSON Schema conformance, fixture hygiene, UI/state behavior and reduced-motion source checks all passed in this run.
+- build_result: FAILED during tsc -b before Vite bundling.
+- build_gap_1: TS2882 for side-effect import ./styles.css because Vite client module declarations were absent.
+- repair_1: added src/vite-env.d.ts referencing vite/client.
+- build_gap_2: node:fs, node:path and process were unresolved because @types/node was installed but tsconfig.app.json restricted types to vitest/globals only.
+- repair_2: added node to compilerOptions.types.
+- interpretation: test gate is now evidenced GREEN for run 35853497939; M1 release gate remains blocked until build is GREEN.
+- telemetry: npm install 112 packages / audit 113 / 0 vulnerabilities; tests 14/14 PASS; test duration 2.62 s. Values are specific to this CI run.
+- next_step: retest CI and inspect build; if Vite bundling succeeds, capture output/bundle metrics and establish first M1 runnable baseline. If not, classify next build GAP and continue.
+- priority: P0
