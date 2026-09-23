@@ -58,3 +58,12 @@ Extract the ALINA avatar contract into a FATHER Employee Avatar System so future
 ## MVP scope gate
 
 MVP-00 is now defined in `MVP_00_CONTROL_CENTER_SCOPE_V01.md`. UI-003 onward must distinguish MUST WORK, DEMO/PLANNED and SUPER-PROJECT capabilities. The first implementation must include a narrow real Source -> Knowledge -> Evidence/Provenance vertical slice and must not be demo-only.
+
+
+## M1 Runnable Baseline — 2026-09-23
+
+Status: **VALIDATED_BASELINE**
+
+Evidence: GitHub Actions run `35853674078` completed successfully. Install, all 14 tests, TypeScript compilation, and Vite production build passed. Build output: 19 modules transformed; index.html 0.41 kB (gzip 0.30 kB), CSS 2.76 kB (gzip 1.18 kB), JS 225.00 kB (gzip 70.73 kB); Vite build phase 165 ms. These metrics are specific to that CI run and are not workstation performance claims.
+
+M1 scope remains DEMO-only and backend-independent. This baseline does not claim Knowledge Core connectivity, production readiness, final 3D ALINA rendering, or M2 completion.
