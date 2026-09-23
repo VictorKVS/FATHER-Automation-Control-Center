@@ -158,3 +158,20 @@
 - validation_needed: demonstrate end-to-end trace from one released behavior to component -> FDR -> journal -> evidence/test, then replace the component and preserve history.
 - next_steps_enabled: freeze C00 acceptance baseline and begin C03 with governance-ready component/task objects.
 - priority: P0
+
+
+## Entry 0011 — Analysis-first implementation gate
+
+- operation: DEVELOPMENT_ORDER_FIXED
+- target: all significant ALINA/FATHER blocks
+- trigger: modular architecture still permits premature coding unless the required order of analytical artifacts is explicit.
+- objective: make implementation the consequence of analysis, not the place where requirements and architecture are discovered accidentally.
+- decision: mandatory order is Analytical Passport -> Scheme/Notation -> Test Specification -> Review Gate -> Program/Instruction -> Test Run -> Evidence/Metrics -> Release decision.
+- why: the passport explains what/why/how and boundaries; the scheme exposes flows/interfaces/internal structure; pre-implementation tests make expected behavior falsifiable; only then is code or an operational instruction justified.
+- immediate_effect: production implementation is BLOCKED when passport, scheme or meaningful test specification is absent for a significant block.
+- downstream_effect: C03-C10 must produce implementation-ready analytical objects; C12/C13 reuse predeclared tests and workload contexts; Control Center can show maturity stage of each block; Factory can automate promotion gates.
+- change_effect: material changes must update analysis artifacts first; emergency fixes require retrospective documentation and regression evidence.
+- risk: documentation overhead. Mitigation: depth scales with decision significance D0-D4; trivial D0 operations remain lightweight.
+- validation_needed: apply this sequence to the first executable ALINA component and verify code can be derived without inventing unstated requirements during implementation.
+- next_steps_enabled: C00 can define the artifact maturity gates; first ALINA component will become the reference implementation of this rule.
+- priority: P0
