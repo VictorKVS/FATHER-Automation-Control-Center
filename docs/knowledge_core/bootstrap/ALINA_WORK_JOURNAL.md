@@ -665,3 +665,19 @@
 - telemetry: npm install 112 packages / audit 113 / 0 vulnerabilities; tests 14/14 PASS; test duration 2.62 s. Values are specific to this CI run.
 - next_step: retest CI and inspect build; if Vite bundling succeeds, capture output/bundle metrics and establish first M1 runnable baseline. If not, classify next build GAP and continue.
 - priority: P0
+
+
+## Entry 0043 — First Runnable M1 Baseline validated GREEN
+
+- operation: M1_BASELINE_VALIDATION
+- evidence: GitHub Actions run 35853674078 completed SUCCESS.
+- environment: application test/build runtime Node v22.23.2, npm 10.9.8; GitHub runner also emitted separate deprecation warnings for Node 20-targeting action internals.
+- install: PASS; 112 packages added, 113 audited, 0 vulnerabilities reported by npm in this run.
+- tests: PASS; 4/4 test files, 14/14 tests, Vitest duration 2.69 s.
+- build: PASS; tsc -b and Vite production build succeeded.
+- build_output: Vite 8.3.0; 19 modules transformed; dist/index.html 0.41 kB / gzip 0.30 kB; CSS 2.76 kB / gzip 1.18 kB; JS 225.00 kB / gzip 70.73 kB; Vite build phase 165 ms.
+- release_interpretation: first technically runnable and CI-validated M1 baseline established for the DEMO-only ALINA Control Center shell.
+- explicitly_not_claimed: no real Knowledge Core backend, no production deployment, no final 3D avatar, no M2 vertical slice, no user usability validation, no workstation benchmark.
+- process_evidence: the M1 loop produced failures, classified gaps, committed repairs, reran validation and reached GREEN without suppressing failed history.
+- next_phase: VISUAL_AND_INTERACTION_REVIEW of the runnable baseline, then lockfile/reproducibility hardening and M2 real Knowledge vertical-slice preparation under the same passport -> notation -> tests -> implementation rule.
+- priority: P0 COMPLETE for M1 runnable baseline; visual review remains P1 and M2 remains P0 next milestone.
