@@ -473,3 +473,20 @@
 - backlog_effect: UI-007 advanced to TEST_SPEC_DRAFT; implementation remains blocked.
 - next_step: UI-008 workload/performance/accessibility profiles and representative target environments; locate/define the real vertical-slice data contract.
 - priority: P0
+
+
+## Entry 0031 — UI-008 workload/performance/accessibility profiles drafted
+
+- operation: TEST_CONTEXT_PROFILE_DESIGN
+- trigger: UI-007 requires valid operating contexts before performance/usability metrics can be interpreted.
+- objective: define desktop-first viewport, workload, render, accessibility, long-session and failure contexts without inventing benchmark thresholds.
+- target: sustained desktop analytical work; mobile full-workspace support is not release-blocking for MVP.
+- workload_profiles: idle, document focus, normal analysis, provenance trace, Agent Stack inspection, busy workspace, degraded render, degraded backend, restore.
+- render_rule: rich 3D is optional enhancement; analytical work must survive LIGHT/2D/STATUS_ONLY paths.
+- accessibility: reduced motion, keyboard-oriented operation, low visual effects, color-independent status, avatar-off mode.
+- performance_rule: capture latency/render/resource/restore/long-session metrics under TEST_CONTEXT; thresholds wait for actual prototype and representative hardware.
+- hardware_rule: do not optimize only for high-end GPU; record actual development workstation and at least one lower-capability/degraded profile.
+- comparison_rule: A/B comparisons require comparable workload, viewport, render/data/backend context and metric definitions.
+- backlog_effect: UI-008 advanced to PROFILE_DRAFT.
+- next_step: UI-009 A/B experiment hypotheses; identify real vertical-slice data contract before UI-010 implementation plan.
+- priority: P0
