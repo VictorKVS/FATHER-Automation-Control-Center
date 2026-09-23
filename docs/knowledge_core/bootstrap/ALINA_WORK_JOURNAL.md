@@ -375,3 +375,18 @@
 - downstream_effect: backlog and tests must distinguish MVP acceptance from super-project acceptance.
 - next_step: before continuing UI-003 detail, define MVP scope/vertical slice so the website can become usable without coupling its release to the full ALINA roadmap.
 - priority: P0
+
+
+## Entry 0025 — MVP-00 Control Center scope frozen as baseline
+
+- operation: MVP_SCOPE_BASELINE
+- trigger: product split requires a precise boundary between a beautiful usable shell and the long-horizon ALINA super-project.
+- objective: prevent both overbuilding and a fake demo-only MVP.
+- action: created MVP_00_CONTROL_CENTER_SCOPE_V01.md and bound the UI backlog to it.
+- must_work: command-room shell; ALINA presence/move/collapse/fallback; central Work Table; limited deployable boards; one real canonical Source->Knowledge->Evidence/Provenance vertical slice; knowledge navigation; one structured Agent Stack; workspace-state restoration; truthful real/demo/unavailable status.
+- may_demo: Training, advanced Metrics/Dashboards, full Polygon/Zoo/Time Machine/Impact, rich gestures/voice/advanced 3D, provided they are explicitly marked.
+- out_of_mvp: full Specialist Factory and deep ALINA engines/orchestration/evolution do not block shell release.
+- UX_goal: pleasant low-friction long-session workspace is an explicit acceptance concern.
+- anti_fake_rule: MVP must contain at least one narrow real end-to-end data path and cannot consist solely of mock screens.
+- next_step: UI-003 Work Table + Board model constrained to MVP scope.
+- priority: P0
