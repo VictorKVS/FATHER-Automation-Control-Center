@@ -583,3 +583,21 @@
 - security: no secrets, private documents, personal data or local absolute paths added.
 - next_step: remove fixture duplication, implement T06-T10 + state restore/fallback, add CI/frontend validation, then execute build/tests on a runtime.
 - priority: P0
+
+
+## Entry 0038 — M1 duplicate fixture gap removed; T06-T10 implementation completed
+
+- operation: GAP_REPAIR_AND_TEST_COMPLETION
+- trigger: Entry 0037 identified duplicated DEMO data and missing T06-T10/state restore/fallback behavior.
+- gap_repair: demoData.ts no longer contains a second copy of the fixture; it is now a typed adapter over apps/alina-control-center/fixtures/demo-workspace.json.
+- state_change: added workspaceState.ts with versioned local-storage key, safe defaults, serialization and corrupt-state fallback. Persisted data contains presentation state only, not canonical FATHER object copies.
+- avatar_failure_behavior: App accepts renderer availability; renderer failure degrades to STATUS ONLY while Work Table remains usable.
+- invalid_state_behavior: corrupt persisted state falls back to safe default instead of inventing workspace truth.
+- tests_added_or_extended: T06 avatar renderer failure; T07 presentation restore/no canonical duplication; T08 reduced-motion contract; T09 corrupt-state fallback; T10 public-fixture hygiene. T01-T05 retained.
+- security_test: fixture test rejects obvious absolute Windows paths, secret-like fields and selected PII-like fields.
+- expected_effect: all M1 T01-T10 now have executable test representations.
+- limitation: tests/build still have NOT been executed in a Node runtime; code presence is not test evidence.
+- remaining_gap: JSON Schema validation is not yet executable in the frontend test suite; schema/fixture conformance should be added before calling contracts validated.
+- remaining_gap: T09 currently validates corrupt persisted state, while malformed aggregate fixture injection still needs a dedicated adapter-level test if required by the original wording.
+- next_step: add schema validation/CI and execute npm install + build + test on an actual runtime; record exact versions, failures, timings and fixes.
+- priority: P0
