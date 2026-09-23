@@ -551,3 +551,17 @@
 - implementation_gate: PASSED_FOR_SCAFFOLDING; validation remains pending until tests are implemented/executed.
 - next_step: create framework-independent JSON contracts + sanitized demo fixture, then scaffold React/Vite M1 and implement T01-T10.
 - priority: P0
+
+
+## Entry 0036 — M1 framework-independent contracts and sanitized fixture created
+
+- operation: CONTRACT_FIRST_SCAFFOLDING
+- trigger: Entry 0035 passed the pre-code design gate and required contracts/fixture before React implementation.
+- artifacts: apps/alina-control-center boundary; FatherObject JSON Schema; BoardState JSON Schema; WorkspaceState JSON Schema; DemoWorkspace aggregate schema; sanitized demo-workspace fixture; app README.
+- contract_rule: canonical object identity/status/provenance references remain distinct from WorkspaceState presentation data.
+- truth_rule: fixture root is DEMO; objects independently carry DEMO/PLANNED status; no object is marked REAL.
+- security_check_by_design: fixture contains no personal data, secrets, private documents or absolute local paths.
+- implementation_effect: frontend can now consume framework-independent contracts without inventing a Knowledge Core schema.
+- limitation: JSON Schema validation has not yet been executed in CI; references/contract behavior remain to be covered by M1 executable tests.
+- next_step: create React/Vite M1 scaffold and implement the first executable tests against these contracts/fixture.
+- priority: P0
