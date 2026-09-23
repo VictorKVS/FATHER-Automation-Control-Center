@@ -537,3 +537,17 @@
 - security_rule: public repo receives sanitized contracts/fixtures only; no local paths, secrets, private documents, personal data or production dumps.
 - next_step: FDR frontend/framework choice + M1 component/contract passport + pre-code tests, then scaffold runnable M1.
 - priority: P0
+
+
+## Entry 0035 — M1 implementation gate completed before code
+
+- operation: DESIGN_DECISION_AND_PRECODE_GATE
+- trigger: ENG-001 resolved repository structure and showed no existing frontend stack.
+- decision: FDR-UI-001 accepts TypeScript + React + Vite for M1 only; final 3D engine, backend, database, state library and design system remain undecided.
+- rationale: small explicit component boundary, typed contracts, rapid desktop MVP iteration, future renderer adapter; avoid unnecessary full-stack framework commitment.
+- passport: M1-CP-001 defines Control Center Shell responsibility, inputs/outputs, contracts, failure behavior, security and replaceability.
+- tests_before_code: M1-TEST-001 defines T01-T10 startup, truth status, board lifecycle, focus, avatar collapse/fallback, restore, reduced motion, invalid fixture and public-fixture hygiene.
+- architecture_rule: canonical object references remain separate from presentation state; DEMO never silently becomes REAL.
+- implementation_gate: PASSED_FOR_SCAFFOLDING; validation remains pending until tests are implemented/executed.
+- next_step: create framework-independent JSON contracts + sanitized demo fixture, then scaffold React/Vite M1 and implement T01-T10.
+- priority: P0
