@@ -700,3 +700,23 @@
 - improvement: future local-run instructions must include a preflight gate and stop before npm commands when branch/path/package prerequisites are false.
 - priority: P1 visual quality; process preflight rule P0 for repeatable local execution.
 - next_action: create M1.1 Visual Architecture Passport + Spatial Scheme, then define visual/interaction acceptance tests before implementation.
+
+
+## Entry 0045 — ALINA-first backend track and Makar Agent validation case
+
+- operation: BACKEND_PRIORITY_AND_FIRST_AGENT_VALIDATION_CASE
+- trigger: frontend work is moved to a separate conversation while this workstream continues the FATHER backend; the development order was clarified so that ALINA itself is the first primary system being built.
+- primary_goal: create ALINA Analyst as the first FATHER meta-specialist capable of researching a target domain, forming evidence-backed knowledge, identifying gaps and contradictions, and producing a testable Agent Knowledge Foundation for future agents/specialists.
+- architecture_decision: Knowledge Core, Evidence/Provenance, Graph, Retrieval/RAG, Research Loop and Specialist Factory are developed as capabilities required by ALINA rather than as independent end products.
+- bootstrap_role: Specialist Knowledge Engineer remains the reference methodology/competency used to teach and validate ALINA's knowledge-formation process; ALINA must not self-certify.
+- validation_case: Makar Agent is selected as the first compact end-to-end applied agent case developed in parallel with ALINA.
+- makar_scope_v01: Agent Passport + System Prompt + Knowledge Base + RAG + learner-specific memory/progress model + task generation + answer checking + hints + difficulty control + evaluation.
+- separation_rule: canonical educational knowledge must remain separate from learner-specific state, mistakes, progress and preferences; personal state must not be promoted into canonical knowledge.
+- reuse_rule: Makar must reuse the same FATHER contracts for knowledge, evidence, provenance, retrieval and evaluation wherever applicable instead of creating an isolated toy architecture.
+- learning_objective: every manual design decision made while building Makar v0.1 becomes evidence for improving ALINA's Agent Foundation creation algorithm.
+- target_experiment: after the Makar v0.1 pipeline is reproducible, ALINA must use the accumulated method to construct the foundation of a new agent with materially less manual specification.
+- quality_gate: no implementation jump. For both ALINA and Makar use NEED/PROBLEM -> PASSPORT -> SCHEME/NOTATION -> TEST SPECIFICATION -> REVIEW -> IMPLEMENTATION -> TEST EXECUTION -> EVIDENCE/METRICS.
+- truth_rule: FACT != CLAIM != INFERENCE != HYPOTHESIS; RAG is an access mechanism, not canonical truth; agent answers must remain traceable to knowledge/evidence where the task requires factual grounding.
+- immediate_next_action: create the backend ALINA bootstrap passport and the Makar Agent v0.1 passport/contract boundary, then define the shared vertical slice Source -> Version -> Fragment -> Evidence -> Knowledge Object -> Retrieval -> grounded answer.
+- improvement: use Makar as a deliberately small proving ground so architectural failures are found before professional Specialist Factory agents multiply them.
+- priority: P0
