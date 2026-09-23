@@ -14,7 +14,7 @@ Rule: backlog entry does not authorize production code until analysis/notation/t
 | UI-006 | Full/focused/eyes/minimal wireframes | WIREFRAME_DRAFT | REVIEW -> WIREFRAME_BASELINE |
 | UI-007 | Pre-implementation UI test specification | TEST_SPEC_DRAFT | REVIEW -> TEST_SPECIFIED |
 | UI-008 | Performance/accessibility/fallback profiles | PROFILE_DRAFT | REVIEW -> PROFILE_BASELINE |
-| UI-009 | A/B experiment plan | IDEA_CAPTURED | TEST_SPECIFIED |
+| UI-009 | A/B experiment plan | EXPERIMENT_PLAN_DRAFT | REVIEW -> EXPERIMENT_BASELINE |
 | UI-010 | Production implementation plan | BLOCKED | UI-001..009 reviewed |
 
 ## Definition of Implementation Ready
