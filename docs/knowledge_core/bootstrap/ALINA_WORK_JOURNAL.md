@@ -141,3 +141,20 @@
 - validation_needed: run the same component under at least two materially different workload profiles and demonstrate that FATHER does not incorrectly generalize one result to the other.
 - next_steps_enabled: C00 can define ALINA operating envelopes; C03 tasks can attach workload classes; C12/C13 can derive tests from those classes.
 - priority: P0
+
+
+## Entry 0010 — ALINA declared transparent, predictable, adaptable and extensible foundation
+
+- operation: FOUNDATION_QUALITY_AND_DECISION_GOVERNANCE_BASELINE
+- target: ALINA Analyst
+- trigger: modularity, A/B testing and context-valid metrics were defined, but the foundational non-functional qualities and formal treatment of design decisions were not yet stated as one mandatory baseline.
+- objective: ensure ALINA remains understandable and evolvable as future agents, models, methods and knowledge domains are added.
+- action: declared mandatory foundation qualities and introduced FATHER Decision Record (FDR) for every significant decision.
+- why: ALINA will become upstream infrastructure for many agents. Opaque or irreversible choices made here would multiply downstream technical debt and make future evidence, replacement and impact analysis unreliable.
+- immediate_effect: significant decisions now require both chronological Journal trace and an addressable normative FDR object.
+- downstream_effect: C00 acceptance criteria must include transparency/predictability/adaptability/extensibility; C03-C10 objects must expose contracts and dependencies; C12/C13 must test these properties where measurable; Control Center must render FDR, version, impact and supersession links.
+- design_distinction: Journal = what happened and why over time. FDR = current/superseded formal decision and its normative rationale/conditions.
+- risks: excessive bureaucracy for trivial choices. FDR is required for significant decisions; trivial D0 choices remain lightweight under decision-significance rules.
+- validation_needed: demonstrate end-to-end trace from one released behavior to component -> FDR -> journal -> evidence/test, then replace the component and preserve history.
+- next_steps_enabled: freeze C00 acceptance baseline and begin C03 with governance-ready component/task objects.
+- priority: P0
