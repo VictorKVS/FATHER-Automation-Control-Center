@@ -301,3 +301,16 @@
 - failure_condition: any design that embeds ALINA as a portrait/background inside a monitor fails the intended interaction model.
 - downstream_effect: spatial notation, wireframes, avatar movement/state tests and future concept art must use the corrected depth model.
 - priority: P0
+
+
+## Entry 0020 — Agents represented as layered intelligence stacks
+
+- operation: AGENT_LAYER_VISUALIZATION_REQUIREMENT
+- trigger: user supplied stacked intelligence/process references and proposed presenting agent information by layers.
+- objective: make an agent's internal foundation understandable at a glance while retaining drill-down to canonical objects.
+- decision: add a vertical layered Agent Stack projection. Candidate baseline runs from runtime/input/evidence/knowledge/competence/methods/actions/decisions to outcomes, but layer count and specialization remain configurable by Factory evidence.
+- anti-pattern: do not freeze a decorative universal nine-layer taxonomy merely because the reference image uses a stack.
+- traceability_rule: each layer is a projection of canonical tasks/decisions/competencies/knowledge/evidence/components/tests, with IDs/versions/status and reverse trace.
+- interaction_rule: whole-stack view, layer expand/isolate, compact collapse, exploded graph/pipeline view, and context-valid same-layer comparison across agents.
+- next_gate: include Agent Stack in spatial notation and later test whether the layer model improves navigation/comprehension without hiding cross-layer relations.
+- priority: P1
