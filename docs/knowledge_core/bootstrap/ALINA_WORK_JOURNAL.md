@@ -780,3 +780,17 @@
 - architecture_effect: AvatarRenderer remains replaceable and decoupled from ALINA backend/runtime. Workspace panels and boards consume shared presentation/task state, not avatar-internal state.
 - next_action: encode these presence modes and full-screen workspace transitions in the Control Center interaction architecture before frontend implementation.
 - priority: P1 UX architecture; P0 separation-of-concerns invariant.
+
+
+## Entry 0050 — 3D game/avatar reference research started for ALINA prototype
+
+- operation: ALINA_3D_REFERENCE_RESEARCH
+- trigger: user requested finding a 3D game/avatar foundation and creating an ALINA prototype with a game-like moving/talking character.
+- research_result: selected norio/vrm-game-starter as the strongest base reference for locomotion/scene interaction because it provides VRM 0.x/1.0 loading, walk/run/jump animation retargeting, foot IK, character controller, collision, in-browser level editing, WebGPU rendering, inspector and tests; source code is MIT while bundled assets retain separate licenses.
+- secondary_reference: Undi95/Hanami is highly relevant for living-scene behavior, walking/sitting/gestures, VRMA animation families, gaze/idle/conversation states and avatar+conversation UX, but its application code is AGPL-3.0 and assets have mixed licenses; treat primarily as architectural/behavioral inspiration unless license review explicitly approves code reuse.
+- voice_reference: ReactFiberAvatarTalk and similar R3F avatar projects demonstrate GLB/VRM voice, viseme and lip-sync pipelines; provider-specific voice code is not adopted as a canonical backend dependency at this stage.
+- prototype_direction: ALINA 3D prototype should combine a game-style scene/character-controller layer with an independent Presence Controller and voice/text channels. Avatar rendering remains replaceable and ALINA backend remains independent.
+- first_prototype_scope: one 3D room; one ALINA humanoid; idle/walk/turn; move between Work Table and Information Wall; camera framing; selectable panel anchors; panel full-screen transition; avatar hide/voice-only mode; mock ALINA state transitions. Lip-sync and production voice integration follow after movement/scene baseline.
+- licensing_rule: do not copy mixed-license assets into FATHER without explicit asset-level review; prefer our own or clearly redistributable VRM/animation/environment assets.
+- next_gate: create a 3D prototype passport + scene/state notation + executable test specification before implementation, preserving existing M1/M1.1 contracts.
+- priority: P1 frontend prototype, P0 architectural decoupling/licensing.
