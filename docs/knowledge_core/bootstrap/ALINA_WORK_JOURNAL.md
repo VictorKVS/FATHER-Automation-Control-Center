@@ -824,3 +824,21 @@
 - quality_gate: code is now authorized only within the defined smallest vertical slice; release remains blocked until automated tests/build and manual visual evidence pass.
 - next_action: inspect current frontend tree/contracts/tests and implement P0 typed 3D presence contracts/state machine first, preserving M1 regression suite.
 - priority: P0 architecture/test discipline.
+
+
+## Entry 0053 — ALINA 3D P0 typed Presence Controller implemented
+
+- operation: ALINA_3D_P0_PRESENCE_CONTROLLER
+- trigger: Entry 0052 authorized the smallest implementation vertical slice after Passport, Notation and Test Specification.
+- repository_inspection: existing frontend is React/Vite with M1 presentation persistence, AvatarPresence types and regression tests; no 3D runtime dependency is added in P0.
+- artifacts:
+  - apps/alina-control-center/frontend/src/presenceController.ts
+  - apps/alina-control-center/frontend/src/presenceController.test.ts
+- implementation: typed PresenceMode, BehaviorState, SceneAnchor, WorkspacePanel, PresenceState, PresenceCommand and pure reducePresence state transition function.
+- covered_acceptance: 3D-001, semantic portion of 3D-002, 3D-003, 3D-004, 3D-005, 3D-006 and 3D-010.
+- architectural_reason: establish renderer-independent semantics before adding Three.js/R3F/VRM. This prevents scene code from becoming canonical task state.
+- known_gap: MOVE_TO currently represents semantic destination/state only; physical interpolation, target tolerance, animation completion and orientation belong to P1/P3 and are not claimed complete.
+- dependency_gap: existing package.json uses latest dependency ranges; no dependency pinning change made in this P0 commit.
+- validation_status: code and tests committed; GitHub-side edit does not itself prove local/CI execution. Test/build execution evidence must be collected before marking PASS.
+- next_action: run/inspect CI for P0; if green, implement P1 isolated 3D scene/camera/anchors without permanent avatar asset.
+- priority: P0.
