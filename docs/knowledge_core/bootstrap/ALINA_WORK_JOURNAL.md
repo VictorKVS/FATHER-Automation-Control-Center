@@ -811,3 +811,16 @@
 - implementation_status: BLOCKED_BY_TEST_SPEC by design.
 - next_action: create ALINA 3D executable test specification, review gate, then implement the smallest movement/scene prototype while preserving M1 regressions.
 - priority: P1 prototype; P0 separation/fallback/truth invariants.
+
+
+## Entry 0052 — ALINA 3D pre-code test specification completed
+
+- operation: ALINA_3D_TEST_SPEC_BASELINE
+- trigger: user approved continuation after Passport and Scene/State Notation.
+- artifact: docs/knowledge_core/bootstrap/alina_analyst/ALINA_3D_PRESENCE_TEST_SPEC_V01.md
+- tests_defined: contract, deterministic state, scene movement, full-screen workspace, hide/show continuity, renderer fallback, reduced motion, truth preservation, unknown-data handling, state restoration, command validation, M1 regression, production build and visual evidence.
+- key_fixture: sanitized DEMO Makar foundation state; no real learner/private data.
+- implementation_order: contracts/state machine -> scene/camera/anchors -> temporary licensed humanoid adapter -> locomotion -> panel/full-screen -> fallback/accessibility -> visual evidence/metrics -> later voice/lip-sync/permanent ALINA asset.
+- quality_gate: code is now authorized only within the defined smallest vertical slice; release remains blocked until automated tests/build and manual visual evidence pass.
+- next_action: inspect current frontend tree/contracts/tests and implement P0 typed 3D presence contracts/state machine first, preserving M1 regression suite.
+- priority: P0 architecture/test discipline.
