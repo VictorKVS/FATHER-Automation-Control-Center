@@ -407,3 +407,20 @@
 - backlog_effect: UI-003 advanced to NOTATION_DRAFT; implementation remains blocked.
 - next_step: UI-004 Agent Stack/layer contract.
 - priority: P0
+
+
+## Entry 0027 — UI-004 layered Agent Stack drafted
+
+- operation: AGENT_STACK_NOTATION
+- trigger: UI-003 established a universal Board/Work Table grammar; next step is to make agents understandable without creating a separate UI architecture.
+- objective: represent each FATHER employee/agent as a layered, inspectable, evidence-linked specialist rather than a black box or decorative avatar.
+- decision: baseline L0-L8 stack = Runtime; Input/Context; Evidence; Knowledge; Competencies/Tasks; Methods/Tools; Actions/Workflows; Decisions/Reasoning; Outcomes.
+- architecture_rule: Stack is a projection of Agent Foundation canonical objects, not a second source of truth.
+- interaction_rule: Stack -> Layer -> Board -> Work Table -> Evidence/Source, reusing UI-003.
+- identity_rule: Avatar answers who is present; Stack answers what supports specialist capability. They share specialist_id but remain replaceable independent components.
+- transparency_rule: no magical intelligence score; show typed evidence/currentness/validation/gap/test/runtime states and UNKNOWN when appropriate.
+- privacy_reasoning_rule: active-work visualization may show task/runtime events and object traces, not hidden chain-of-thought.
+- MVP_rule: ALINA reference stack needs only a small structured real subset plus explicit DEMO/PLANNED layers; full L0-L8 engines do not block MVP.
+- future_reuse: same contract supports Lawyer, InfoSec, Architect, Programmer, OSINT, Researcher and other FATHER employees.
+- next_step: UI-005 Knowledge/Evidence/Provenance navigation contract.
+- priority: P0
