@@ -314,3 +314,15 @@
 - interaction_rule: whole-stack view, layer expand/isolate, compact collapse, exploded graph/pipeline view, and context-valid same-layer comparison across agents.
 - next_gate: include Agent Stack in spatial notation and later test whether the layer model improves navigation/comprehension without hiding cross-layer relations.
 - priority: P1
+
+
+## Entry 0021 — Control Center concepts accepted into active development
+
+- operation: UI_BACKLOG_ACTIVATION
+- trigger: user approved the accumulated Control Center, embodied ALINA and Agent Stack concepts and requested they be entered into the project and development.
+- action: updated Technical Brief with accepted concept baseline and maturity pipeline; created ALINA_CONTROL_CENTER_DEVELOPMENT_BACKLOG_V01.md.
+- development_rule: accepted means scheduled for governed development, not permission to skip notation/tests and immediately code.
+- active_items: UI-001 spatial notation; UI-002 avatar state/movement; UI-003 work table/boards; UI-004 Agent Stack; UI-005 Knowledge/provenance flow; UI-006 wireframes; UI-007 tests; UI-008 workload/accessibility/fallback; UI-009 A/B plan; UI-010 implementation plan blocked behind prior gates.
+- immediate_next: UI-001 + UI-002 notation, because room geometry and avatar movement/collapse are coupled.
+- expected_reuse: these artifacts become part of the future FATHER UI development template.
+- priority: P0
