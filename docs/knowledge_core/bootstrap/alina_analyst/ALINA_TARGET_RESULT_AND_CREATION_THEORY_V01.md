@@ -155,3 +155,79 @@ Before C03 create C00 Target Result / Problem / Context / Acceptance artifact. T
 C00 -> C03 Task Graph -> C04 Decision Graph -> A19 Requirement derivation -> C05 Competency Graph -> C06 Knowledge Requirements -> C07 Methods -> C08 Tools -> C09 Failures -> C10 Learning -> C11 Curriculum -> C12 Exam -> C13 Polygon -> C14 Gaps -> C15 Release Evidence Pack.
 
 This ordering is provisional and must be tested during ALINA bootstrap.
+
+
+## 8. Principle of Modular Experimental Architecture
+
+Every material part of ALINA and every future Agent Foundation is designed as a replaceable, versioned block/object/callable component with an explicit contract. The architecture must allow a component to be evaluated, A/B/n tested, shadow-tested, replaced by a better future implementation, rolled back, and traced without rebuilding the whole chain.
+
+Canonical component contract:
+
+```text
+COMPONENT
+├── component_id / type / version
+├── purpose
+├── position_in_pipeline
+├── input_contract
+├── output_contract
+├── dependencies
+├── implementation
+├── configuration
+├── evidence / provenance
+├── metrics
+├── quality gates
+├── experiment hooks
+├── alternatives
+├── compatibility contract
+├── failure / fallback policy
+├── cost / latency / resource telemetry
+├── lifecycle state
+└── replacement / rollback history
+```
+
+A/B/n testing is a cross-cutting capability, not a final-stage feature. Every replaceable component should be routable through an Experiment Layer when meaningful:
+
+```text
+INPUT
+  ↓
+COMPONENT INTERFACE
+  ↓
+EXPERIMENT ROUTER
+ ├── A: implementation v1
+ ├── B: implementation v2
+ └── N: candidate implementation
+  ↓
+COMMON OUTPUT CONTRACT
+  ↓
+EVALUATOR
+  ↓
+METRICS + EVIDENCE + DECISION
+  ↓
+PROMOTE / RETAIN / ROLLBACK / CONTINUE TEST
+```
+
+Metrics are local to a component and also propagate to end-to-end outcome metrics. No single universal score is assumed. Each component defines task-appropriate quality, latency, cost, resource, reliability, safety and traceability measures where applicable.
+
+Replacement rule: downstream consumers depend on the component contract, not on one implementation. A future better model, algorithm, retriever, graph engine, evaluator, source connector or reasoning method may replace the current implementation if compatibility and regression gates pass.
+
+## 9. Pipeline-as-Graph and Control Center Projection
+
+The development and runtime chain must be represented as a graph of callable components. Each component has a visible place in ALINA Control Center.
+
+The site must support, progressively:
+- pipeline/graph view showing component position and dependencies;
+- component card with contract, version, status, owner and evidence;
+- live calls/events and input/output references;
+- local and downstream metrics;
+- A/B/n experiment state and comparison;
+- version history and replacement candidates;
+- health/failure/fallback state;
+- provenance and decision trace;
+- impact view showing what would be affected by replacement;
+- drill-down from end result back through components to evidence/source.
+
+Thus the same architecture is simultaneously executable, measurable, experimentally replaceable and observable.
+
+## 10. Effect on Agent Foundation Package
+
+The previously defined Agent Foundation Package remains the logical output, but every section must be decomposable into versioned objects/components and linked through explicit interfaces. Task Graph, Decision Graph, Competency Graph, Knowledge Requirements, evidence, methods, tools, evaluation and currency are not static report chapters; they become addressable graph objects that can evolve independently under compatibility and impact controls.
