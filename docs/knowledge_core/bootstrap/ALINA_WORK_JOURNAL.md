@@ -26,3 +26,19 @@
 - next_action: run C01/C02 discovery against external professional, academic and standards sources; enrich/reject/add requirements.
 - improvement: add machine-readable specialist_requirement schema after first evidence-backed discovery pass.
 - priority: P0
+
+## Entry 0003 — ALINA Development Journal becomes a reusable Factory template
+
+- operation: DEVELOPMENT_PROCESS_DECISION
+- target: ALINA Analyst
+- result: ACCEPTED
+- decision: Keep a detailed development journal for ALINA from bootstrap through independent release; later analyze it and convert the successful process into a reusable template for creating future FATHER agents/specialists.
+- principle: ALINA is the reference bootstrap case. The journal must capture not only successful artifacts but also mistakes, rejected hypotheses, architecture changes, evidence gaps, repeated work and reasons for decisions.
+- reuse_goal: derive FATHER Agent Foundation Template / Specialist Factory playbook from observed ALINA development rather than designing the final template only in advance.
+- mandatory_per_action: timestamp; stage; operation; input; assumptions; source/evidence used; artifact/result; decision; errors/gaps; what changed; what should improve; how to improve; priority; metrics when available; next action.
+- traceability: every material journal entry should reference affected requirement/task/competency/knowledge/source/artifact/commit IDs when available.
+- quality_rule: journal is append-only history; later conclusions may supersede earlier conclusions but must not erase them.
+- analysis_plan: after ALINA reaches major gates, perform retrospective analysis to identify invariant steps, optional steps, failed approaches, bottlenecks, quality gates, automation candidates and profession-specific exceptions.
+- template_output: AGENT_FOUNDATION_TEMPLATE + BUILD_PLAYBOOK + QUALITY_GATES + JOURNAL_TEMPLATE + METRICS_BASELINE.
+- next_action: continue C01/C02 ALINA discovery while logging each substantive operation under this contract.
+- priority: P0
