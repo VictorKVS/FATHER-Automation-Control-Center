@@ -209,3 +209,20 @@
 - gap_behavior: insufficient knowledge/evidence creates GAP/Research Order; ALINA must not silently fill the missing design basis.
 - validation_needed: give ALINA an underspecified future-agent request and verify that she requests/derives missing analytical artifacts instead of immediately generating implementation.
 - priority: P0
+
+
+## Entry 0014 — C00 foundation baseline started from desired result
+
+- operation: C00_TARGET_RESULT_BASELINE
+- target: ALINA Analyst
+- trigger: foundational principles are now sufficient to stop adding abstract rules and begin the reference build from first principles.
+- objective: define the observable result and acceptance boundary before deriving tasks, decisions, competencies, knowledge or implementation.
+- why_this_first: all later artifacts must be consequences of the desired result; otherwise Task/Competency/Knowledge graphs risk becoming inventories without a proof of necessity.
+- action: created C00_TARGET_RESULT_CONTEXT_ACCEPTANCE_V01.md.
+- artifact_scope: why ALINA exists; target observable result; consumers; operating context; self-rule; Agent Foundation output; quality attributes; modular/A-B requirements; v1 acceptance gates; non-goals; first reference validation scenario; downstream derivation rules.
+- immediate_effect: C03 now has a concrete source of required observable behaviors instead of being invented from intuition.
+- downstream_effect: C03 tasks must map to C00 acceptance gates; C04 decisions map to C03; A19 requirements map to tasks/decisions/risks; later competency/knowledge/test artifacts inherit this trace.
+- deliberate_limit: this is BASELINE_DRAFT, not final truth. C01/C02 and later evidence may force revision; such revision must be versioned and journaled.
+- testability_effect: ALINA v1 READY is separated from merely RUNNING. Acceptance requires traceability, gap behavior, semantic integrity, modular replacement/A-B, metric validity, independent unseen-task evaluation, change regression, observability and history preservation.
+- next_action: review C00 for missing first-principles acceptance conditions, then derive C03 Task Graph one task at a time with explicit C00 trace links.
+- priority: P0
