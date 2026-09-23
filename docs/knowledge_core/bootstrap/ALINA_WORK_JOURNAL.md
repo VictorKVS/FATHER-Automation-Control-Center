@@ -390,3 +390,20 @@
 - anti_fake_rule: MVP must contain at least one narrow real end-to-end data path and cannot consist solely of mock screens.
 - next_step: UI-003 Work Table + Board model constrained to MVP scope.
 - priority: P0
+
+
+## Entry 0026 — UI-003 Work Table and Board model drafted
+
+- operation: WORKSPACE_INTERACTION_NOTATION
+- target: Beautiful Working MVP
+- trigger: MVP-00 fixed the real vertical slice; next step is to define the daily interaction grammar before wireframes/code.
+- objective: make the central table the single primary context and use Boards as traceable related projections without page-hopping or data duplication.
+- decision: MVP has one PRIMARY_CONTEXT; Boards carry object_ref/origin/relation/status and move through OPEN/PINNED/MINIMIZED/PRIMARY/CLOSED states.
+- navigation_rule: promoting a Board preserves previous primary context for deterministic return; incompatible pinned boards become stale/context-changed rather than silently reinterpreted.
+- truth_rule: every Board declares REAL/DEMO/PLANNED/UNAVAILABLE.
+- vertical_slice: Document/Source -> Knowledge Board -> Evidence Board -> Source/Version -> promote/inspect -> return to prior context.
+- agent_integration: Agent Stack and Agent Layer use the same Board grammar, avoiding a special parallel UI architecture.
+- cognitive_load_rule: exact simultaneous visible-board count is deferred to usability testing; do not hard-code a visually impressive but unusable wall of panels.
+- backlog_effect: UI-003 advanced to NOTATION_DRAFT; implementation remains blocked.
+- next_step: UI-004 Agent Stack/layer contract.
+- priority: P0
