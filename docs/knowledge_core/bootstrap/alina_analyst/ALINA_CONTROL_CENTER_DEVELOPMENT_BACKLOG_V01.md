@@ -12,7 +12,7 @@ Rule: backlog entry does not authorize production code until analysis/notation/t
 | UI-004 | Layered Agent Stack | NOTATION_DRAFT | REVIEW -> NOTATED |
 | UI-005 | Knowledge Core + provenance interaction | NOTATION_DRAFT | REVIEW -> NOTATED |
 | UI-006 | Full/focused/eyes/minimal wireframes | WIREFRAME_DRAFT | REVIEW -> WIREFRAME_BASELINE |
-| UI-007 | Pre-implementation UI test specification | IDEA_CAPTURED | TEST_SPECIFIED |
+| UI-007 | Pre-implementation UI test specification | TEST_SPEC_DRAFT | REVIEW -> TEST_SPECIFIED |
 | UI-008 | Performance/accessibility/fallback profiles | IDEA_CAPTURED | TEST_SPECIFIED |
 | UI-009 | A/B experiment plan | IDEA_CAPTURED | TEST_SPECIFIED |
 | UI-010 | Production implementation plan | BLOCKED | UI-001..009 reviewed |
