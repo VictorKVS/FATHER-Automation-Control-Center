@@ -260,3 +260,18 @@
 - knowledge_ui_effect: site must expose navigable Knowledge/Evidence/Source/Decision/Task/Competency/Learning/Regulatory/Impact projections and reverse trace where data exists.
 - next_artifact: before website code, create ALINA Control Center analytical passport, then notation/screen-state scheme, then test specification, then implementation.
 - priority: P0
+
+
+## Entry 0017 — Control Center spatial model: ALINA behind central work table
+
+- operation: CONTROL_CENTER_PASSPORT
+- trigger: new visual reference and user direction establish the spatial metaphor: central work table, ALINA behind it, deployable boards around it, secondary folders/settings/domains on side planes.
+- objective: convert the visual idea into an analytical UI passport before formal notation or code.
+- decision: center is task workspace, not default dashboard; ALINA is visible operator/presence behind it; task-relevant information is brought to deployable boards; side domains remain reachable but visually de-emphasized until promoted by task context.
+- candidate_side_domains: Knowledge Base, Sources/Library, Projects, Specialists/Agent Zoo, Training, Experiments/Polygon, Metrics, Dashboards, History, Gaps/Research Orders, Notifications, Settings, System Health/Audit.
+- important_limit: candidate groups are not frozen navigation; Task Graph and usability tests may regroup them.
+- context_rule: selecting side information should normally bring it into the current workspace instead of forcing navigation away from the active task.
+- dashboard_rule: metrics/dashboards are secondary by default and become central only for a metrics/health/experiment task.
+- state_rule: open/pinned boards, active object/task, collapse level and relevant context must be representable/restorable.
+- next_gate: derive formal spatial/screen-state notation from the passport, then write tests, then implement.
+- priority: P0
