@@ -264,3 +264,55 @@ The interaction metaphor is face-to-face collaboration with a human analyst: ALI
 Her avatar layer and the information-display layer are separate components. Screens remain usable without the avatar; ALINA remains conceptually present even when collapsed to face/eyes/status.
 
 Future visualizations must preserve depth ordering: screens/background -> ALINA volumetric presence -> work table -> user viewpoint. A composition that embeds ALINA inside a monitor fails this requirement.
+
+
+## 16. Agent layered intelligence visualization
+
+Agent/specialist information must support a layered vertical representation inspired by the supplied stacked intelligence/process references. This is a semantic projection of the Agent Foundation, not a decorative infographic and not a second data model.
+
+### Core interaction
+
+Each agent can be viewed as a stack of addressable layers. The user can inspect the whole stack, expand/collapse a layer, isolate it, compare it with the same layer of another agent, and trace a layer to canonical knowledge/evidence/tests.
+
+Candidate generic stack (subject to Specialist Factory evidence and profession-specific variation):
+
+```text
+L8  OUTCOMES / STRATEGIC CAPABILITY
+L7  DECISIONS / REASONING / SYNTHESIS
+L6  ACTIONS / WORKFLOWS / COLLABORATION
+L5  METHODS / ALGORITHMS / TOOLS
+L4  COMPETENCIES / TASK CLASSES
+L3  KNOWLEDGE / RULES / CONSTRAINTS
+L2  EVIDENCE / SOURCES / PROVENANCE
+L1  INPUT / CONTEXT / SIGNALS
+L0  RUNTIME / MODEL / MEMORY / INTERFACES
+```
+
+This is a visualization baseline, not a claim that every profession has exactly nine fixed layers. The Factory may add, merge or specialize layers while preserving traceable contracts.
+
+### Layer card/passport
+
+Every displayed layer should be able to expose:
+- layer_id/type/version/status;
+- purpose and responsibility;
+- inputs/outputs;
+- tasks/decisions/competencies represented;
+- knowledge/evidence coverage;
+- methods/tools/components;
+- tests and latest validated result;
+- metrics with test context;
+- gaps/contradictions/currentness;
+- dependencies up/down the stack;
+- change/impact history.
+
+### Visual behavior
+
+Default: compact vertical stack beside/above the work table. Selecting a layer expands it into a working board. Multiple layers may be exploded into a pipeline/graph view. Layers may show readiness/coverage/currentness states, but visual encoding must map to real canonical states rather than invented scores.
+
+Candidate interactions:
+STACK -> LAYER -> OBJECTS -> EVIDENCE / TESTS -> IMPACT.
+STACK A + STACK B -> SAME LAYER -> COMPARE, when contracts/context make comparison valid.
+
+### Relationship to progressive disclosure
+
+The entire agent can collapse from full stack to compact spine/icon. A single active layer can remain expanded while the rest collapse. This allows deep agent information without permanently occupying the main workspace.
