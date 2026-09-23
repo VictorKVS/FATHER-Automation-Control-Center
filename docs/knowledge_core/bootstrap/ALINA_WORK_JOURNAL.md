@@ -458,3 +458,18 @@
 - backlog_effect: UI-006 advanced to WIREFRAME_DRAFT; production code remains blocked.
 - next_step: UI-007 Pre-Implementation Test Specification.
 - priority: P0
+
+
+## Entry 0030 — UI-007 pre-implementation test specification drafted
+
+- operation: PRE_IMPLEMENTATION_TEST_DESIGN
+- trigger: UI-006 produced the first complete MVP wireframe; FATHER analysis-first rule requires tests before production implementation.
+- objective: convert visual/interaction intentions into observable acceptance behavior and prevent implementation from being judged only by appearance.
+- artifact: UI_007_PRE_IMPLEMENTATION_TEST_SPEC_V01.md.
+- coverage: 23 tests spanning entry, real canonical object, board lifecycle, deterministic return, provenance, missing/contradictory evidence, REAL/DEMO boundary, avatar collapse/reposition/failure, reduced motion, workspace restore, Agent Stack drill-down, Focus Mode, overload, backend outage, source-version change, avatar independence, accessibility, golden path, pleasant-work pilot and performance contexts.
+- metric_rule: no metric is comparable outside a declared TEST_CONTEXT; performance thresholds remain unset until target environments are identified.
+- human_factor_rule: pleasantness is tested through representative work and observations, not a fabricated universal score.
+- release_rule: P0 test specifications + real vertical-slice data contract + explicit demo contract + representative environment profiles are required before implementation-ready status.
+- backlog_effect: UI-007 advanced to TEST_SPEC_DRAFT; implementation remains blocked.
+- next_step: UI-008 workload/performance/accessibility profiles and representative target environments; locate/define the real vertical-slice data contract.
+- priority: P0
