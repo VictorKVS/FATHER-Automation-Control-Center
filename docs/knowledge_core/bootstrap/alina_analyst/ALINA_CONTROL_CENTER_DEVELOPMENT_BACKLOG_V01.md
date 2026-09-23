@@ -41,3 +41,15 @@ They are design references, not assets to copy and not proof of system capabilit
 ## Next work item
 
 Start UI-001 and UI-002 together at the notation boundary because spatial zones and avatar movement/collapse constrain one another. Do not write production UI code yet.
+
+
+## Delivery horizons
+
+### MVP shell
+Deliver a beautiful, comfortable, usable command-room workspace with a limited real vertical slice. Prefer simple replaceable implementations over prematurely building the full ALINA super-project.
+
+### Super-project
+Continue the full ALINA analytical/knowledge/specialist architecture under the existing evidence-first development process.
+
+### Future shared capability
+Extract the ALINA avatar contract into a FATHER Employee Avatar System so future specialists/agents can have distinct but predictable presences.
