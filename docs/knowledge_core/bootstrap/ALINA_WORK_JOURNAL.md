@@ -720,3 +720,16 @@
 - immediate_next_action: create the backend ALINA bootstrap passport and the Makar Agent v0.1 passport/contract boundary, then define the shared vertical slice Source -> Version -> Fragment -> Evidence -> Knowledge Object -> Retrieval -> grounded answer.
 - improvement: use Makar as a deliberately small proving ground so architectural failures are found before professional Specialist Factory agents multiply them.
 - priority: P0
+
+
+## Entry 0046 — ALINA Backend Bootstrap Passport v0.1 created
+
+- operation: ALINA_BACKEND_PASSPORT_BASELINE
+- trigger: Entry 0045 established ALINA-first backend development and Makar Agent as the first compact validation case.
+- artifact: docs/knowledge_core/bootstrap/alina_analyst/ALINA_BACKEND_BOOTSTRAP_PASSPORT_V01.md
+- purpose: define what ALINA is, her inputs/outputs, semantic invariants, provenance obligations, capability stages, first executable vertical slice, Makar boundary, failure modes and quality gates before backend implementation.
+- key_decision: infrastructure is justified as ALINA capability; the first executable slice must prove Source -> Document -> Version -> Fragment -> Evidence -> Knowledge Object -> Retrieval -> Grounded Use -> reverse provenance.
+- makar_role: first applied consumer of shared FATHER knowledge/evidence/RAG contracts; canonical educational knowledge remains separate from learner-specific state.
+- implementation_status: NOT_STARTED_BY_DESIGN. Passport alone does not authorize coding; notation and test-spec gates remain.
+- next_action: create ALINA Backend Flow / Notation v0.1, then the pre-code test specification.
+- priority: P0
