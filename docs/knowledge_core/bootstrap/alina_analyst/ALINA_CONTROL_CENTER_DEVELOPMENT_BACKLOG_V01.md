@@ -53,3 +53,8 @@ Continue the full ALINA analytical/knowledge/specialist architecture under the e
 
 ### Future shared capability
 Extract the ALINA avatar contract into a FATHER Employee Avatar System so future specialists/agents can have distinct but predictable presences.
+
+
+## MVP scope gate
+
+MVP-00 is now defined in `MVP_00_CONTROL_CENTER_SCOPE_V01.md`. UI-003 onward must distinguish MUST WORK, DEMO/PLANNED and SUPER-PROJECT capabilities. The first implementation must include a narrow real Source -> Knowledge -> Evidence/Provenance vertical slice and must not be demo-only.
