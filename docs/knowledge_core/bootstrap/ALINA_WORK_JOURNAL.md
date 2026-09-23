@@ -275,3 +275,17 @@
 - state_rule: open/pinned boards, active object/task, collapse level and relevant context must be representable/restorable.
 - next_gate: derive formal spatial/screen-state notation from the passport, then write tests, then implement.
 - priority: P0
+
+
+## Entry 0018 — Website technical brief: movable/collapsible ALINA avatar
+
+- operation: WEBSITE_TZ_BASELINE
+- trigger: user requires ALINA avatar to be movable to screen corners/docks or collapsed as far as eyes, and all visual concepts to enter the website project as a technical specification with visualization.
+- objective: preserve the design intent as implementable requirements before notation/tests/code.
+- action: created ALINA_CONTROL_CENTER_TECHNICAL_BRIEF_V01.md.
+- avatar_requirement: position modes include center-rear, four corners, side docks and candidate constrained floating placement; visibility modes include full 3D, compact, face, eyes, minimal status and hidden-with-status.
+- workspace_requirement: ALINA must move away from task-critical information; collapse/movement must preserve recoverable work context.
+- visual_basis: user-supplied references are recorded as design direction only; future assets must be original and must not present decorative scanner telemetry as real capability.
+- project_effect: technical brief, component passports, formal notation, wireframes, state specs, tests, performance/accessibility/fallback tests and A/B plan become required website artifacts before production implementation.
+- next_gate: spatial/screen-state notation plus low-fidelity wireframes.
+- priority: P0
