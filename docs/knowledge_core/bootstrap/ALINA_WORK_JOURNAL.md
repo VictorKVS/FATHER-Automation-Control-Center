@@ -505,3 +505,19 @@
 - backlog_effect: UI-009 advanced to EXPERIMENT_PLAN_DRAFT.
 - next_step: UI-010 Implementation Plan, with production code still gated on the real Source/Version/Fragment/Evidence/Knowledge data contract.
 - priority: P0
+
+
+## Entry 0033 — UI-010 MVP implementation plan drafted
+
+- operation: IMPLEMENTATION_PLANNING
+- trigger: UI-001..009 now cover spatial model, avatar, workspace, Agent Stack, provenance, wireframes, tests, workload contexts and experiment hooks.
+- objective: convert design artifacts into an incremental engineering plan without prematurely implementing the full ALINA super-project.
+- architecture: ControlCenterShell + AlinaPresence + WorkTable + BoardManager + AgentStack + ProvenanceNavigator + FocusMode + WorkspaceStateController + StatusTruthBadge.
+- state_rule: canonical references are separated from presentation/layout state; workspace restoration must not create a copied source of truth.
+- data_boundary: frontend consumes a stable adapter/service contract; exact REST/FastAPI/other transport follows repository reconnaissance.
+- phases: reconnaissance -> runnable shell -> workspace state -> ALINA presentation -> real Knowledge vertical slice -> provenance -> Agent Stack -> restore/degraded -> polish -> tests/evidence.
+- milestones: M1 runnable visual/interaction scaffolding with explicit DEMO/PLANNED; M2 completion candidate adds real vertical slice, provenance, real Agent layer, restore/fallback and P0 test evidence.
+- blockers: repository structure not inspected; real Knowledge schema/API unconfirmed; target workstation context not recorded; draft artifacts need review for P0 contradictions.
+- anti_overbuild: rich 3D and new frameworks are not prerequisites; use simplest replaceable implementation that proves the interaction.
+- next_step: repository reconnaissance and exact M1 file/change plan before first production component.
+- priority: P0
