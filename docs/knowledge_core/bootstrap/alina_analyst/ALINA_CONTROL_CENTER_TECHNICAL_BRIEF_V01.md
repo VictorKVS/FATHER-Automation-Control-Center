@@ -238,3 +238,29 @@ The final tests must prove, at minimum:
 ## 14. Next artifact
 
 Create formal spatial notation and low-fidelity visual wireframes from this specification. Do not begin production UI code until notation and pre-implementation test specification pass review.
+
+
+## 15. Critical visual correction — ALINA is an embodied 3D analyst, not screen content
+
+ALINA must be perceived as an independent full-bodied volumetric avatar located physically/visually in front of the information screens and behind/near the central work table. She is not a portrait rendered inside the central monitor and not a decorative dashboard background.
+
+Target spatial model:
+
+```text
+BACK WALL / INFORMATION SCREENS
+ documents | graphs | evidence | metrics
+                ↓
+        [ volumetric ALINA ]
+        full-bodied analyst
+        independent 3D layer
+                ↓
+          CENTRAL WORK TABLE
+                ↓
+               USER
+```
+
+The interaction metaphor is face-to-face collaboration with a human analyst: ALINA can address the user, turn toward a relevant board, indicate an object, move/dock to another permitted position, and reduce her visual presence when the workspace requires maximum information density.
+
+Her avatar layer and the information-display layer are separate components. Screens remain usable without the avatar; ALINA remains conceptually present even when collapsed to face/eyes/status.
+
+Future visualizations must preserve depth ordering: screens/background -> ALINA volumetric presence -> work table -> user viewpoint. A composition that embeds ALINA inside a monitor fails this requirement.
