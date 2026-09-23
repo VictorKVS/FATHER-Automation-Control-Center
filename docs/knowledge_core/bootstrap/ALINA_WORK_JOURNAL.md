@@ -42,3 +42,18 @@
 - template_output: AGENT_FOUNDATION_TEMPLATE + BUILD_PLAYBOOK + QUALITY_GATES + JOURNAL_TEMPLATE + METRICS_BASELINE.
 - next_action: continue C01/C02 ALINA discovery while logging each substantive operation under this contract.
 - priority: P0
+
+## Entry 0004 — C01 Profession Discovery started
+
+- operation: EVIDENCE_BACKED_PROFESSION_DISCOVERY
+- target: ALINA Analyst
+- result: PARTIAL_C01_CREATED
+- sources_checked: ODNI ICD 203; CIA Structured Analytic Techniques primer; W3C PROV-O/PROV Overview.
+- discovered: analytic tradecraft/source-quality/uncertainty/alternatives and structured provenance/derivation/versioning have primary-source support.
+- decision: treat ALINA as a composite FATHER meta-analytical role; do not pretend a single external profession exactly matches it.
+- changed: created C01_PROFESSION_DISCOVERY_V01.md and identified first capability families plus evidence gaps.
+- gaps: knowledge engineering; ontology engineering; evidence synthesis; competency/instructional engineering; AI/agent evaluation; decision science; data quality/cataloging; regulatory research.
+- what_to_improve: broaden source map before promoting candidate requirements to EVIDENCED/VALIDATED.
+- how_to_improve: research primary standards, professional bodies and academic frameworks for each gap; register evidence in C02.
+- next_action: create C02 Source & Evidence Register and continue evidence discovery.
+- priority: P0
