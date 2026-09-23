@@ -67,3 +67,14 @@ Status: **VALIDATED_BASELINE**
 Evidence: GitHub Actions run `35853674078` completed successfully. Install, all 14 tests, TypeScript compilation, and Vite production build passed. Build output: 19 modules transformed; index.html 0.41 kB (gzip 0.30 kB), CSS 2.76 kB (gzip 1.18 kB), JS 225.00 kB (gzip 70.73 kB); Vite build phase 165 ms. These metrics are specific to that CI run and are not workstation performance claims.
 
 M1 scope remains DEMO-only and backend-independent. This baseline does not claim Knowledge Core connectivity, production readiness, final 3D ALINA rendering, or M2 completion.
+
+
+## M1.1 Visual Architecture — 2026-09-23
+
+Status: **PRE_IMPLEMENTATION_BASELINE**
+
+Trigger: first local browser review of validated M1 exposed UI-GAP-001: the shell is technically valid but spatially too schematic for the target ALINA Control Center experience.
+
+Pre-code artifacts now exist: M1.1 Visual Architecture Passport, M1.1 Spatial Scheme, and M1.1 Visual & Interaction Test Specification. Target hierarchy is Information Wall -> ALINA -> Work Table -> User. M1.1 must preserve M1 truth/fallback/state behavior and remain 2D/2.5D and renderer-replaceable; it does not authorize a final 3D engine or imply Knowledge Core connectivity.
+
+Next gate: **REVIEW -> IMPLEMENTATION_READY**, then implement the visual composition and execute V01-V14 plus existing M1 regression tests.
