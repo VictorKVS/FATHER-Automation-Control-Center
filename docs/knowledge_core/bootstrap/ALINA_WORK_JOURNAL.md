@@ -521,3 +521,19 @@
 - anti_overbuild: rich 3D and new frameworks are not prerequisites; use simplest replaceable implementation that proves the interaction.
 - next_step: repository reconnaissance and exact M1 file/change plan before first production component.
 - priority: P0
+
+
+## Entry 0034 — ENG-001 repository reconnaissance completed
+
+- operation: REPOSITORY_RECONNAISSANCE
+- trigger: UI-010 requires inspection of actual repository structure before production components are created.
+- inspected: current branch recursive tree + repository README.
+- finding: repository is currently Python automation/control + registries/reports/tests + Knowledge Core/ALINA design documentation; no existing web frontend, package manifest, browser routes/components, web API service or confirmed PostgreSQL Knowledge Core runtime schema was found.
+- consequence: there is no frontend framework to preserve; M1 needs a new explicit application boundary.
+- proposed_boundary: apps/alina-control-center/{frontend,contracts,fixtures,tests}; backend/database ownership intentionally deferred.
+- reusable_assets: Knowledge standards/contracts, ALINA UI specs, registry evidence principles, CI/test discipline; operational registries are not canonical Knowledge Core.
+- blocker_update: B1 RESOLVED; B2 remains OPEN P0 for M2; B3 remains OPEN for benchmark baseline; B4 remains review work but no discovered P0 contradiction blocks safe M1 scaffolding.
+- framework_candidate: TypeScript + React + Vite, subject to FATHER Design Decision; rich 3D deferred behind adapter.
+- security_rule: public repo receives sanitized contracts/fixtures only; no local paths, secrets, private documents, personal data or production dumps.
+- next_step: FDR frontend/framework choice + M1 component/contract passport + pre-code tests, then scaffold runnable M1.
+- priority: P0
