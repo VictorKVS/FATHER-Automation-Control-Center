@@ -175,3 +175,21 @@
 - validation_needed: apply this sequence to the first executable ALINA component and verify code can be derived without inventing unstated requirements during implementation.
 - next_steps_enabled: C00 can define the artifact maturity gates; first ALINA component will become the reference implementation of this rule.
 - priority: P0
+
+
+## Entry 0012 — Bootstrap cost accepted to create a reusable development template
+
+- operation: BOOTSTRAP_INVESTMENT_DECISION
+- target: ALINA Analyst / FATHER Agent Factory
+- trigger: analysis-first development, passports, notation, pre-implementation tests, metrics and decision records increase the time required for the first ALINA build.
+- objective: intentionally invest more time in the reference build so the resulting process becomes a reusable development template for subsequent agents and components.
+- decision: optimize the ALINA bootstrap for reproducibility, traceability and reuse rather than minimum calendar time to first code.
+- why: the first build pays the discovery cost of defining artifacts, gates, contracts, tests and decision rules. Subsequent builds should reuse those assets and automate repeatable steps instead of rediscovering the process.
+- expected_payoff: lower redesign/rework; faster later specialist builds; comparable components; reusable tests; clearer handoff to coding agents; safer replacement/evolution; measurable Factory throughput.
+- immediate_effect: do not bypass analytical gates merely to produce executable ALINA earlier.
+- downstream_effect: after ALINA bootstrap, perform a retrospective and extract AGENT_FOUNDATION_TEMPLATE, COMPONENT_PASSPORT_TEMPLATE, FDR_TEMPLATE, TEST_SPEC_TEMPLATE, BUILD_PLAYBOOK, QUALITY_GATES, METRICS_BASELINE and AUTOMATION_CANDIDATES.
+- metrics_to_collect: elapsed time by stage; active work time where observable; rework count; returns to prior stages; defects/gaps found before code vs after code; artifact reuse; test reuse; number of manual decisions; automation candidates; later build cycle-time comparison.
+- quality_rule: extra time is justified only if it produces reusable knowledge/artifacts or reduces measurable downstream uncertainty/rework; ceremony with no demonstrated value becomes a candidate for simplification.
+- validation_needed: compare the first later specialist/agent build using the template against the ALINA bootstrap baseline.
+- next_steps_enabled: proceed deliberately with C00 as the first full reference artifact under the new development order.
+- priority: P0
