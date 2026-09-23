@@ -226,3 +226,22 @@
 - testability_effect: ALINA v1 READY is separated from merely RUNNING. Acceptance requires traceability, gap behavior, semantic integrity, modular replacement/A-B, metric validity, independent unseen-task evaluation, change regression, observability and history preservation.
 - next_action: review C00 for missing first-principles acceptance conditions, then derive C03 Task Graph one task at a time with explicit C00 trace links.
 - priority: P0
+
+
+## Entry 0015 — C03 derivation begins with T00 Target Result & Context
+
+- operation: TASK_GRAPH_DERIVATION_T00
+- target: ALINA Analyst
+- trigger: C00 now defines observable result and v1 acceptance gates; the next step is to derive behavior from those outcomes without jumping to implementation.
+- objective: identify the first indispensable operational task of ALINA.
+- derivation: C00 Acceptance A/B/E/L -> need to establish target/result/context, preserve original input, expose unknowns and avoid premature implementation -> T00 Establish Target Result and Operating Context.
+- why_first: every later task depends on knowing what result is sought and under which conditions. If T00 is wrong, later requirements/knowledge/tests can optimize the wrong target.
+- action: created C03_TASK_GRAPH_V01.md with only T00 in detailed form rather than generating the entire task inventory at once.
+- T00_output: versioned Target Context Package containing problem, purpose, stakeholders, observable result, context, constraints, operating envelope, facts, assumptions, open questions, contradictions, initial acceptance criteria, gaps and provenance.
+- boundaries: T00 does not design implementation, choose a model/provider, invent missing knowledge or construct later graphs.
+- scheme_effect: first input/internal/output flow candidate documented; formal notation choice remains to be reviewed before implementation.
+- test_effect: test intent recorded now; full Test Specification will be produced before any T00 implementation.
+- downstream_effect: T00 output becomes upstream input for Decision/Requirement derivation, workload/test context, later tasks and impact analysis.
+- risk: over-asking for clarification can block autonomous research; under-asking can encode false assumptions. A later C04 decision rule must distinguish CLARIFY vs RESEARCH vs EXPLICIT_ASSUMPTION vs BLOCK.
+- next_step: review T00 passport/scheme for completeness, then derive the next task from C00 rather than coding T00.
+- priority: P0
