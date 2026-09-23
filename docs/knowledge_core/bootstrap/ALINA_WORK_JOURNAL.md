@@ -12,3 +12,17 @@
 - next_action: C01 Profession Discovery for ALINA Analyst.
 - improvement: Add executable schemas/state machine after the first controlled discovery pass.
 - priority: P0
+
+## Entry 0002
+
+- operation: SPECIALIST_REQUIREMENT_ALGORITHM_ADDED_AND_APPLIED
+- target: ALINA Analyst
+- algorithm: A19 Specialist Requirement Derivation
+- result: CANDIDATE_BASELINE_CREATED
+- changed: Added evidence-driven derivation and ALINA-SR-001..012.
+- evidence_state: PROPOSED_FROM_FATHER_DESIGN; external profession evidence pending C01/C02.
+- quality_rule: requirement must trace why it exists, task/decision/competency, evidence and test.
+- currentness_rule: upstream source/task/risk/architecture changes trigger impact review.
+- next_action: run C01/C02 discovery against external professional, academic and standards sources; enrich/reject/add requirements.
+- improvement: add machine-readable specialist_requirement schema after first evidence-backed discovery pass.
+- priority: P0
