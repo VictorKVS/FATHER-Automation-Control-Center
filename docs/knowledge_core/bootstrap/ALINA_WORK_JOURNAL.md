@@ -634,3 +634,17 @@
 - validation_status: REPAIR_COMMITTED, RETEST_REQUIRED. No GREEN claim until a new workflow run succeeds.
 - next_step: inspect the workflow run triggered by these repairs; if failure persists, fetch exact logs and repeat GAP -> FIX -> RETEST.
 - priority: P0
+
+
+## Entry 0041 — Second M1 CI narrowed to one failing accessibility test
+
+- operation: CI_RETEST_ANALYSIS_AND_TARGETED_REPAIR
+- evidence: GitHub Actions run 35852539550 completed FAILURE after Entry 0040 repairs.
+- positive_evidence: npm install succeeded; 3 of 4 test files passed; 13 of 14 tests passed; fixture hygiene passed; all 4 JSON Schema conformance tests passed; all 8 App/state tests passed.
+- remaining_failure: only T08 reduced-motion source test failed with ERR_INVALID_URL_SCHEME because import.meta.url was transformed by the Vitest/Vite runtime and was not a file: URL. This is a test-path implementation defect, not evidence that reduced-motion CSS is absent.
+- repair: reducedMotion.test.ts now resolves src/styles.css from process.cwd(), which is fixed by CI working-directory to apps/alina-control-center/frontend.
+- measured_test_run: 14 total tests; 13 passed; 1 failed; Vitest duration 2.49 s. These values describe run 35852539550 only.
+- dependency_observation: npm installed 112 packages, audited 113, reported 0 vulnerabilities in that run.
+- validation_status: NEAR_GREEN, RETEST_REQUIRED. Build remains unexecuted because the failing test stopped the job.
+- next_step: inspect new CI run; if tests pass, analyze TypeScript/Vite build independently and fix any build-only gaps before M1 baseline release.
+- priority: P0
