@@ -289,3 +289,15 @@
 - project_effect: technical brief, component passports, formal notation, wireframes, state specs, tests, performance/accessibility/fallback tests and A/B plan become required website artifacts before production implementation.
 - next_gate: spatial/screen-state notation plus low-fidelity wireframes.
 - priority: P0
+
+
+## Entry 0019 — Correct avatar model: embodied 3D analyst in front of screens
+
+- operation: VISUAL_MODEL_CORRECTION
+- trigger: first visualization incorrectly made ALINA read as central screen content.
+- correction: ALINA is an independent full-bodied volumetric avatar/analyst in front of information screens and behind/near the central work table, creating a face-to-face human-analyst interaction metaphor.
+- component_boundary: avatar/presence layer is separate from information-display layer.
+- depth_order: background screens -> volumetric ALINA -> work table -> user viewpoint.
+- failure_condition: any design that embeds ALINA as a portrait/background inside a monitor fails the intended interaction model.
+- downstream_effect: spatial notation, wireframes, avatar movement/state tests and future concept art must use the corrected depth model.
+- priority: P0
