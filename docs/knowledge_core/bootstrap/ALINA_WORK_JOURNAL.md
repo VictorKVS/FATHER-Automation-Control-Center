@@ -71,3 +71,20 @@
 - remaining_gaps: competency/instructional engineering; decision science; data/metadata quality; regulatory research; graph engineering evaluation; LLM/agent benchmarks.
 - next_action: evidence pass on competency formation + decision science, then update ALINA requirements and C03 Task Graph.
 - priority: P0
+
+## Entry 0006 — Development journal causal-trace rule
+
+- operation: JOURNAL_GOVERNANCE_UPDATE
+- target: ALINA Analyst / future Agent Foundation Template
+- result: ACCEPTED
+- why_now: the ALINA bootstrap is moving from source discovery into requirement, task, decision, competency and knowledge formation. Decisions made now will constrain later graphs, curriculum, runtime and evaluation.
+- decision: every substantive development step must record not only WHAT was done, but WHY it was done, WHY it is needed, WHAT it changes, and HOW it constrains or enables the next planned steps.
+- mandatory_causal_fields: problem_or_trigger; objective; action; rationale; evidence_or_assumption; artifact_changed; immediate_effect; downstream_effect; dependencies_created; risks_or_gaps; validation_needed; next_steps_enabled; next_steps_blocked; supersedes_or_is_superseded_by; metrics_if_available.
+- forward_trace_rule: each important decision must identify the downstream artifacts it is expected to influence (Task Graph, Decision Graph, Competency Graph, Knowledge Requirements, Methods, Tools, Curriculum, Exam, Polygon, Runtime, Agent Foundation).
+- backward_trace_rule: later artifacts must be able to point back to the journal decision/evidence that caused them.
+- planning_rule: before starting the next stage, write its expected purpose, inputs, outputs, quality gate and effect on following stages; after execution, compare expected vs actual.
+- no_rewrite_rule: journal remains append-only. Wrong decisions are marked superseded/rejected with reason; they are not erased.
+- template_goal: this causal development history will later be mined to produce the reusable FATHER Agent Build Playbook and Agent Foundation Template.
+- immediate_effect: C03 and later artifacts must be built with explicit causal links to C01/C02 evidence and A19 requirements.
+- next_steps_enabled: define the staged ALINA build plan; then execute Competency Engineering + Decision Science evidence pass; then derive C03 Task Graph rather than invent it directly.
+- priority: P0
