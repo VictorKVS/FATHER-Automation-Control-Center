@@ -424,3 +424,21 @@
 - future_reuse: same contract supports Lawyer, InfoSec, Architect, Programmer, OSINT, Researcher and other FATHER employees.
 - next_step: UI-005 Knowledge/Evidence/Provenance navigation contract.
 - priority: P0
+
+
+## Entry 0028 — UI-005 Knowledge/Evidence/Provenance navigation drafted
+
+- operation: PROVENANCE_NAVIGATION_NOTATION
+- trigger: UI-004 made specialists inspectable by layers; next requirement is a deterministic trust path from visible result back to canonical evidence/source.
+- objective: let the user inspect why a result/knowledge object exists without leaving the Control Center or losing active context.
+- canonical_trace: Original Source -> Document -> Version -> Fragment -> Evidence -> Knowledge -> Relation/Decision -> Output; reverse inspection follows the same lineage backward.
+- semantic_rule: FACT/CLAIM/INFERENCE/HYPOTHESIS/REQUIREMENT/DECISION remain distinct in UI.
+- currentness_rule: evidence strength and currentness are separate; no combined magical trust score.
+- contradiction_rule: conflicting evidence branches remain visible; UI does not resolve them for visual cleanliness.
+- gap_rule: missing evidence becomes explicit GAP/RESEARCH state, never fabricated provenance.
+- version_rule: historical knowledge remains linked to its actual document version; newer versions trigger impact/currentness paths rather than silent relinking.
+- UX_rule: progressive disclosure keeps provenance compact during ordinary work and expands exact fragment/version/source on demand.
+- MVP_gate: at least one real canonical Source/Version/Fragment/Evidence/Knowledge chain must support reverse navigation and context return.
+- backlog_effect: UI-005 advanced to NOTATION_DRAFT.
+- next_step: UI-006 low-fidelity end-to-end MVP wireframes.
+- priority: P0
