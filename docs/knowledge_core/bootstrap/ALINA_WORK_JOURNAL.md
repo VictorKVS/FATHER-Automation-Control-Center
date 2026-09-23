@@ -326,3 +326,20 @@
 - immediate_next: UI-001 + UI-002 notation, because room geometry and avatar movement/collapse are coupled.
 - expected_reuse: these artifacts become part of the future FATHER UI development template.
 - priority: P0
+
+
+## Entry 0022 — UI-001 spatial notation drafted
+
+- operation: UI_SPATIAL_NOTATION
+- target: ALINA Control Center
+- trigger: approved step-by-step progression from passport to notation.
+- objective: formalize room depth, zones, object movement and context invariants before avatar state details or code.
+- artifact: UI_001_SPATIAL_NOTATION_V01.md.
+- key_model: Z4 back information field; Z3 ALINA presence; Z2 deployable boards; Z1 central work table; Z0 user viewpoint/input.
+- invariant: ALINA is an independent volumetric presence, never semantically embedded in a monitor; UI movement moves projections, not canonical data.
+- interaction_model: side domain -> object reference -> board -> optional promotion to work table -> provenance/impact trace.
+- context_rule: collapse/movement preserves active task/object/provenance and does not terminate analytical work.
+- degraded_rule: 3D fallback is independent from Knowledge Core availability.
+- backlog_effect: UI-001 advanced from PASSPORTED to NOTATION_DRAFT; production implementation remains blocked.
+- next_step: review UI-001 invariants, then draft UI-002 Avatar State Machine.
+- priority: P0
