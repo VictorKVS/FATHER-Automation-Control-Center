@@ -25,6 +25,7 @@
     "vitest": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "ajv": "latest"
+    "ajv": "latest",
+    "@types/node": "latest"
   }
 }
