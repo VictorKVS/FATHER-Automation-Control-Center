@@ -601,3 +601,19 @@
 - remaining_gap: T09 currently validates corrupt persisted state, while malformed aggregate fixture injection still needs a dedicated adapter-level test if required by the original wording.
 - next_step: add schema validation/CI and execute npm install + build + test on an actual runtime; record exact versions, failures, timings and fixes.
 - priority: P0
+
+
+## Entry 0039 — Contract validation and M1 CI added; lockfile assumption corrected
+
+- operation: VALIDATION_AUTOMATION_PREPARATION
+- trigger: Entry 0038 left JSON Schema conformance and actual runtime execution as open P0 gaps.
+- package_change: frontend dependencies normalized; React remains runtime dependency; Vite/plugin/TypeScript/test tooling moved to devDependencies; Ajv added for executable JSON Schema checks.
+- test_runtime: Vitest configured for jsdom with jest-dom setup.
+- contract_validation: schemaValidation.test.ts validates every FatherObject, BoardState and WorkspaceState from the canonical sanitized fixture and asserts that the aggregate fixture is DEMO with no REAL object.
+- ci_added: .github/workflows/alina-control-center-m1.yml runs install -> test -> build on Node 22 for relevant branch/path changes.
+- error_caught_during_action: initial CI draft used npm ci + npm cache while no package-lock.json exists yet. This would make the first workflow invalid.
+- correction: workflow immediately changed to npm install and cache assumption removed until a lockfile is generated and committed from a real runtime.
+- lesson: CI prerequisites are themselves contracts; do not assume generated artifacts exist.
+- evidence_status: CI definition exists, but no successful workflow run is claimed yet. Build/tests remain UNVERIFIED until GitHub Actions or local runtime returns results.
+- next_step: inspect workflow run triggered by these commits; if no run exists or it fails, obtain logs, classify GAP, fix and rerun. After first successful install generate/commit lockfile and switch CI to npm ci for reproducibility.
+- priority: P0
