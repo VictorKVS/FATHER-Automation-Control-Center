@@ -565,3 +565,21 @@
 - limitation: JSON Schema validation has not yet been executed in CI; references/contract behavior remain to be covered by M1 executable tests.
 - next_step: create React/Vite M1 scaffold and implement the first executable tests against these contracts/fixture.
 - priority: P0
+
+
+## Entry 0037 — First executable React/Vite M1 scaffold created
+
+- operation: FIRST_EXECUTABLE_FRONTEND_SCAFFOLD
+- trigger: contract-first artifacts and pre-code T01-T10 specification were completed in Entry 0036/0035.
+- implementation: created TypeScript + React + Vite frontend under apps/alina-control-center/frontend.
+- implemented_components: Control Center shell composition; side domain rails; Work Table; lightweight replaceable ALINA 2D presence; Knowledge board; truth-status badges; Focus Mode; ALINA presence cycling; reduced-motion CSS baseline.
+- data_source: sanitized in-code DEMO workspace mirrors the framework-independent fixture; Knowledge Core explicitly NOT CONNECTED.
+- truth_behavior: DEMO and PLANNED labels are visible; no fixture object is presented as REAL.
+- visual_rule: dark technical command-room baseline with restrained luminous geometry; this is M1 scaffolding, not final visual design.
+- tests_created: executable Vitest/Testing Library coverage for T01 startup, T02 truth visibility, T03 board close/reopen, T04 Focus toggle, T05 ALINA presence transition.
+- tests_not_yet_executed: dependencies have not been installed/run by GitHub connector; T06-T10 remain to implement.
+- known_gap: demo data is currently duplicated between JSON fixture and TypeScript module; next refactor should consume/validate one canonical fixture source to prevent drift.
+- known_gap: WorkspaceState is not yet serialized/restored; board lifecycle is only partial; avatar failure injection not yet implemented.
+- security: no secrets, private documents, personal data or local absolute paths added.
+- next_step: remove fixture duplication, implement T06-T10 + state restore/fallback, add CI/frontend validation, then execute build/tests on a runtime.
+- priority: P0
