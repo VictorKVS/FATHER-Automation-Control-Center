@@ -190,3 +190,47 @@ ALINA Analyst performs evidence-backed analysis.
 Specialist Knowledge Engineer builds profession/competency models.
 ALINA Control Center visualizes, explains and controls the process.
 Git stores reviewed schemas, algorithms, policies and sanitized projections, not the canonical live knowledge database.
+
+## 11. Principle of Currency / Актуальность
+
+Currency is a mandatory quality property of regulatory knowledge. A document, requirement, interpretation, relation or specialist knowledge object MUST NOT be treated as current merely because it exists in the Knowledge Core.
+
+FATHER must record source, version, publication/effective dates, last verification, official verification source, detected changes and downstream impact.
+
+### 11.1 Currency states
+
+CURRENT_VERIFIED; CURRENT_PENDING_RECHECK; CHANGE_DETECTED; UPDATE_IN_PROGRESS; OUTDATED; SUPERSEDED; REPEALED; SOURCE_UNAVAILABLE; CURRENTNESS_UNKNOWN.
+
+CURRENT_VERIFIED is time-bound evidence, not a permanent label.
+
+### 11.2 Mandatory metadata
+
+Where applicable: published_at, effective_from, effective_to, last_verified_at, verified_against_source, next_check_at, source_last_seen_at, content_hash, previous_version_id, current_version_id, currentness_status, currentness_evidence.
+
+### 11.3 Core rule
+
+NO CURRENTNESS EVIDENCE -> NO CLAIM OF CURRENTNESS -> CURRENTNESS_UNKNOWN / RECHECK REQUIRED.
+
+A stale or unavailable source does not automatically make the underlying rule false; it makes its current status unverified.
+
+### 11.4 Monitoring loop
+
+SOURCE REGISTRY -> WATCH SCHEDULE -> OFFICIAL SOURCE CHECK -> IDENTITY/STATUS/HASH/VERSION COMPARISON. No change refreshes verification evidence. A change preserves the old version, ingests the new version, performs semantic and requirement diff, re-evaluates applicability, runs impact analysis and queues affected specialists/projects/controls for review/regression.
+
+### 11.5 Monitoring policy
+
+Monitoring frequency and method are properties of the source and risk context. FATHER must not impose one arbitrary polling interval on all sources.
+
+### 11.6 UI requirement
+
+ALINA Control Center must expose currentness state, last successful verification, official verification source, effective dates/version, detected but unprocessed changes, impacted knowledge/controls/specialists/projects, and overdue/failed checks. A dedicated Currency / Update Radar is required.
+
+The UI must never present CURRENTNESS_UNKNOWN, OUTDATED, REPEALED or SUPERSEDED material as silently current.
+
+### 11.7 Propagation rule
+
+Currentness propagates through provenance. An upstream source change marks downstream objects for impact review; downstream knowledge is neither silently rewritten nor automatically declared invalid.
+
+SOURCE CHANGE -> EVIDENCE AT RISK -> KNOWLEDGE REVIEW -> DECISION RULE REVIEW -> COMPETENCY IMPACT -> SPECIALIST IMPACT -> CURRICULUM / PROJECT IMPACT.
+
+All verification checks and currentness transitions are auditable events.
