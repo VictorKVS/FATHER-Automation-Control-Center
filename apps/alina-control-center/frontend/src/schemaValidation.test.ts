@@ -1,4 +1,4 @@
-import Ajv from "ajv";
+import Ajv2020 from "ajv/dist/2020";
 import { describe, expect, it } from "vitest";
 import fatherObjectSchema from "../../contracts/father-object.schema.json";
 import boardStateSchema from "../../contracts/board-state.schema.json";
@@ -6,7 +6,7 @@ import workspaceStateSchema from "../../contracts/workspace-state.schema.json";
 import fixture from "../../fixtures/demo-workspace.json";
 
 describe("M1 contract conformance", () => {
-  const ajv = new Ajv({ allErrors: true });
+  const ajv = new Ajv2020({ allErrors: true });
 
   it("validates every FatherObject against its schema", () => {
     const validate = ajv.compile(fatherObjectSchema);
