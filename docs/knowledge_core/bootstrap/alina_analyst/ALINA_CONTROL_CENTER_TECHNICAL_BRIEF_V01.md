@@ -316,3 +316,54 @@ STACK A + STACK B -> SAME LAYER -> COMPARE, when contracts/context make comparis
 ### Relationship to progressive disclosure
 
 The entire agent can collapse from full stack to compact spine/icon. A single active layer can remain expanded while the rest collapse. This allows deep agent information without permanently occupying the main workspace.
+
+
+## 17. Development backlog baseline — accepted visual/interaction concepts
+
+The following concepts are accepted into the website project backlog and must be carried through notation, tests and implementation planning:
+
+- embodied full-bodied ALINA volumetric analyst, independent of display screens;
+- depth order: information screens -> ALINA -> work table -> user;
+- movable/dockable avatar with corner/side positions;
+- progressive avatar collapse: full -> compact -> face -> eyes -> status -> hidden;
+- central task-oriented work table;
+- deployable holographic boards that bring information to the table;
+- side-domain planes for currently secondary functions;
+- Knowledge Core navigation with reverse provenance trace;
+- layered Agent Stack visualization with drill-down and comparison;
+- progressive disclosure for boards, agent stacks and avatar;
+- real-state/real-metric rule: no decorative telemetry presented as operational truth;
+- fallback/reduced-motion/non-3D modes;
+- workspace state preservation and restoration;
+- modular/versioned/A-B-testable presentation components.
+
+### Development maturity states
+
+Every accepted UI capability moves through:
+
+```text
+IDEA_CAPTURED
+-> PASSPORTED
+-> NOTATED
+-> TEST_SPECIFIED
+-> IMPLEMENTATION_READY
+-> IMPLEMENTED
+-> TESTED
+-> VALIDATED
+-> RELEASED
+```
+
+No capability is marked IMPLEMENTATION_READY solely because a concept image exists.
+
+### Immediate development queue
+
+UI-001 Spatial notation: command room zones, depth layers, movement paths, deployable-board flows.
+UI-002 Avatar state machine: position, visibility/collapse, real analytical state, fallback.
+UI-003 Work-table/board state model.
+UI-004 Agent Stack notation and layer contract.
+UI-005 Knowledge Core interaction/provenance flow.
+UI-006 Low-fidelity wireframes for full/focused/eyes/minimal states.
+UI-007 Pre-implementation test specification.
+UI-008 Performance/accessibility/fallback workload profiles.
+UI-009 A/B experiment plan for avatar/layout/board variants.
+UI-010 Implementation plan only after UI-001..UI-009 gates are reviewed.
