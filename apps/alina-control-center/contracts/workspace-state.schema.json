@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://father.local/contracts/workspace-state.schema.json",
+  "title": "WorkspaceState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "activeObjectRef",
+    "workTableMode",
+    "openBoardIds",
+    "pinnedBoardIds",
+    "minimizedBoardIds",
+    "focusMode",
+    "avatarPresence",
+    "avatarPosition",
+    "renderMode"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "activeObjectRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "workTableMode": {
+      "enum": [
+        "EMPTY",
+        "DOCUMENT",
+        "KNOWLEDGE_OBJECT",
+        "AGENT_STACK_OR_LAYER",
+        "PROJECT_OBJECT",
+        "COMPARE",
+        "REVIEW"
+      ]
+    },
+    "openBoardIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "pinnedBoardIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "minimizedBoardIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "focusMode": {
+      "type": "boolean"
+    },
+    "avatarPresence": {
+      "enum": [
+        "FULL_3D",
+        "COMPACT_3D",
+        "FACE",
+        "EYES",
+        "STATUS",
+        "HIDDEN"
+      ]
+    },
+    "avatarPosition": {
+      "enum": [
+        "CENTER_REAR",
+        "TOP_LEFT",
+        "TOP_RIGHT",
+        "BOTTOM_LEFT",
+        "BOTTOM_RIGHT",
+        "SIDE_DOCK_LEFT",
+        "SIDE_DOCK_RIGHT",
+        "FLOATING_CONSTRAINED"
+      ]
+    },
+    "renderMode": {
+      "enum": [
+        "FULL_RENDER",
+        "LIGHT_3D",
+        "TWO_D",
+        "STATIC",
+        "STATUS_ONLY",
+        "NO_AVATAR"
+      ]
+    }
+  }
+}
