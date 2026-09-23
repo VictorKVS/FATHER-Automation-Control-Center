@@ -764,3 +764,19 @@
 - safety_rule: because the repository is public, no personal data, private educational records, secrets, API keys, local absolute paths, or unsanitized learner history may be committed.
 - next_action: inspect the local repository G:\\1\\Makar-Frontend-Factory non-destructively, confirm whether it has unpushed files/commits, then define and commit the Makar <-> FATHER integration passport/contracts before implementation.
 - priority: P0
+
+
+## Entry 0049 — ALINA presence becomes adaptive and optional
+
+- operation: ALINA_ADAPTIVE_PRESENCE_DECISION
+- trigger: user approved a workspace-first Control Center and clarified that the avatar may move and speak, panels/screens may expand to full screen, and ALINA does not need to remain visually present while voice/conversation continues.
+- design_decision: ALINA presence is a presentation channel, not the workspace itself and not a dependency for task execution.
+- presence_modes: FULL_BODY, COMPACT, VOICE_ONLY, HIDDEN, STATUS_ONLY. Mode changes must preserve the same ALINA session/task context.
+- workspace_rule: any major board/lab may expand to the primary/full-screen workspace; ALINA may automatically reduce or disappear so the user can work with Knowledge Graph, RAG, Evidence, Agent Factory, Trace or other dense views.
+- continuity_rule: when visual ALINA is hidden, voice/text dialogue, task state, current object, provenance and status remain available through non-avatar UI.
+- avatar_behavior: when visible, ALINA may animate, move, speak and react to task state, but animation is presentation only and must never fabricate execution state or telemetry.
+- interaction_rule: user can explicitly show/hide/minimize ALINA; system may recommend or automatically select a lower-presence mode for dense work, reduced-motion or performance constraints, while preserving user control.
+- accessibility_rule: no essential information may exist only in avatar motion, facial expression, color or audio. Voice must have a text-equivalent path; core operation remains usable without avatar rendering.
+- architecture_effect: AvatarRenderer remains replaceable and decoupled from ALINA backend/runtime. Workspace panels and boards consume shared presentation/task state, not avatar-internal state.
+- next_action: encode these presence modes and full-screen workspace transitions in the Control Center interaction architecture before frontend implementation.
+- priority: P1 UX architecture; P0 separation-of-concerns invariant.
