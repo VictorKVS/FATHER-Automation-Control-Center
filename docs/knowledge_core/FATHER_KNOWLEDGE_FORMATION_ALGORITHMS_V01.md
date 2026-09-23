@@ -320,3 +320,30 @@ DISCOVER
 ```
 
 This is the canonical Knowledge -> Competence -> Experiment -> Evidence loop.
+
+## A19 Specialist Requirement Derivation
+
+Purpose: derive specialist requirements from evidenced work rather than inventing a syllabus or list of knowledge.
+
+TARGET / CONTEXT -> normative obligations and constraints -> professional role evidence -> real task classes -> risks and responsibility -> FATHER-specific operating requirements -> TASKS -> DECISIONS -> ACTIONS -> EXPECTED RESULTS -> COMPETENCIES -> KNOWLEDGE / METHODS / TOOLS -> SPECIALIST REQUIREMENTS -> TRAINING -> EXAM / POLYGON.
+
+Requirement origin classes:
+- R1 NORMATIVE — applicable binding requirements.
+- R2 PROFESSIONAL — professional/educational standards, body of knowledge or evidenced professional practice.
+- R3 TASK_DERIVED — necessary for an evidenced real task or decision.
+- R4 RISK_DERIVED — necessary because omission/error creates material risk.
+- R5 FATHER_SPECIFIC — necessary for operation inside FATHER.
+
+Each requirement is a versioned first-class object. Where applicable it records target specialist, origin class, must_be_able_to, derived_from task/decision/risk/normative object, required knowledge, methods, tools, evidence, criticality, risk_if_missing, validation method, currentness and lifecycle state.
+
+Lifecycle: PROPOSED -> EVIDENCED -> VALIDATED -> ACTIVE; rejected candidates become REJECTED; active requirements may enter REVIEW_REQUIRED and then remain ACTIVE or become SUPERSEDED/RETIRED.
+
+Mandatory gate: WHY REQUIRED? -> WHICH TASK? -> WHICH DECISION/ACTION? -> WHICH COMPETENCY? -> WHICH EVIDENCE/SOURCE? -> HOW TESTED?
+
+If this chain cannot be established, the requirement cannot enter the reference specialist baseline as validated.
+
+Reverse trace: SPECIALIST REQUIREMENT <- COMPETENCY <- DECISION <- TASK <- PROFESSION/NORMATIVE/RISK/FATHER CONTEXT <- EVIDENCE <- SOURCE VERSION.
+
+Currentness applies to specialist requirements. Changes in upstream source, task model, technology, risk model or FATHER architecture trigger impact review rather than silent mutation.
+
+Output: SPECIALIST_REQUIREMENT objects + evidence links + validation plan + audit event.
