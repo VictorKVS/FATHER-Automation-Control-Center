@@ -360,3 +360,18 @@
 - backlog_effect: UI-002 advanced to NOTATION_DRAFT; implementation remains blocked.
 - next_step: UI-003 Work Table + Deployable Board state model.
 - priority: P0
+
+
+## Entry 0024 — Product split: pleasant MVP now, ALINA super-project long term
+
+- operation: DELIVERY_HORIZON_DECISION
+- trigger: user clarified that the immediate site is an MVP/beautiful shell optimized for comfortable daily work, while ALINA herself is a super-project developed deeply over time; future FATHER employees are expected to gain avatars too.
+- decision: separate delivery into Horizon A Beautiful Working MVP and Horizon B ALINA Super-Project.
+- MVP_goal: visually strong, convenient, pleasant working environment with central table, ALINA presence, navigation shells and a small real vertical slice; do not wait for every deep ALINA engine before obtaining a useful workspace.
+- architecture_rule: MVP components remain replaceable and must not block the full architecture.
+- UX_rule: comfort, clarity, low friction and aesthetic quality are explicit acceptance concerns, later validated by usability tests rather than subjective decoration alone.
+- future_rule: ALINA avatar becomes reference implementation for a reusable FATHER Employee Avatar System shared by future specialists/agents.
+- anti_overbuild: do not require full 3D/agent intelligence/metrics/training implementation merely to release the MVP shell; placeholders/demo states must be explicitly identified.
+- downstream_effect: backlog and tests must distinguish MVP acceptance from super-project acceptance.
+- next_step: before continuing UI-003 detail, define MVP scope/vertical slice so the website can become usable without coupling its release to the full ALINA roadmap.
+- priority: P0
