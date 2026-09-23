@@ -490,3 +490,18 @@
 - backlog_effect: UI-008 advanced to PROFILE_DRAFT.
 - next_step: UI-009 A/B experiment hypotheses; identify real vertical-slice data contract before UI-010 implementation plan.
 - priority: P0
+
+
+## Entry 0032 — UI-009 A/B experiment plan drafted
+
+- operation: UX_EXPERIMENT_DESIGN
+- trigger: UI-008 defined valid contexts; uncertain visual/interaction choices should now become testable hypotheses instead of permanent taste-based decisions.
+- objective: preserve replaceability and learn which UI variants improve comfortable analytical work.
+- experiments: default ALINA presence; default position; board density; provenance disclosure; Agent Stack form; Focus Mode presence; visual intensity; board placement; Back model; future specialist presence.
+- experiment_contract: HYPOTHESIS -> VARIANTS -> TEST_CONTEXT -> TASK -> METRICS/OBSERVATIONS -> GUARDRAILS -> RESULT -> DECISION.
+- guardrail: local visual improvement cannot be promoted if readability, truth/status clarity, accessibility, provenance reachability or downstream task performance regress.
+- MVP_rule: implement configuration hooks, not a full experimentation platform.
+- evidence_rule: single-user repeated trials are exploratory evidence and must not be presented as population-level proof.
+- backlog_effect: UI-009 advanced to EXPERIMENT_PLAN_DRAFT.
+- next_step: UI-010 Implementation Plan, with production code still gated on the real Source/Version/Fragment/Evidence/Knowledge data contract.
+- priority: P0
