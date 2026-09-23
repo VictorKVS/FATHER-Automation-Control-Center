@@ -681,3 +681,22 @@
 - process_evidence: the M1 loop produced failures, classified gaps, committed repairs, reran validation and reached GREEN without suppressing failed history.
 - next_phase: VISUAL_AND_INTERACTION_REVIEW of the runnable baseline, then lockfile/reproducibility hardening and M2 real Knowledge vertical-slice preparation under the same passport -> notation -> tests -> implementation rule.
 - priority: P0 COMPLETE for M1 runnable baseline; visual review remains P1 and M2 remains P0 next milestone.
+
+
+## Entry 0044 — First local visual validation exposed M1 spatial-composition gap
+
+- operation: LOCAL_RUNTIME_AND_VISUAL_BASELINE_REVIEW
+- trigger: Entry 0043 established CI GREEN but explicitly left user/workstation visual validation pending.
+- local_repository_finding: repository existed at G:\\1\\FATHER-Automation-Control-Center, but the first launch assumption failed because the local checkout was on main and therefore did not contain apps/alina-control-center/frontend.
+- process_gap: launch instructions must verify repository -> branch/ref -> synchronization -> frontend path -> package.json before invoking npm. A repository path alone is insufficient evidence that the requested application exists locally.
+- correction: fetched/verified origin/feature/father-knowledge-formation-standard-v01, activated the feature branch, confirmed frontend and package.json, then performed local validation.
+- local_build_evidence: production build PASS; Vite 8.3.0; 19 modules transformed; index.html 0.41 kB / gzip 0.30 kB; CSS 2.76 kB / gzip 1.18 kB; JS 225.00 kB / gzip 70.73 kB; reported build phase 155 ms.
+- visual_evidence: first browser rendering of M1 was inspected by the user.
+- visual_gap: UI-GAP-001 — technically valid but visually insufficient Control Center composition.
+- observed_symptoms: excessive empty space; ALINA reduced to a small symbolic face; Work Table reads as a flat card; Knowledge board appears detached; back-wall information screens and spatial depth are absent; the intended Screens -> ALINA -> Work Table -> User hierarchy is not yet visually expressed.
+- interpretation: this is not a truth-contract or runtime failure. M1 successfully proved the shell, but its deliberately lightweight visual scaffold is below the target command-room experience.
+- decision: do not patch isolated CSS ad hoc. Create an M1.1 visual-architecture baseline under the existing Passport -> Scheme/Notation -> Test Specification -> Review -> Implementation sequence.
+- target_effect: establish a visually convincing 2D/2.5D Control Center before selecting a heavy 3D renderer; preserve existing truth-state, fallback, state and contract behavior.
+- improvement: future local-run instructions must include a preflight gate and stop before npm commands when branch/path/package prerequisites are false.
+- priority: P1 visual quality; process preflight rule P0 for repeatable local execution.
+- next_action: create M1.1 Visual Architecture Passport + Spatial Scheme, then define visual/interaction acceptance tests before implementation.
