@@ -367,3 +367,55 @@ UI-007 Pre-implementation test specification.
 UI-008 Performance/accessibility/fallback workload profiles.
 UI-009 A/B experiment plan for avatar/layout/board variants.
 UI-010 Implementation plan only after UI-001..UI-009 gates are reviewed.
+
+
+## 18. Product split — beautiful MVP shell vs ALINA super-project
+
+The Control Center is intentionally split into two delivery horizons.
+
+### Horizon A — Beautiful Working MVP
+
+Goal: give the primary user a pleasant, convenient, visually coherent daily workspace as early as possible without pretending that the full ALINA architecture already exists.
+
+MVP prioritizes:
+- strong visual identity and command-room composition;
+- central work table;
+- convincing ALINA presence using the simplest implementation that meets experience/performance tests;
+- Knowledge/Source/Project/Agent navigation shells;
+- deployable boards for a small number of real vertical-slice objects;
+- useful workspace state/collapse behavior;
+- clear placeholders for later Training/Metrics/Polygon/etc.;
+- real data where connected, explicitly marked mock/demo data where not yet connected.
+
+The MVP is a product shell and first usable workplace, not the final ALINA intelligence system.
+
+### Horizon B — ALINA Super-Project
+
+ALINA itself remains a long-horizon engineering program: Agent Foundation builder, Knowledge/Evidence/Decision/Competency engines, Specialist Factory integration, independent evaluation, experiments, learning/evolution, observability and governed replacement of components.
+
+The MVP shell must not hard-code choices that prevent this evolution. Interfaces and visual objects should be replaceable as deeper ALINA capabilities arrive.
+
+### Primary UX criterion
+
+A first-class acceptance objective is not only functional correctness but sustained human usability: the workspace should be comfortable, understandable, aesthetically pleasant and low-friction for long analytical sessions. This is a legitimate product requirement and must later be operationalized through usability tests rather than treated as decoration.
+
+## 19. FATHER Employee Avatar System — future shared capability
+
+The ALINA avatar is the reference implementation for a broader FATHER Employee Avatar System. Future FATHER specialists/agents may have their own recognizable avatars/presences while sharing one governed presentation framework.
+
+Shared avatar contract candidates:
+- employee/specialist identity;
+- role and capability summary;
+- presence/visibility state;
+- position/docking state;
+- real work/status state;
+- interaction cues;
+- visual identity/theme;
+- accessibility/reduced-motion mode;
+- render/fallback capability;
+- provenance of displayed status;
+- version and asset/model references.
+
+Each specialist may differ visually, but common interaction grammar should remain predictable. Avatars must not imply capabilities, authority, emotion or certainty unsupported by the underlying specialist/runtime state.
+
+ALINA remains the reference avatar because her development is the bootstrap case from which the reusable Employee Avatar template will be extracted.
