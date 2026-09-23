@@ -733,3 +733,18 @@
 - implementation_status: NOT_STARTED_BY_DESIGN. Passport alone does not authorize coding; notation and test-spec gates remain.
 - next_action: create ALINA Backend Flow / Notation v0.1, then the pre-code test specification.
 - priority: P0
+
+
+## Entry 0047 — Makar repository registered as parallel applied-agent workstream
+
+- operation: REGISTER_MAKAR_REPOSITORY
+- trigger: user created local repository G:\\1\\Makar-Frontend-Factory and requested that it be connected to the ALINA/FATHER backend workstream.
+- repository_local_path: G:\\1\\Makar-Frontend-Factory
+- repository_remote_status: UNKNOWN until the local Git remote is inspected; no remote URL is assumed.
+- role: Makar is the first compact applied-agent validation case for ALINA/FATHER, while ALINA remains the primary backend object being built.
+- architecture_boundary: Makar repository may own Makar-specific frontend/application code, prompt assembly, learner workflow and adapters, but MUST NOT become a second canonical Knowledge Core.
+- shared_contract_rule: canonical knowledge, evidence/provenance, retrieval contracts and evaluation semantics belong to FATHER; Makar consumes them through explicit versioned contracts/adapters.
+- learner_state_rule: Makar-specific progress, attempts, mistakes, hints and difficulty history remain learner/application state and must not silently mutate canonical FATHER knowledge.
+- integration_strategy: connect repositories contract-first. First inspect the Makar repository and its Git remote/branch, then create an integration passport/contract before implementation.
+- immediate_next_action: run a non-destructive local preflight in G:\\1\\Makar-Frontend-Factory to capture Git status, branch, remotes and current tree; use the result to define the Makar <-> FATHER boundary in ALINA Backend Flow / Notation v0.1.
+- priority: P0
