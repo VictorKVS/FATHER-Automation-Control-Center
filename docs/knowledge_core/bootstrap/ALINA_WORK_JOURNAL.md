@@ -794,3 +794,20 @@
 - licensing_rule: do not copy mixed-license assets into FATHER without explicit asset-level review; prefer our own or clearly redistributable VRM/animation/environment assets.
 - next_gate: create a 3D prototype passport + scene/state notation + executable test specification before implementation, preserving existing M1/M1.1 contracts.
 - priority: P1 frontend prototype, P0 architectural decoupling/licensing.
+
+
+## Entry 0051 — ALINA 3D prototype passport and scene/state notation established
+
+- operation: ALINA_3D_PREIMPLEMENTATION_BASELINE
+- trigger: Entry 0050 selected the game/avatar prototype direction and user approved proceeding.
+- artifacts:
+  - docs/knowledge_core/bootstrap/alina_analyst/ALINA_3D_PRESENCE_PROTOTYPE_PASSPORT_V01.md
+  - docs/knowledge_core/bootstrap/alina_analyst/ALINA_3D_SCENE_AND_STATE_NOTATION_V01.md
+- objective: prove a game-like but replaceable ALINA presence inside the existing Control Center without making avatar rendering a dependency of ALINA intelligence or workspace operation.
+- prototype_scope: one room, one humanoid avatar, Work Table, Information Wall, Knowledge/Graph/Evidence anchors, anchor-based movement, full-screen workspace transition, optional/hidden avatar and fallback.
+- presence_modes: FULL_BODY, COMPACT, VOICE_ONLY, HIDDEN, STATUS_ONLY.
+- behavior_states: IDLE, LISTENING, THINKING, WALKING, PRESENTING, SPEAKING, WARNING, WAITING.
+- architecture_invariant: FATHER/ALINA Runtime -> Presentation Model -> Presence Controller -> AvatarRendererAdapter -> 3D renderer. Workspace panels consume presentation state independently of avatar internals.
+- implementation_status: BLOCKED_BY_TEST_SPEC by design.
+- next_action: create ALINA 3D executable test specification, review gate, then implement the smallest movement/scene prototype while preserving M1 regressions.
+- priority: P1 prototype; P0 separation/fallback/truth invariants.
