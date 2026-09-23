@@ -617,3 +617,20 @@
 - evidence_status: CI definition exists, but no successful workflow run is claimed yet. Build/tests remain UNVERIFIED until GitHub Actions or local runtime returns results.
 - next_step: inspect workflow run triggered by these commits; if no run exists or it fails, obtain logs, classify GAP, fix and rerun. After first successful install generate/commit lockfile and switch CI to npm ci for reproducibility.
 - priority: P0
+
+
+## Entry 0040 — First M1 CI failure diagnosed and repaired
+
+- operation: CI_FAILURE_ANALYSIS_AND_REPAIR
+- evidence: GitHub Actions run 35851126862 completed FAILURE; Install succeeded; Test failed; Build was skipped.
+- observed_failure_1: React Testing Library DOM was not cleaned between tests, causing repeated mounted apps and ambiguous queries such as multiple Focus Mode / ALINA buttons / WORK TABLE nodes.
+- repair_1: testSetup.ts now runs cleanup() after each test.
+- observed_failure_2: default Ajv instance did not include JSON Schema draft 2020-12 meta-schema; FatherObject/BoardState/WorkspaceState compilation failed with 'no schema with key or ref https://json-schema.org/draft/2020-12/schema'.
+- repair_2: schema tests now use Ajv2020 from ajv/dist/2020.
+- observed_failure_3: Vite ?raw CSS import returned an empty value in this Vitest context, so T08 could not prove reduced-motion source presence.
+- repair_3: T08 now reads styles.css directly through node:fs/fileURLToPath; @types/node added for TypeScript build compatibility.
+- runner_observation: GitHub emitted a warning that actions/checkout@v4 and setup-node@v4 target deprecated Node 20 internally and are forced to Node 24 by the runner. The job's configured application Node remains a separate concern. This warning is recorded but is not the test failure cause.
+- causality: three independent test-infrastructure defects prevented product tests from completing; no evidence yet indicates the Control Center UI itself failed its intended interaction contract.
+- validation_status: REPAIR_COMMITTED, RETEST_REQUIRED. No GREEN claim until a new workflow run succeeds.
+- next_step: inspect the workflow run triggered by these repairs; if failure persists, fetch exact logs and repeat GAP -> FIX -> RETEST.
+- priority: P0
