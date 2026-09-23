@@ -9,7 +9,7 @@ Rule: backlog entry does not authorize production code until analysis/notation/t
 | UI-001 | Spatial command-room notation | NOTATION_DRAFT | REVIEW -> NOTATED |
 | UI-002 | ALINA avatar position/collapse/state machine | NOTATION_DRAFT | REVIEW -> NOTATED |
 | UI-003 | Central work table + deployable boards | NOTATION_DRAFT | REVIEW -> NOTATED |
-| UI-004 | Layered Agent Stack | PASSPORTED | NOTATED |
+| UI-004 | Layered Agent Stack | NOTATION_DRAFT | REVIEW -> NOTATED |
 | UI-005 | Knowledge Core + provenance interaction | PASSPORTED | NOTATED |
 | UI-006 | Full/focused/eyes/minimal wireframes | IDEA_CAPTURED | PASSPORTED/NOTATED |
 | UI-007 | Pre-implementation UI test specification | IDEA_CAPTURED | TEST_SPECIFIED |
