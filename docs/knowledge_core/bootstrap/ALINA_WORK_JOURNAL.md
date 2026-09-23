@@ -343,3 +343,20 @@
 - backlog_effect: UI-001 advanced from PASSPORTED to NOTATION_DRAFT; production implementation remains blocked.
 - next_step: review UI-001 invariants, then draft UI-002 Avatar State Machine.
 - priority: P0
+
+
+## Entry 0023 — UI-002 ALINA Avatar State Machine drafted
+
+- operation: AVATAR_STATE_MACHINE_NOTATION
+- target: ALINA Control Center
+- trigger: UI-001 established room geometry and avatar independence; next required step is formal avatar behavior.
+- objective: prevent visual presence, location, analytical state and rendering capability from becoming one opaque UI state.
+- decision: model avatar state as orthogonal dimensions PRESENCE × POSITION × ANALYTICAL_STATE × INTERACTION_STATE × RENDER_MODE.
+- presence: FULL_3D -> COMPACT_3D -> FACE -> EYES -> STATUS -> HIDDEN.
+- position: center-rear, four corners, side docks, candidate constrained floating.
+- analytical_states: idle/listening/analyzing/researching/waiting/gap/testing/warning/complete/degraded/error, sourced from real runtime state.
+- render_fallback: full -> light 3D -> 2D -> static -> status -> no avatar, without changing Knowledge Core truth/task state.
+- invariants: collapse does not stop work; movement does not move data; fallback does not alter truth; avatar failure cannot block core workspace; automatic layout changes remain recoverable.
+- backlog_effect: UI-002 advanced to NOTATION_DRAFT; implementation remains blocked.
+- next_step: UI-003 Work Table + Deployable Board state model.
+- priority: P0
