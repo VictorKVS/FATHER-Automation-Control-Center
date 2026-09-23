@@ -107,3 +107,20 @@
 - next_steps_enabled: create C00 for ALINA herself; then derive C03 Task Graph from C00+C01+C02 rather than intuition.
 - next_steps_blocked: premature model selection, prompt engineering, fine-tuning and detailed curriculum.
 - priority: P0
+
+
+## Entry 0008 — Modular experimental architecture becomes a cross-cutting requirement
+
+- operation: ARCHITECTURE_PRINCIPLE_ADDED
+- target: ALINA Analyst + future Agent Factory + Control Center
+- trigger: Agent Foundation was defined as a package of artifacts, but without a universal rule guaranteeing that every stage can be measured, experimentally compared and replaced later.
+- objective: prevent monolithic ALINA/agent implementations and preserve continuous technological evolution.
+- action: added Principle of Modular Experimental Architecture, component contract, Experiment Router, local/end-to-end metrics, replacement/rollback rules and Control Center projection.
+- rationale: future algorithms/models/tools will improve; FATHER must replace one block without rewriting unrelated blocks and must prove that the replacement is actually better in the relevant context.
+- immediate_effect: every major future block is treated as versioned callable component/object with explicit input/output contract, metrics, experiment hooks and lifecycle.
+- downstream_effect: C00-C15 artifacts must identify component boundaries and measurable outputs; C03/C04 graphs become executable/observable graph candidates; C12/C13 must support component-level and end-to-end A/B/n evaluation; Control Center must expose every component's position, state, metrics and experiments.
+- dependencies_created: common contracts, experiment routing, metric registry, compatibility/version policy, impact analysis and telemetry/event model.
+- risk: over-fragmentation and metric gaming. Components should be split at meaningful responsibility/contract boundaries; local metrics must be checked against end-to-end outcomes.
+- validation_needed: during ALINA bootstrap replace at least one component implementation with an alternative and demonstrate A/B comparison, compatibility, regression check and rollback.
+- next_steps_enabled: C00 acceptance criteria can now include modularity/replaceability/observability; C03 can identify callable stages rather than only prose tasks.
+- priority: P0
