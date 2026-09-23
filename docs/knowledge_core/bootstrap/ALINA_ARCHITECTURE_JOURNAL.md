@@ -12,3 +12,16 @@
 - safety: no automatic claim of applicability based only on document hierarchy; historical versions preserved.
 - next_action: map this contract to PostgreSQL entities and UI information architecture.
 - priority: P0
+
+## Entry 0002 — Principle of Currency
+
+- operation: ARCHITECTURE_DECISION
+- scope: FATHER Regulatory Knowledge + ALINA Control Center
+- result: ACCEPTED_FOR_V0.1
+- decision: Currentness is mandatory evidence-backed metadata, never an implicit/permanent property.
+- rule: NO CURRENTNESS EVIDENCE -> NO CLAIM OF CURRENTNESS.
+- behavior: official-source checks, version/hash comparison, immutable history, semantic/requirement diff, applicability re-evaluation and downstream impact review.
+- UI: Currency / Update Radar required.
+- audit: every verification and currentness transition is an auditable event.
+- next_action: implement Source Registry + Watch + Applicability contracts and map currentness fields to PostgreSQL.
+- priority: P0
