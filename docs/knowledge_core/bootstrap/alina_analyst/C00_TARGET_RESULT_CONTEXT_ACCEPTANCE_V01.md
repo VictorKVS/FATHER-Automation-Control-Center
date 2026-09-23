@@ -128,3 +128,59 @@ C14 records unresolved gaps.
 C15 proves release readiness.
 
 No downstream artifact may silently broaden ALINA's mission without a versioned decision and impact analysis.
+
+
+## 13. ALINA Control Center — visual presence and progressive disclosure requirement
+
+ALINA must have a first-class web projection over the canonical Knowledge Core. The website is not a separate source of truth: it is the human-facing analytical, operational and observability surface for the same versioned FATHER objects.
+
+### Visual identity
+
+The supplied visual references establish the design direction for ALINA's avatar: a feminine synthetic/digital face represented as a luminous three-dimensional projection rather than a conventional profile photograph. The intended language is dark technical space, restrained luminous geometry, face/mesh/scan motifs, graph-like points and lines, and a sense that ALINA is a live analytical presence inside the system.
+
+The references are inspiration for visual language only; biometric/identity-scanner claims or decorative pseudo-metrics must not be presented as real system capabilities unless backed by an implemented component and telemetry.
+
+### Progressive disclosure / extreme collapse
+
+The interface must support multiple information-density states so the same ALINA can remain present without consuming the workspace:
+
+```text
+FULL WORKSPACE
+    ↓ collapse
+ALINA PANEL / 3D AVATAR + CURRENT STATE
+    ↓ collapse
+COMPACT AVATAR / FACE
+    ↓ collapse
+EYES / STATUS STRIP
+    ↓ collapse
+MINIMAL LIVE INDICATOR
+```
+
+Collapse changes presentation, not analytical state. Context, active task, provenance references and recoverable UI state must survive expansion/collapse where technically applicable.
+
+### Knowledge Base on the site
+
+The Control Center must expose the Knowledge Core through navigable projections, including Knowledge, Evidence, Source/Provenance, Decision, Task, Competency, Learning, Regulatory and Impact views. A user must be able to move from a visible conclusion/object toward its evidence/source and toward downstream affected objects.
+
+### 3D projection rule
+
+The 3D ALINA projection is a presentation component with a replaceable implementation contract. It must not become a dependency of analytical correctness. The analytical system must continue to function if 3D rendering is unavailable or disabled.
+
+Candidate presentation modes:
+- full 3D projection;
+- lightweight 2D/Canvas/WebGL fallback;
+- compact static/animated avatar;
+- eyes/status-only mode;
+- accessibility/reduced-motion mode.
+
+### Acceptance implications
+
+The future UI passport/test specification must verify:
+- knowledge views read from canonical FATHER data rather than a divergent UI database;
+- collapse/expand preserves required working context;
+- every displayed analytical status can identify its real source/state where applicable;
+- fake decorative telemetry is visually distinguishable from real telemetry or omitted;
+- 3D failure does not break core analytical work;
+- presentation components are versioned/replaceable/A-B testable;
+- performance tests include representative desktop workloads and degraded/fallback modes;
+- the avatar remains recognizable across full, compact and extreme-collapse states.
