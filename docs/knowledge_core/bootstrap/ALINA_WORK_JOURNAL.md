@@ -124,3 +124,20 @@
 - validation_needed: during ALINA bootstrap replace at least one component implementation with an alternative and demonstrate A/B comparison, compatibility, regression check and rollback.
 - next_steps_enabled: C00 acceptance criteria can now include modularity/replaceability/observability; C03 can identify callable stages rather than only prose tasks.
 - priority: P0
+
+
+## Entry 0009 — Metrics require a valid test context
+
+- operation: COMPONENT_METRIC_VALIDITY_RULE_ADDED
+- target: ALINA modular architecture / Agent Factory / Control Center
+- trigger: a component can appear competitive because of a metric measured under irrelevant or non-comparable inputs/load. Naked metric values can therefore drive false promotion decisions.
+- objective: ensure every block is tested under a declared use case and workload before its metrics are used for A/B/n decisions.
+- action: added mandatory Test Context and Passport Question Set to every component; metric results now bind value to component version, workload, dataset, environment, method, timestamp and run ID.
+- rationale: metric validity is conditional. Performance/quality/cost values from different operating regimes are not automatically comparable.
+- immediate_effect: component passport must answer whether the test/metric makes sense under the stated inputs and load.
+- downstream_effect: Experiment Router requires a comparability gate; Polygon must generate representative workload profiles; Metric Registry must store definitions and validity scopes; Control Center must display metric context beside metric values; promotion/rollback decisions must reference test runs.
+- dependencies_created: Test Context object, Metric Definition object, Test Run object, Comparability Gate and representative workload profiles.
+- risks: excessive test dimensions can make experiments expensive; insufficient dimensions can make results misleading. Start with decision-relevant context and expand from observed failures.
+- validation_needed: run the same component under at least two materially different workload profiles and demonstrate that FATHER does not incorrectly generalize one result to the other.
+- next_steps_enabled: C00 can define ALINA operating envelopes; C03 tasks can attach workload classes; C12/C13 can derive tests from those classes.
+- priority: P0
