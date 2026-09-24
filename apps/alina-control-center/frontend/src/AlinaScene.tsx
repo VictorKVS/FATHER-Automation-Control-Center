@@ -6,7 +6,7 @@ import { alinaHumanAgentProfile } from "./humanAgentProfile";
 import { loadVrmAvatar } from "./vrmAvatarLoader";
 import { initialLocomotionState, requestMove, stepLocomotion, type LocomotionState } from "./locomotionController";
 import { animationIntentFor } from "./animationIntent";
-import { applyProceduralPose } from "./proceduralPose";
+// proceduralPose is intentionally excluded from the primary runtime after the P3 visual skeleton-integrity failure.
 
 const canRenderWebGL = () => typeof window !== "undefined" && typeof window.ResizeObserver !== "undefined" && typeof window.WebGLRenderingContext !== "undefined";
 
@@ -49,7 +49,9 @@ function AlinaAvatar(){
     const next=stepLocomotion(locomotionRef.current,delta);
     const changed=next!==locomotionRef.current;
     locomotionRef.current=next;
-    if(vrm) applyProceduralPose(vrm,animationIntentFor(next.behavior,next.moving),elapsedRef.current);
+    // P3.1 isolation gate: locomotion may move/turn the avatar, but must not mutate humanoid bones.
+    // Clip-based animation will be bound behind AnimationIntent after the reference benchmark.
+    void animationIntentFor(next.behavior,next.moving);
     if(groupRef.current){
       groupRef.current.position.set(...next.position);
       groupRef.current.rotation.y=next.yaw;
