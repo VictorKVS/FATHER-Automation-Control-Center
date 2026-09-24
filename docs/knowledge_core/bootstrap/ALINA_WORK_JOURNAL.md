@@ -1264,3 +1264,41 @@ SKELETAL WALK_ANIMATION_NOT_YET_ADDED.
 
 ### GAP / next action
 This stage moves the whole VRM body through the scene but does not yet animate the skeleton, so the temporary avatar can still appear rigid/T-pose while translating. This is intentional separation of locomotion semantics from animation assets. Next: collect CI; if green, integrate an explicitly licensed idle/walk animation/retargeting path and visually validate body pose, feet, orientation and arrival at INFORMATION_WALL.
+
+
+## Entry 0069 — P3 locomotion validated; skeletal-animation boundary specified before asset import
+
+### CI evidence
+P3 locomotion logic and real VRM scene integration passed repository validation:
+- ALINA Control Center M1 run 35981148266, run #116: SUCCESS.
+- Validate automation registry run 35981148339, run #493: SUCCESS.
+- tests: 8/8 files, 35/35 tests passed.
+- build: SUCCESS, 40 modules, 398 ms.
+- JS: 1,281.50 kB / 347.78 kB gzip.
+- known warnings remain: multiple Three.js instances and >500 kB main chunk.
+
+### Analysis-first gate
+Before importing an idle/walk animation, created the P3 Skeletal Animation Passport. It defines the boundary:
+Presence Controller -> Locomotion Controller -> Animation Intent Mapper -> Animation Adapter -> VRM humanoid.
+
+Animation playback is presentation; locomotion/behavior remain canonical runtime intent.
+
+### Implemented contract
+Added typed AnimationIntent mapping. WALK_FORWARD is emitted only when BehaviorState=WALKING and moving=true. PRESENTING maps independently after arrival. Reduced-motion suppresses walk playback without falsifying locomotion position/state.
+
+### Tests
+Added five tests covering real walking intent, prevention of fake walking, presentation after arrival, reduced-motion handling and conversational neutral intents.
+
+### Human-readable commits
+- 971f6378cf6c95982bdd2fdc4dd63be67b839ed2 — define the P3 skeletal-animation passport, architecture boundary, licensing/provenance gate, fallback policy and visual acceptance criteria before importing assets.
+- 5a8d452de38eca9e64a93dac398cf14eb8840583 — create the typed state-to-animation intent mapper so visible body motion follows validated behavior.
+- a4546aee20f4b3b2cb7d7cd0fdd385266ecdca51 — encode animation-intent truthfulness and reduced-motion rules as executable tests.
+
+### Status
+P3 LOCOMOTION VALIDATED.
+P3 SKELETAL_ANIMATION PASSPORT COMPLETE.
+ANIMATION_INTENT_CONTRACT_IMPLEMENTED / CI_PENDING.
+IDLE/WALK_ASSET_PENDING_LICENSE_REVIEW.
+
+### Next action
+Validate the new contract in CI. Then select or generate an explicitly licensed animation source, record provenance/license/hash, integrate through a VRM animation adapter, and run the local visual polygon. Do not import an arbitrary web animation merely to remove T-pose.
