@@ -907,3 +907,19 @@
 - artifact: docs/knowledge_core/bootstrap/alina_analyst/FATHER_HUMAN_AGENT_STUDIO_RESEARCH_SYNTHESIS_V01.md
 - research_status: BASELINE_COMPLETE; deeper source ingestion belongs to Knowledge Core/library workflow and can continue without blocking ALINA P2.
 - next_action: continue P2 using reusable Human Agent boundary.
+
+
+## Entry 0058 — Live conversational creative-production model established
+
+- operation: HUMAN_AGENT_LIVE_CREATIVE_COLLABORATION
+- user_goal: Scenario Writer and Interactive 3D/Human Agent/Game specialist should turn natural conversation into actions, prompts and clarifications with minimum manual labor and maximum productive output; meticulous detail discussion remains available when needed.
+- decision: conversation is the primary creative interface; prompts are compiled internal production artifacts, not something the user must manually engineer.
+- default_mode: FLOW.
+- precision_mode: DETAIL for selected objects/scenes/behaviors, followed by automatic return to FLOW.
+- lock_mode: LOCK for approved versioned constraints.
+- question_policy: ask only when ambiguity materially changes meaning, permanent identity, costly visual identity, legal/license/privacy/safety boundary, platform/performance class, expensive irreversible work, or materially divergent variants.
+- orchestration: USER INTENT -> Scenario Writer -> Engineer production compilation -> selective clarification -> prompts/actions -> tools -> preview -> natural feedback -> delta regeneration -> validation.
+- productivity_rule: infer reversible routine parameters from project defaults; preserve inspectability and reversibility; regenerate deltas rather than entire scenes where possible.
+- studio_effect: Human Agent Studio will expose LIVE MODE by default and INSPECTOR MODE for exact parameters/prompts/assets/provenance/tests.
+- artifact: docs/knowledge_core/bootstrap/alina_analyst/HUMAN_AGENT_LIVE_CREATIVE_COLLABORATION_PROTOCOL_V01.md
+- next_action: apply this protocol to ALINA/Human Agent Studio development and later Scenario Writer integration.
