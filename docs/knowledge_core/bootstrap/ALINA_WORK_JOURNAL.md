@@ -1513,3 +1513,31 @@ Add an AVATAR_SKELETON_INTEGRITY visual gate. Green unit tests alone are insuffi
 
 ### Immediate next action
 P3.1 Reference Animation Benchmark -> select/adapt a clip-based runtime -> bind it behind AnimationIntent -> rerun the same local visual polygon -> accept/rework P3 based on visible evidence.
+
+
+## Entry 0076 — P3.1 reference benchmark completed; skeleton-integrity isolation build prepared
+
+### Action
+Implemented the first acceleration step from Entry 0075 rather than continuing to tune hand-authored gait.
+
+### Research result
+The official VRM stack already provides the required production primitives: humanoid animation support, VRMA loading, conversion to a VRM-specific AnimationClip and THREE.AnimationMixer playback. A mature VRM game starter demonstrates shared animation retargeting, idle/walk/run contracts, character-controller separation and Foot IK. These are reference mechanisms; bundled third-party assets remain independently licensed.
+
+### Decision
+Production spine: @pixiv/three-vrm + @pixiv/three-vrm-animation + THREE.AnimationMixer.
+Reference/adaptation source: mature VRM game-character implementations for retargeting/controller/IK.
+Secondary acquisition route: Mixamo-compatible animation retargeting.
+FATHER retains Presence Controller, Locomotion Controller, AnimationIntent, asset provenance gate and visual acceptance gates.
+
+### Code change
+Removed proceduralPose invocation from the primary AlinaScene runtime. Root locomotion and turning remain active. The next browser run is intentionally allowed to slide rather than walk: its purpose is to prove the VRM skeleton remains structurally intact when the failed bone mutator is absent.
+
+### New artifact
+Created ALINA_P3_REFERENCE_ANIMATION_BENCHMARK_V01.md with architecture boundary, candidate comparison, decision and G1-G7 acceptance gates.
+
+### Quality gate
+G1 is now ready for local visual execution:
+VRM body must remain intact from WORK_TABLE to INFORMATION_WALL while skeletal animation is disabled.
+
+### Next
+Run the existing local visual polygon. If G1 passes, bind verified clip-based IDLE/WALK/PRESENT assets behind AnimationIntent. If G1 fails, investigate VRM scene/root/normalization independently of animation clips before proceeding.
