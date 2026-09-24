@@ -17,7 +17,8 @@
     "creditRequired": true
   },
   "integrity": {
-    "sha256": "GENERATE_AT_DOWNLOAD"
+    "sha256": "624d0d554bc205bbdc33e22a68a2c3c20edebb3e573011ead8878a65e5329b23",
+    "status": "LOCAL_DOWNLOAD_VERIFIED"
   },
   "permanentAlinaAppearance": false
 }
