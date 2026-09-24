@@ -1193,3 +1193,39 @@ ADAPTIVE_WORKSPACE_TRANSFORM_CONTRACT_IMPLEMENTED / CI_PENDING.
 
 ### Next action
 Collect CI for WidgetTransform. If green, wire the common transform controller into Work Table and Knowledge first, then replace the temporary ALINA CSS zoom state with the same presentation contract. After that proceed to P3 avatar locomotion/pose.
+
+
+## Entry 0067 — Adaptive Workspace contract validated and wired into first real surfaces
+
+### CI evidence
+WidgetTransform pre-integration contract passed:
+- ALINA Control Center M1 run 35979412349, run #100: SUCCESS.
+- Validate automation registry run 35979412310, run #475: SUCCESS.
+- tests: 7/7 files, 30/30 tests passed.
+- build: SUCCESS, 38 modules, 451 ms.
+- build output JS: 1,278.55 kB / 346.95 kB gzip.
+- warnings: multiple Three.js instances during App test; main chunk >500 kB. Both remain technical-debt items and are not treated as release-quality performance.
+
+### Implementation
+The generic WidgetTransform model is now wired into three concrete surfaces:
+- KNOWLEDGE: independent zoom, fullscreen, minimize/restore.
+- WORK_TABLE: independent zoom, fullscreen, minimize/restore.
+- ALINA presentation overlay: independent zoom using the same transform model.
+
+Right-rail scale remains a separate operator-layout control because it changes the control rail itself rather than a workspace artifact.
+
+### Architecture
+Presentation transforms remain local UI state. They do not mutate DEMO workspace objects, professional identity, task state or Knowledge Core records. Reusable CSS states now support widget-fullscreen and widget-minimized instead of per-panel special cases.
+
+### Human-readable commits
+- 6b13fecfb255376c211012971d6c64c2168c5dc1 — connect the reusable transform controller to Knowledge, Work Table and ALINA for independent zoom/fullscreen behavior.
+- 28d0d035526cb6d64272a022f428a5ee9e5628cd — add local minimize/restore controls to Knowledge and Work Table.
+- ab1f2f5adfcadc0acf687c8a597491ca5d35e364 — provide common visual rules for fullscreen, minimized and per-widget operator controls.
+
+### Status
+WIDGET_TRANSFORM_CONTRACT_VALIDATED.
+FIRST_SURFACE_INTEGRATION_COMMITTED / CI_PENDING.
+P3 LOCOMOTION NOT STARTED YET.
+
+### GAP / next action
+The CI log exposes duplicate Three.js instance warning and continued bundle growth; both require dependency/code-splitting work before production optimization. The next immediate gate is CI for this integration. If green, perform local UI review, then start P3 by defining locomotion/pose implementation against the existing Presence Controller rather than hard-coding animation in the scene.
