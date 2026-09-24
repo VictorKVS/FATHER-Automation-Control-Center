@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1",
+  "agent_id": "ALINA",
+  "runtime_format": "VRMA",
+  "runtime_library": "@pixiv/three-vrm-animation",
+  "policy": "LOCAL_ASSET_ONLY_AFTER_LICENSE_REVIEW",
+  "assets": {
+    "IDLE_NEUTRAL": {
+      "status": "PENDING_ASSET_REVIEW",
+      "path": null,
+      "source": null,
+      "license": null,
+      "sha256": null
+    },
+    "WALK_FORWARD": {
+      "status": "PENDING_ASSET_REVIEW",
+      "path": null,
+      "source": null,
+      "license": null,
+      "sha256": null
+    },
+    "PRESENT_NEUTRAL": {
+      "status": "PENDING_ASSET_REVIEW",
+      "path": null,
+      "source": null,
+      "license": null,
+      "sha256": null
+    }
+  },
+  "notes": [
+    "Do not silently download animation assets at runtime.",
+    "Source, license and SHA-256 are required before promotion.",
+    "Seed-san remains a temporary TEST_ONLY body and is not permanent ALINA identity."
+  ]
+}
