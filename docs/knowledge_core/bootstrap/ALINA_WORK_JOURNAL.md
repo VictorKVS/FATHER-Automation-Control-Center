@@ -858,3 +858,16 @@
 - conclusion: P0 typed Presence Controller is CI-validated against the current repository baseline; the implementation may advance to P1.
 - next_action: create P1 isolated 3D scene/camera/anchor implementation while preserving the renderer-independent Presence Controller and existing regression suite.
 - priority: P0 validation complete; P1 authorized.
+
+
+## Entry 0055 — ALINA 3D planning compressed into delegated execution chain
+
+- operation: ALINA_3D_EXECUTION_MODE
+- trigger: user requested fewer reasoning/planning checkpoints, one chain for review, and delegation of intermediate technical decisions.
+- artifact: docs/knowledge_core/bootstrap/alina_analyst/ALINA_3D_EXECUTION_CHAIN_V01.md
+- execution_model: user reviews the end-to-end P1-P7 chain once; routine implementation decisions, test fixes, CI fixes, coordinates, fixtures, component naming and journal updates proceed without separate approval.
+- chain: P1 World -> P2 Body -> P3 Locomotion -> P4 Workspace Transition -> P5 Presence/Fallback -> P6 Voice Prep -> P7 Prototype Review.
+- stop_conditions: architectural invariant violation, repository-boundary change, unclear/restrictive permanent asset license, paid/provider selection, permanent ALINA appearance/voice/persona choice, security/privacy boundary change, major Control Center replacement, or evidence that selected web-3D approach is not viable.
+- governance_effect: analysis-first rule remains, but repeated micro-passports/planning conversations are removed where the approved baseline already covers the work.
+- next_action: after user review of this chain, execute P1-P7 continuously until a stop condition or prototype review gate.
+- priority: P0 workflow optimization.
