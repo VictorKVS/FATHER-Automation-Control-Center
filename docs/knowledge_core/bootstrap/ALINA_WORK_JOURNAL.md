@@ -1154,3 +1154,42 @@ RIGHT_RAIL_AND_ALINA_SCALING_IMPLEMENTED / CI_PENDING / LOCAL_REVIEW_PENDING.
 
 ### GAP / next improvement
 The screenshot shows that the temporary VRM pose/placement is not yet production-ready: the character appears in a T-pose-like state and the spatial composition requires correction. Per-widget transforms for every board/panel are not yet generalized. Next: validate this UI scaling change, then introduce a reusable WidgetTransform model and P3 avatar pose/locomotion instead of accumulating one-off scale states.
+
+
+## Entry 0066 — scaling change validated; reusable per-widget transform model established
+
+### Validation
+The independent right-rail / ALINA scaling change passed both repository workflows:
+- ALINA Control Center M1 run 35978842083, run #95: SUCCESS.
+- Validate automation registry run 35978842167, run #469: SUCCESS.
+
+### Problem
+The first visual review requested independent zoom and future manipulation of each screen/object. Continuing with one-off React state variables for every surface would create inconsistent behavior and technical debt.
+
+### Decision
+Introduce one reusable presentation-only WidgetTransform contract before wiring more controls. Canonical task/knowledge state remains outside this model.
+
+### Contract
+WidgetTransform now defines:
+- scale;
+- x/y presentation offset;
+- minimized;
+- fullscreen;
+- floating;
+- reset/default behavior.
+
+Initial WidgetId scope: KNOWLEDGE, SOURCES, PROJECTS, AGENTS, WORK_TABLE, ALINA. Scale is clamped to 50%–500%.
+
+### Tests
+Added tests for independent widget state, scale limits, movement→floating transition, fullscreen/minimize mutual exclusion and deterministic reset.
+
+### Human-readable commits
+- 2983a0446d7f38440008e320a0e5ec588e383634 — create the common Adaptive Workspace transform contract so Control Center surfaces can be manipulated independently without contaminating canonical state.
+- 6ff63af4c525e585f29fb0ab63ed967681581fa5 — define executable tests for independent zoom, safe limits, floating movement, fullscreen/minimize rules and reset before UI-wide integration.
+
+### Status
+M1.2 SCALING VALIDATED.
+ADAPTIVE_WORKSPACE_TRANSFORM_CONTRACT_IMPLEMENTED / CI_PENDING.
+
+### Next action
+Collect CI for WidgetTransform. If green, wire the common transform controller into Work Table and Knowledge first, then replace the temporary ALINA CSS zoom state with the same presentation contract. After that proceed to P3 avatar locomotion/pose.
