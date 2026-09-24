@@ -1229,3 +1229,38 @@ P3 LOCOMOTION NOT STARTED YET.
 
 ### GAP / next action
 The CI log exposes duplicate Three.js instance warning and continued bundle growth; both require dependency/code-splitting work before production optimization. The next immediate gate is CI for this integration. If green, perform local UI review, then start P3 by defining locomotion/pose implementation against the existing Presence Controller rather than hard-coding animation in the scene.
+
+
+## Entry 0068 — Adaptive Workspace integration validated; P3 deterministic locomotion implemented
+
+### CI evidence
+The first real Adaptive Workspace surface integration passed:
+- ALINA Control Center M1 run 35979771097, run #107: SUCCESS.
+- Validate automation registry run 35979770470, run #483: SUCCESS.
+
+### P3 implementation
+Implemented a deterministic locomotion controller before adding animation assets. ALINA now has explicit locomotion state: current anchor, target anchor, position, yaw, behavior and moving flag. A MOVE_TO request toward INFORMATION_WALL changes behavior to WALKING, advances position over time instead of teleporting, and on arrival changes behavior to PRESENTING.
+
+The real VRM scene component is connected to this state machine. For the current local polygon, clicking the loaded humanoid issues the test move command toward INFORMATION_WALL. This is a temporary operator trigger for validating motion semantics; it is not the final backend command channel.
+
+### Tests
+P3 tests specify:
+- initial WORK_TABLE + IDLE;
+- MOVE_TO INFORMATION_WALL → WALKING;
+- incremental movement without teleport;
+- arrival → INFORMATION_WALL + PRESENTING;
+- same-anchor request does not fabricate movement.
+
+### Human-readable commits
+- aa1c61bb3260d79505fa5a59dc2fd515629f3bfa — define deterministic anchor-based ALINA locomotion driven by presentation intent, with WALKING and PRESENTING transitions.
+- ee0176cb74a6402cf4a131ce7a7d987078587722 — encode P3 locomotion acceptance behavior as executable tests before relying on visual animation.
+- 826d26869aa332242900f1f3a2515e723b0325eb — connect the actual VRM body to the locomotion controller and provide a temporary click-to-MOVE_TO polygon trigger.
+- 1f26cdffd29dfee0cff0988614c142ae6cd3b84c — correct frame state propagation so React presentation state follows locomotion updates.
+
+### Status
+ADAPTIVE_WORKSPACE_FIRST_INTEGRATION_VALIDATED.
+P3 LOCOMOTION_LOGIC_IMPLEMENTED / CI_PENDING / VISUAL_MOTION_REVIEW_PENDING.
+SKELETAL WALK_ANIMATION_NOT_YET_ADDED.
+
+### GAP / next action
+This stage moves the whole VRM body through the scene but does not yet animate the skeleton, so the temporary avatar can still appear rigid/T-pose while translating. This is intentional separation of locomotion semantics from animation assets. Next: collect CI; if green, integrate an explicitly licensed idle/walk animation/retargeting path and visually validate body pose, feet, orientation and arrival at INFORMATION_WALL.
