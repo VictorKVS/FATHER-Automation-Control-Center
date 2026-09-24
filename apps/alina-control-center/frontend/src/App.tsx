@@ -15,6 +15,8 @@ export default function App({avatarRendererAvailable=true}:AppProps){
  const [focus,setFocus]=useState(restored.focus);
  const [boardOpen,setBoardOpen]=useState(restored.boardOpen);
  const [presence,setPresence]=useState<AvatarPresence>(restored.presence);
+ const [rightRailScale,setRightRailScale]=useState(1);
+ const [alinaScale,setAlinaScale]=useState(1);
  const active=useMemo(()=>demoWorkspace.objects.find(o=>o.id===demoWorkspace.workspace.activeObjectRef),[]);
  const knowledge=demoWorkspace.objects.find(o=>o.id==="demo:knowledge:mvp-principle");
  useEffect(()=>savePresentationState({focus,boardOpen,presence}),[focus,boardOpen,presence]);
@@ -22,7 +24,7 @@ export default function App({avatarRendererAvailable=true}:AppProps){
 
  if(!active || !knowledge) return <main className="fatal-state"><StatusBadge status="UNAVAILABLE"/><h1>Workspace object unavailable</h1><p>DEMO fixture reference could not be resolved.</p></main>;
 
- return <main className={focus?"app focus":"app"}>
+ return <main className={focus?"app focus":"app"} style={{"--right-rail-scale":rightRailScale,"--alina-ui-scale":alinaScale} as React.CSSProperties}>
    <header><div><b>FATHER</b><span> / ALINA CONTROL CENTER</span></div><StatusBadge status="DEMO"/></header>
    <aside className="rail left"><button>Knowledge</button><button>Sources</button><button>Projects</button><button>Agents</button></aside>
    <section className="stage">
@@ -37,7 +39,21 @@ export default function App({avatarRendererAvailable=true}:AppProps){
      </section>
      {boardOpen&&<section className="board"><div><b>KNOWLEDGE</b> <StatusBadge status={knowledge.dataStatus}/></div><h2>{knowledge.title}</h2><p>Показываем человеку то, что нужно для текущего решения, а не всё, что знает система.</p><button onClick={()=>setBoardOpen(false)}>Свернуть табло</button></section>}
    </section>
-   <aside className="rail right"><button onClick={()=>setFocus(v=>!v)}>{focus?"Выйти из Focus":"Focus Mode"}</button><button onClick={cyclePresence}>ALINA: {presence}</button>{!boardOpen&&<button onClick={()=>setBoardOpen(true)}>Открыть Knowledge</button>}</aside>
+   <aside className="rail right">
+     <div className="rail-zoom" aria-label="Right rail zoom controls">
+       <button onClick={()=>setRightRailScale(v=>Math.max(.6,+(v-.2).toFixed(1)))} aria-label="Уменьшить правую панель">−</button>
+       <strong>{Math.round(rightRailScale*100)}%</strong>
+       <button onClick={()=>setRightRailScale(v=>Math.min(5,+(v+.2).toFixed(1)))} aria-label="Увеличить правую панель">+</button>
+     </div>
+     <button onClick={()=>setFocus(v=>!v)}>{focus?"Выйти из Focus":"Focus Mode"}</button>
+     <button onClick={cyclePresence}>ALINA: {presence}</button>
+     <div className="alina-zoom" aria-label="ALINA zoom controls">
+       <button onClick={()=>setAlinaScale(v=>Math.max(.5,+(v-.1).toFixed(1)))}>ALINA −</button>
+       <strong>{Math.round(alinaScale*100)}%</strong>
+       <button onClick={()=>setAlinaScale(v=>Math.min(3,+(v+.1).toFixed(1)))}>ALINA +</button>
+     </div>
+     {!boardOpen&&<button onClick={()=>setBoardOpen(true)}>Открыть Knowledge</button>}
+   </aside>
    <footer>DATA: DEMO · RENDER: {avatarRendererAvailable?"TWO_D":"STATUS_ONLY"} · Knowledge Core: NOT CONNECTED</footer>
  </main>
 }
