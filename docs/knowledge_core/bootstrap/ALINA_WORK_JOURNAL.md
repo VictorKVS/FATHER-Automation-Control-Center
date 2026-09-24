@@ -871,3 +871,21 @@
 - governance_effect: analysis-first rule remains, but repeated micro-passports/planning conversations are removed where the approved baseline already covers the work.
 - next_action: after user review of this chain, execute P1-P7 continuously until a stop condition or prototype review gate.
 - priority: P0 workflow optimization.
+
+
+## Entry 0056 — ALINA 3D P1 world implementation started
+
+- operation: ALINA_3D_P1_WORLD
+- authorization: streamlined P1-P7 execution chain approved by user.
+- changes:
+  - added Three.js and React Three Fiber dependencies plus Three types;
+  - created isolated AlinaScene Canvas;
+  - created room floor, information wall, work table, lighting, fog and camera;
+  - encoded scene anchors A0 WORK_TABLE, A1 INFORMATION_WALL, A2 KNOWLEDGE_PANEL, A3 GRAPH_PANEL, A4 EVIDENCE_PANEL;
+  - mounted 3D world beneath existing Control Center workspace UI;
+  - added debug anchor geometry/legend for spatial validation.
+- architecture: existing workspace remains above the 3D layer; Presence Controller remains renderer-independent.
+- implementation_commits: 7e32e1a, 0c3da28, 0e0d0d9, 1d6a7a2.
+- validation_status: CI run was not yet available at the time of journal entry; P1 is IMPLEMENTED_PENDING_CI, not PASS.
+- known_limit: no humanoid body, locomotion or permanent assets in P1.
+- next_action: collect CI; fix any dependency/type/build regressions automatically; then proceed to P2 AvatarRendererAdapter/body.
