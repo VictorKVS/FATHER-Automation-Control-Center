@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { demoWorkspace } from "./demoData";
 import type { AvatarPresence, DataStatus } from "./types";
 import { loadPresentationState, savePresentationState } from "./workspaceState";
+import { AlinaScene } from "./AlinaScene";
 import "./styles.css";
 
 const statuses: Record<DataStatus,string>={REAL:"REAL",DEMO:"DEMO",PLANNED:"PLANNED",UNAVAILABLE:"UNAVAILABLE",STALE:"STALE",UNKNOWN:"UNKNOWN"};
@@ -25,6 +26,7 @@ export default function App({avatarRendererAvailable=true}:AppProps){
    <header><div><b>FATHER</b><span> / ALINA CONTROL CENTER</span></div><StatusBadge status="DEMO"/></header>
    <aside className="rail left"><button>Knowledge</button><button>Sources</button><button>Projects</button><button>Agents</button></aside>
    <section className="stage">
+     {avatarRendererAvailable && <AlinaScene/>}
      {avatarRendererAvailable ? <div className={"alina "+presence.toLowerCase()} aria-label={"ALINA "+presence}>
        {presence!=="HIDDEN"&&<><div className="alina-face"><i/><i/></div><strong>ALINA</strong><small>ANALYST · {presence}</small></>}
      </div> : <div className="alina-fallback" role="status">ALINA · STATUS ONLY · RENDERER UNAVAILABLE</div>}
