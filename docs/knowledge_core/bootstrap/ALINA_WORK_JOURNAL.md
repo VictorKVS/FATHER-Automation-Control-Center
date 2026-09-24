@@ -1408,3 +1408,30 @@ VERIFIED_VRMA_IDLE_WALK_ASSETS_REMAIN_OPTIONAL_NEXT_QUALITY_UPGRADE.
 
 ### Next action
 Collect CI. Then user/local visual polygon should verify: arms lowered naturally, no rigid T-pose, visible leg alternation during click-to-wall movement, orientation and final PRESENTING stance. Correct bone-axis/sign issues from visual evidence before adding richer clips.
+
+
+## Entry 0073 — procedural anti-T-pose/gait passed CI; local visual polygon launcher prepared
+
+### CI evidence
+The FATHER-owned procedural pose/gait integration passed:
+- ALINA Control Center M1 run 35986253253, run #142: SUCCESS.
+- Validate automation registry run 35986253293, run #525: SUCCESS.
+- tests: 10/10 files, 44/44 tests passed.
+- build: SUCCESS, 42 modules transformed.
+
+### Interpretation
+Automated validation now confirms that the procedural fallback compiles with the real VRM scene and does not break the existing Control Center contracts. CI cannot determine whether arm angles, knee bend, foot motion or final facing look natural; those are visual-polygon acceptance criteria.
+
+### Operator artifact
+Added scripts/START_ALINA_VISUAL_POLYGON.ps1. It verifies that the local Seed-san test body exists, launches Vite, and gives a fixed five-step visual acceptance procedure: neutral arms, click-to-move, alternating gait, arrival at INFORMATION_WALL, screenshots before/after.
+
+### Human-readable commit
+- c734da98796032ad65e18c94ac1315a6b32de4bb — create the one-command P3 visual polygon launcher so the procedural anti-T-pose/gait can be evaluated reproducibly on the user's real browser/GPU.
+
+### Status
+PROCEDURAL_ANTI_TPOSE_AND_GAIT_CI_VALIDATED.
+LOCAL_VISUAL_POLYGON_READY.
+VISUAL_ACCEPTANCE_PENDING USER BROWSER/GPU EVIDENCE.
+
+### Next action
+Run the local polygon and use screenshots to calibrate bone axes/angles and arrival orientation. Do not declare P3 visual completion from CI alone.
