@@ -1124,3 +1124,33 @@ The downloaded VRM binary and generated hash text exist on the development machi
 
 ### Next action
 Collect CI. If green, run the Control Center locally, visually inspect ALINA at WORK_TABLE, capture concrete spatial/body issues, then implement P3 locomotion/state-driven movement toward INFORMATION_WALL.
+
+
+## Entry 0065 — first human visual review: operator controls and ALINA require independent scaling
+
+### Trigger / visual evidence
+Viktor reviewed the first locally rendered humanoid in the Control Center and supplied a full-screen screenshot. The real VRM is visibly loading in the 3D room, which closes the binary-loader visibility question. The screenshot also exposes composition problems: operator controls on the right are too small for the available display, and ALINA requires independent visual zoom rather than being tied to workspace/panel scale.
+
+### User requirement
+- right-side control icons/buttons should be approximately five times more prominent at the upper end;
+- the right control area must support zoom in/out;
+- individual interface elements should be independently scalable;
+- ALINA must have independent zoom in/out as well.
+
+### Implementation
+Added a right-rail scale state with explicit minus/plus controls and a 60%–500% range. Enlarged right-side controls and allowed the rail width/button typography to respond to its own scale. Added a separate ALINA presentation scale with 50%–300% range so changing ALINA does not alter workspace state or right-panel scale.
+
+### Architectural decision
+Scaling is presentation state only. It must not mutate ALINA identity, canonical task state, Knowledge Core data, or 3D professional semantics. This is the first step toward per-widget presentation transforms; the current implementation covers the right operator rail and ALINA independently.
+
+### Human-readable commits
+- b75ed5045c044d669071c4cc091ec1cc10adf5e9 — add independent operator controls for right-rail zoom and ALINA presentation zoom while preserving task/workspace state.
+- ef377fa4b945590053d47dc51ab3981926cac0d8 — enlarge the right-side operator controls and make rail and ALINA scaling visually independent.
+
+### Status
+FIRST_REAL_VRM_VISIBLE_LOCALLY.
+VISUAL_REVIEW_001_CAPTURED.
+RIGHT_RAIL_AND_ALINA_SCALING_IMPLEMENTED / CI_PENDING / LOCAL_REVIEW_PENDING.
+
+### GAP / next improvement
+The screenshot shows that the temporary VRM pose/placement is not yet production-ready: the character appears in a T-pose-like state and the spatial composition requires correction. Per-widget transforms for every board/panel are not yet generalized. Next: validate this UI scaling change, then introduce a reusable WidgetTransform model and P3 avatar pose/locomotion instead of accumulating one-off scale states.
