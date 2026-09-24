@@ -889,3 +889,21 @@
 - validation_status: CI run was not yet available at the time of journal entry; P1 is IMPLEMENTED_PENDING_CI, not PASS.
 - known_limit: no humanoid body, locomotion or permanent assets in P1.
 - next_action: collect CI; fix any dependency/type/build regressions automatically; then proceed to P2 AvatarRendererAdapter/body.
+
+
+## Entry 0057 — Human Agent Studio competitor synthesis and specialist direction
+
+- operation: HUMAN_AGENT_STUDIO_RESEARCH_SYNTHESIS
+- authorization: user approved competitor-first research and delegated intermediate selection/design decisions.
+- research_scope: browser character creators, parametric humans, VRM/GLB avatar runtimes, voice/lip-sync, digital humans, Blender/DCC character tools, MetaHuman, game-character controllers, game AI/animation literature.
+- selected_product_direction: reusable FATHER Human Agent Studio rather than a monolithic ALINA-only avatar editor.
+- selected_strategy: HYBRID build-vs-reuse. Reuse mature rendering/DCC/physics/runtime primitives through adapters; FATHER owns HumanAgentPackage semantics, professional binding, behavior orchestration, provenance, tests and Studio workflow.
+- first_runtime: existing React/Three.js/R3F Control Center; VRM/GLB adapter direction.
+- DCC_direction: Blender-first open pipeline.
+- future_game_direction: evaluate Godot/Unreal adapters after reusable character contracts stabilize; do not force complete game mechanics into the Control Center.
+- specialist_direction: Interactive 3D / Human Agent & Game Experience Engineer spanning frontend, 3D, character pipeline, animation, voice/embodiment, HCI, game architecture, NPC/game AI, physics/VFX/action mechanics, optimization and licensing.
+- knowledge_seed: Real-Time Rendering 4e; Hands-On C++ Game Animation Programming; Mastering C++ Game Animation Programming; Game Programming in C++; Practical Game AI Programming; current official engine/runtime documentation.
+- architecture_effect: ALINA P2 must introduce AvatarRendererAdapter + HumanAgentProfile boundary and must not hard-code ALINA body into Control Center.
+- artifact: docs/knowledge_core/bootstrap/alina_analyst/FATHER_HUMAN_AGENT_STUDIO_RESEARCH_SYNTHESIS_V01.md
+- research_status: BASELINE_COMPLETE; deeper source ingestion belongs to Knowledge Core/library workflow and can continue without blocking ALINA P2.
+- next_action: continue P2 using reusable Human Agent boundary.
