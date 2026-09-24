@@ -1,4 +1,9 @@
 import { Canvas } from "@react-three/fiber";
+import { Suspense, useEffect, useState } from "react";
+import { primitive } from "three";
+import type { VRM } from "@pixiv/three-vrm";
+import { alinaHumanAgentProfile } from "./humanAgentProfile";
+import { loadVrmAvatar } from "./vrmAvatarLoader";
 
 const canRenderWebGL = () => typeof window !== "undefined" && typeof window.ResizeObserver !== "undefined" && typeof window.WebGLRenderingContext !== "undefined";
 
@@ -16,6 +21,27 @@ function Anchor({position,label}:{position:readonly [number,number,number];label
     <mesh position={[0,.28,0]}><boxGeometry args={[.03,.4,.03]}/><meshStandardMaterial color="#2de7ff"/></mesh>
     <mesh position={[0,.52,0]}><boxGeometry args={[.45,.16,.02]}/><meshStandardMaterial color="#08202a" emissive="#0b8195" emissiveIntensity={.8}/></mesh>
   </group>
+}
+
+function AlinaAvatar(){
+  const [vrm,setVrm]=useState<VRM|null>(null);
+  const [failed,setFailed]=useState(false);
+
+  useEffect(()=>{
+    let active=true;
+    let loaded:VRM|null=null;
+    loadVrmAvatar(alinaHumanAgentProfile.avatar.uri)
+      .then((next)=>{ loaded=next; if(active) setVrm(next); })
+      .catch(()=>{ if(active) setFailed(true); });
+    return ()=>{ active=false; loaded?.scene.removeFromParent(); };
+  },[]);
+
+  if(failed) return <mesh position={[0,1,1.25]}><capsuleGeometry args={[.32,1.2,8,16]}/><meshStandardMaterial color="#173844" emissive="#0b8195" emissiveIntensity={.35}/></mesh>;
+  if(!vrm) return null;
+
+  return <group position={[0,0,1.25]} rotation={[0,Math.PI,0]} scale={1.05}>
+    <primitive object={vrm.scene}/>
+  </group>;
 }
 
 function Room(){
@@ -44,6 +70,7 @@ export function AlinaScene(){
       <color attach="background" args={["#02070b"]}/>
       <fog attach="fog" args={["#02070b",7,16]}/>
       <Room/>
+      <Suspense fallback={null}><AlinaAvatar/></Suspense>
     </Canvas>
     <div className="scene3d-legend">3D WORLD · A0 WORK TABLE · A1 INFORMATION WALL · A2–A4 PANELS</div>
   </div>;
