@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "three": "^0.180.0",
+    "@react-three/fiber": "^9.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "latest",
@@ -26,6 +28,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "ajv": "latest",
-    "@types/node": "latest"
+    "@types/node": "latest",
+    "@types/three": "^0.180.0"
   }
 }
