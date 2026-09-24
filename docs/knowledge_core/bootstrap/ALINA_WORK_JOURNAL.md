@@ -1471,3 +1471,45 @@ Future roadmap reviews should compare actual stage status, evidence, deviations,
 
 ### Immediate next action
 Finish P3 with local visual evidence. If visually acceptable, freeze P3 and begin P4 with the analysis-first sequence: P4 analytical passport -> scene/workspace interaction notation -> acceptance tests -> implementation -> test execution -> visual evidence.
+
+
+## Entry 0075 — P3 visual polygon failed; reference-animation acceleration strategy adopted
+
+### Trigger
+The first local visual polygon produced direct browser evidence that the VRM body loads and root locomotion/turning operate, but the procedural skeletal pose/gait breaks avatar integrity during movement. Limbs visibly stretch/detach while the root continues toward the target.
+
+### Evidence and observed result
+- Initial VRM body renders as one character.
+- Root translation is observable.
+- Character orientation changes during movement.
+- Procedural skeletal deformation is visually unacceptable.
+- Automated unit/CI success did not detect the rendering/skeleton failure.
+
+### Decision
+P3 is NOT accepted. Open P3.1 Skeleton/Animation Runtime Repair.
+
+Do not continue hand-authoring humanoid gait as the primary runtime. Accelerate by benchmarking and adapting mature VRM/Three animation primitives while retaining FATHER-owned orchestration.
+
+### Architecture retained
+- Presence Controller owns semantic behavior state.
+- Locomotion Controller owns world-space position/orientation and destination.
+- AnimationIntent maps semantic state to a motion intent.
+- Animation runtime owns skeletal clips/blending only.
+- Root locomotion and skeletal animation remain separated.
+
+### Reference strategy
+Evaluate the official three-vrm / three-vrm-animation path first, then a mature VRM game-character implementation as a reference for retargeting, clip blending and locomotion. External assets are not automatically accepted: license, provenance, source and SHA remain mandatory.
+
+### Minimal P3 acceptance sequence
+IDLE -> WALK -> ARRIVAL/IDLE -> PRESENT.
+
+Do not block P3 on a large motion library. Additional gestures, emotions and work motions belong to later layers.
+
+### Procedural pose disposition
+The current proceduralPose experiment is retained as experimental/fallback evidence and must not be the default production animation path until it can pass skeleton-integrity validation.
+
+### New regression requirement
+Add an AVATAR_SKELETON_INTEGRITY visual gate. Green unit tests alone are insufficient for promotion of 3D character changes.
+
+### Immediate next action
+P3.1 Reference Animation Benchmark -> select/adapt a clip-based runtime -> bind it behind AnimationIntent -> rerun the same local visual polygon -> accept/rework P3 based on visible evidence.
