@@ -1373,3 +1373,38 @@ T_POSE_VISUAL_GAP_REMAINS UNTIL A REVIEWED CLIP IS PROVIDED/GENERATED.
 
 ### Next action
 Validate this gate in CI. Then obtain or generate the first VRMA idle/walk files under acceptable terms, register them through the script, bind the verified map to the runtime adapter, and perform the visual polygon.
+
+
+## Entry 0072 — acquisition gate validated; external animation benchmark reviewed; FATHER-owned procedural anti-T-pose fallback integrated
+
+### CI evidence
+The fail-closed animation acquisition gate passed:
+- ALINA Control Center M1 run 35985353658, run #136: SUCCESS.
+- Validate automation registry run 35985353649, run #517: SUCCESS.
+
+### Research / evidence
+Reviewed Google XRBlocks VRM avatar demo. Its documentation demonstrates a close target behavior: VRM loading, Mesh2Motion animation retargeting, idle/walk crossfade and point-to-walk. However its main.js resolves T-pose/idle/walk files from a separately named xrblocks/proprietary-assets repository/CDN. The XRBlocks source repo is Apache-2.0, but that source license does not automatically establish redistribution rights for separately hosted binary assets. Decision: use the implementation as a benchmark, not as an automatic binary source.
+
+Pixiv three-vrm official examples independently confirm AnimationMixer-based humanoid animation and VRMA playback paths.
+
+### Implementation
+To make visual progress without violating the asset gate, added a FATHER-owned procedural pose fallback:
+- relaxed upper/lower arms remove the rigid T-pose at idle;
+- WALK_FORWARD produces a lightweight alternating arm/leg gait;
+- locomotionController remains the sole owner of root translation;
+- the fallback is driven by AnimationIntent, so it can later be replaced by verified VRMA clips without changing Presence/Locomotion semantics.
+
+Bound the procedural pose to the actual VRM in AlinaScene.
+
+### Human-readable commits
+- df4c8c654ca7798d33374d254accd92311411c05 — document the XRBlocks benchmark, its useful locomotion/retargeting evidence and the reason its separately hosted animation binaries are not automatically imported.
+- 16a854cbef39b61ff56554d2d2eab24d83b9fa52 — implement a FATHER-owned procedural neutral pose and gait fallback to remove T-pose without external animation binaries.
+- f3b50249172ec71e09d07d532af385720c0a2690 — connect the procedural pose to live AnimationIntent and the real VRM scene.
+
+### Status
+ANIMATION_ACQUISITION_GATE_VALIDATED.
+PROCEDURAL_ANTI_TPOSE_AND_GAIT_IMPLEMENTED / CI_PENDING / LOCAL_VISUAL_REVIEW_PENDING.
+VERIFIED_VRMA_IDLE_WALK_ASSETS_REMAIN_OPTIONAL_NEXT_QUALITY_UPGRADE.
+
+### Next action
+Collect CI. Then user/local visual polygon should verify: arms lowered naturally, no rigid T-pose, visible leg alternation during click-to-wall movement, orientation and final PRESENTING stance. Correct bone-axis/sign issues from visual evidence before adding richer clips.
