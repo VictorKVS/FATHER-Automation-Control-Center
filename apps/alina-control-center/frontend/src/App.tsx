@@ -35,12 +35,12 @@ export default function App({avatarRendererAvailable=true}:AppProps){
      {avatarRendererAvailable ? <div className={"alina "+presence.toLowerCase()} aria-label={"ALINA "+presence}>
        {presence!=="HIDDEN"&&<><div className="alina-face"><i/><i/></div><strong>ALINA</strong><small>ANALYST · {presence}</small></>}
      </div> : <div className="alina-fallback" role="status">ALINA · STATUS ONLY · RENDERER UNAVAILABLE</div>}
-     <section className={"table"+(widgets.WORK_TABLE.fullscreen?" widget-fullscreen":"")+(widgets.WORK_TABLE.minimized?" widget-minimized":"")} style={widgetStyle("WORK_TABLE")}>
+     <section className={"table"+(widgets.WORK_TABLE.fullscreen?" widget-fullscreen":"")+(widgets.WORK_TABLE.minimized?" widget-minimized":"")} style={widgetStyle("WORK_TABLE")}><div className="widget-inline-controls"><button onClick={()=>changeWidget("WORK_TABLE",v=>toggleWidgetMinimized(v))}>{widgets.WORK_TABLE.minimized?"Развернуть":"Свернуть"}</button></div>
        <div className="table-label">WORK TABLE · {demoWorkspace.workspace.workTableMode}</div>
        <StatusBadge status={active.dataStatus}/><h1>{active.title}</h1><p>Первичный рабочий объект красивого MVP. Канонические данные пока не подключены.</p>
        <div className="meta">ID {active.id} · {active.version}</div>
      </section>
-     {boardOpen&&<section className={"board"+(widgets.KNOWLEDGE.fullscreen?" widget-fullscreen":"")+(widgets.KNOWLEDGE.minimized?" widget-minimized":"")} style={widgetStyle("KNOWLEDGE")}><div><b>KNOWLEDGE</b> <StatusBadge status={knowledge.dataStatus}/></div><h2>{knowledge.title}</h2><p>Показываем человеку то, что нужно для текущего решения, а не всё, что знает система.</p><button onClick={()=>setBoardOpen(false)}>Свернуть табло</button></section>}
+     {boardOpen&&<section className={"board"+(widgets.KNOWLEDGE.fullscreen?" widget-fullscreen":"")+(widgets.KNOWLEDGE.minimized?" widget-minimized":"")} style={widgetStyle("KNOWLEDGE")}><div className="widget-inline-controls"><button onClick={()=>changeWidget("KNOWLEDGE",v=>toggleWidgetMinimized(v))}>{widgets.KNOWLEDGE.minimized?"Развернуть":"Свернуть"}</button></div><div><b>KNOWLEDGE</b> <StatusBadge status={knowledge.dataStatus}/></div><h2>{knowledge.title}</h2><p>Показываем человеку то, что нужно для текущего решения, а не всё, что знает система.</p><button onClick={()=>setBoardOpen(false)}>Свернуть табло</button></section>}
    </section>
    <aside className="rail right">
      <div className="rail-zoom" aria-label="Right rail zoom controls">
