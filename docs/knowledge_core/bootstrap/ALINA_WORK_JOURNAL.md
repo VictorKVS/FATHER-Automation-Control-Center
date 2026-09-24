@@ -1302,3 +1302,40 @@ IDLE/WALK_ASSET_PENDING_LICENSE_REVIEW.
 
 ### Next action
 Validate the new contract in CI. Then select or generate an explicitly licensed animation source, record provenance/license/hash, integrate through a VRM animation adapter, and run the local visual polygon. Do not import an arbitrary web animation merely to remove T-pose.
+
+
+## Entry 0070 — animation-intent contract validated; official VRMA runtime adapter added without importing unreviewed clips
+
+### CI evidence
+The animation-intent contract passed:
+- ALINA Control Center M1 run 35981790415, run #122: SUCCESS.
+- Validate automation registry run 35981790342, run #501: SUCCESS.
+
+### External technical verification
+Official Pixiv three-vrm documentation and repository examples confirm the supported VRMA path: VRMAnimationLoaderPlugin loads VRM Animation data and createVRMAnimationClip creates a Three.js clip for a target VRM humanoid. The official examples use AnimationMixer for playback. Adobe's Mixamo FAQ states Mixamo characters and animations may be used royalty-free in personal, commercial and non-profit projects, but no Mixamo file has been imported at this stage; any actual asset still requires a recorded acquisition/provenance decision.
+
+### Implementation
+Added @pixiv/three-vrm-animation matching the existing 3.4.3 VRM stack.
+Added vrmAnimationAdapter.ts:
+- VRMA loader plugin;
+- retarget clip creation for the active VRM;
+- AnimationMixer;
+- cached actions;
+- crossfade between animation intents;
+- explicit external AnimationAssetMap rather than hard-coded remote URLs.
+
+Added animation-manifest.json with IDLE_NEUTRAL, WALK_FORWARD and PRESENT_NEUTRAL all intentionally PENDING_ASSET_REVIEW. Runtime policy is LOCAL_ASSET_ONLY_AFTER_LICENSE_REVIEW; source/license/SHA-256 are mandatory before promotion.
+
+### Human-readable commits
+- 70ec28f41bfa93b5343034164e78bce87d33e87a — add the official Pixiv VRM-animation package matching the current VRM runtime.
+- 05e2993d774ccbf7298cb61ebe54eedb0a59d605 — implement the replaceable VRMA playback/retarget adapter with caching and crossfades.
+- 61597926789de2fb330205f22028e83432967a85 — create the animation asset provenance manifest and explicitly block unreviewed idle/walk/present clips.
+
+### Status
+ANIMATION_INTENT_CONTRACT_VALIDATED.
+VRMA_RUNTIME_ADAPTER_IMPLEMENTED / CI_PENDING.
+ANIMATION_ASSETS_NOT_IMPORTED.
+T_POSE_VISUAL_GAP_REMAINS.
+
+### Next action
+Collect CI for the adapter. Then acquire an actual reviewed idle/walk source, store it locally, calculate SHA-256, update the manifest, bind AnimationIntent to the adapter, and run visual polygon validation. If asset licensing or redistribution rights remain unclear, keep the asset local/test-only rather than committing binaries.
