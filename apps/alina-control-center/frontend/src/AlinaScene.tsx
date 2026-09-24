@@ -1,8 +1,10 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useEffect, useRef, useState } from "react";
+import type { Group } from "three";
 import type { VRM } from "@pixiv/three-vrm";
 import { alinaHumanAgentProfile } from "./humanAgentProfile";
 import { loadVrmAvatar } from "./vrmAvatarLoader";
+import { initialLocomotionState, requestMove, stepLocomotion, type LocomotionState } from "./locomotionController";
 
 const canRenderWebGL = () => typeof window !== "undefined" && typeof window.ResizeObserver !== "undefined" && typeof window.WebGLRenderingContext !== "undefined";
 
@@ -24,6 +26,9 @@ function Anchor({position,label}:{position:readonly [number,number,number];label
 
 function AlinaAvatar(){
   const [vrm,setVrm]=useState<VRM|null>(null);
+  const [locomotion,setLocomotion]=useState<LocomotionState>(()=>initialLocomotionState());
+  const locomotionRef=useRef(locomotion);
+  const groupRef=useRef<Group>(null);
   const [failed,setFailed]=useState(false);
 
   useEffect(()=>{
@@ -35,10 +40,27 @@ function AlinaAvatar(){
     return ()=>{ active=false; loaded?.scene.removeFromParent(); };
   },[]);
 
+  useEffect(()=>{ locomotionRef.current=locomotion; },[locomotion]);
+  useFrame((_,delta)=>{
+    const next=stepLocomotion(locomotionRef.current,delta);
+    locomotionRef.current=next;
+    if(groupRef.current){
+      groupRef.current.position.set(...next.position);
+      groupRef.current.rotation.y=next.yaw;
+    }
+    if(next!==locomotionRef.current) setLocomotion(next);
+  });
+
+  const moveToWall=()=>{
+    const next=requestMove(locomotionRef.current,"INFORMATION_WALL");
+    locomotionRef.current=next;
+    setLocomotion(next);
+  };
+
   if(failed) return <mesh position={[0,1,1.25]}><capsuleGeometry args={[.32,1.2,8,16]}/><meshStandardMaterial color="#173844" emissive="#0b8195" emissiveIntensity={.35}/></mesh>;
   if(!vrm) return null;
 
-  return <group position={[0,0,1.25]} rotation={[0,Math.PI,0]} scale={1.05}>
+  return <group ref={groupRef} position={[...locomotion.position]} rotation={[0,locomotion.yaw,0]} scale={1.05} onClick={moveToWall}>
     <primitive object={vrm.scene}/>
   </group>;
 }
