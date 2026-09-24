@@ -43,12 +43,13 @@ function AlinaAvatar(){
   useEffect(()=>{ locomotionRef.current=locomotion; },[locomotion]);
   useFrame((_,delta)=>{
     const next=stepLocomotion(locomotionRef.current,delta);
+    const changed=next!==locomotionRef.current;
     locomotionRef.current=next;
     if(groupRef.current){
       groupRef.current.position.set(...next.position);
       groupRef.current.rotation.y=next.yaw;
     }
-    if(next!==locomotionRef.current) setLocomotion(next);
+    if(changed) setLocomotion(next);
   });
 
   const moveToWall=()=>{
