@@ -982,3 +982,41 @@ P0 regression recovery before HumanAgentProfile / AvatarRendererAdapter P2 work.
 
 ### Next action
 Collect CI for the correction commit. If green, mark P1 validated and proceed directly to P2. If not green, diagnose and correct without reopening architecture unless a stop condition is reached.
+
+
+## Entry 0061 — P1 3D World validated; P2 Human Agent boundary implemented
+
+### Human-readable result
+The corrected ALINA 3D World passed the full Control Center CI. P1 is now validated. Development moved immediately into P2 and established the first executable Human Agent boundary for ALINA #001 before introducing any permanent or third-party body asset.
+
+### P1 validation evidence
+- correction commit: 439d495bc653428e16245d1a34353b7b0da3d786.
+- ALINA Control Center M1 workflow run 35971099348, run #64: SUCCESS.
+- frontend job 107540775948: SUCCESS.
+- tests: 5/5 test files passed, 21/21 tests passed.
+- production build: SUCCESS, Vite 8.3.0, 33 modules transformed, build 394 ms.
+- output: index.html 0.41 kB / gzip 0.30 kB; CSS 3.20 kB / gzip 1.30 kB; JS 1,093.77 kB / gzip 301.31 kB.
+- npm audit during install: 0 vulnerabilities.
+- warning/GAP: main JS chunk exceeds 500 kB after Three/R3F integration; code splitting/performance profiling required before production performance claims.
+- automation registry run 35971099346: SUCCESS.
+
+### P2 implementation
+Created:
+- humanAgentProfile.ts — typed ALINA #001 HumanAgentProfile with explicit professional identity reference, avatar asset reference, provenance/license status and presentation defaults.
+- avatarRendererAdapter.ts — replaceable renderer contract plus placeholder adapter and production-promotion rule.
+- humanAgentProfile.test.ts — tests identity/body separation, temporary asset policy, provenance requirement and adapter lifecycle.
+
+### Architectural effect
+ALINA professional identity is no longer conceptually tied to a concrete body asset. A temporary TEST_ONLY avatar can be used for the polygon, but it cannot be promoted to APPROVED without explicit provenance and approved license status. Renderer operations do not own or mutate professional identity.
+
+### Human-readable commits
+- 773c35b315886ad0a3b756d421850a1771da2b37 — establish the ALINA #001 HumanAgentProfile boundary so professional identity, presentation state and replaceable avatar asset are explicit and versioned.
+- 7c5e88ac960d5c00d793b17794622e21edf335ac — introduce a replaceable AvatarRendererAdapter contract and production asset promotion guard before integrating any real VRM/GLB body.
+- f4cf5866e2b7e8370dc0a844d488f912082aeb5f — verify identity/body separation, temporary-asset policy, provenance requirement and renderer lifecycle.
+
+### Status
+P1 VALIDATED.
+P2 CONTRACT_IMPLEMENTED / CI_PENDING / REAL_AVATAR_NOT_YET_SELECTED.
+
+### Next action
+Collect CI for P2. If green, select a temporary avatar only from an asset with sufficiently clear provenance/license for the intended test use, record it in the asset manifest, and connect it through a concrete VRM/GLB renderer adapter. Permanent ALINA appearance remains a stop-condition requiring user approval.
