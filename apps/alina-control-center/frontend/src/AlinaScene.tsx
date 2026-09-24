@@ -5,6 +5,8 @@ import type { VRM } from "@pixiv/three-vrm";
 import { alinaHumanAgentProfile } from "./humanAgentProfile";
 import { loadVrmAvatar } from "./vrmAvatarLoader";
 import { initialLocomotionState, requestMove, stepLocomotion, type LocomotionState } from "./locomotionController";
+import { animationIntentFor } from "./animationIntent";
+import { applyProceduralPose } from "./proceduralPose";
 
 const canRenderWebGL = () => typeof window !== "undefined" && typeof window.ResizeObserver !== "undefined" && typeof window.WebGLRenderingContext !== "undefined";
 
@@ -29,6 +31,7 @@ function AlinaAvatar(){
   const [locomotion,setLocomotion]=useState<LocomotionState>(()=>initialLocomotionState());
   const locomotionRef=useRef(locomotion);
   const groupRef=useRef<Group>(null);
+  const elapsedRef=useRef(0);
   const [failed,setFailed]=useState(false);
 
   useEffect(()=>{
@@ -42,9 +45,11 @@ function AlinaAvatar(){
 
   useEffect(()=>{ locomotionRef.current=locomotion; },[locomotion]);
   useFrame((_,delta)=>{
+    elapsedRef.current+=delta;
     const next=stepLocomotion(locomotionRef.current,delta);
     const changed=next!==locomotionRef.current;
     locomotionRef.current=next;
+    if(vrm) applyProceduralPose(vrm,animationIntentFor(next.behavior,next.moving),elapsedRef.current);
     if(groupRef.current){
       groupRef.current.position.set(...next.position);
       groupRef.current.rotation.y=next.yaw;
