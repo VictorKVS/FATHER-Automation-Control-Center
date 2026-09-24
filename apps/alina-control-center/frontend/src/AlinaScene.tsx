@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useState } from "react";
-import { primitive } from "three";
 import type { VRM } from "@pixiv/three-vrm";
 import { alinaHumanAgentProfile } from "./humanAgentProfile";
 import { loadVrmAvatar } from "./vrmAvatarLoader";
