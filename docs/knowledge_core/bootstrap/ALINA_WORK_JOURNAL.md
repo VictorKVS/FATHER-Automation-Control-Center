@@ -943,3 +943,42 @@
 - implementation_gate: documentation baseline COMPLETE. Implementation may resume at Gate 1 by verifying current P1 3D-world CI, then P2 HumanAgentProfile + AvatarRendererAdapter.
 - known_non_goals_for_first_slice: final photorealistic ALINA, permanent voice/persona, full custom body generator, complete game physics/VFX/action stack.
 - next_action: verify current ALINA 3D P1 CI and continue P2 under the new Human Agent Studio contracts.
+
+
+## Entry 0060 — ALINA 3D World CI failure diagnosed and renderer fallback corrected
+
+### Human-readable result
+The first CI verification of the P1 3D World exposed a real compatibility regression rather than a scene-architecture failure. Five legacy Control Center UI tests failed because React Three Fiber attempted to create its Canvas inside jsdom, where ResizeObserver/WebGL browser capabilities are unavailable. Sixteen other tests passed, and the separate automation-registry workflow passed.
+
+### Why this mattered
+The Human Agent Studio requirements already state that the avatar/3D renderer is optional and that workspace functionality must survive renderer failure. CI revealed that the implementation had not yet fully enforced that architectural rule at the rendering boundary.
+
+### Evidence
+- P1 commit checked: 1d6a7a207ce83799b3592dc45af43b7f05480f36.
+- Workflow: ALINA Control Center M1, run 35967013649, run #53 — FAILURE.
+- Frontend job: 107527772467 — FAILURE.
+- Test result: 5 failed / 16 passed.
+- Failing cases: App T01-T05.
+- Root error: browser does not support ResizeObserver in jsdom when @react-three/fiber Canvas initializes.
+- Validate automation registry run 35967013680 — SUCCESS.
+
+### Decision and correction
+Do not polyfill or fake WebGL merely to satisfy tests. Enforce the product invariant at the component boundary: when ResizeObserver or WebGL capability is unavailable, AlinaScene renders a lightweight renderer-fallback shell and leaves the Control Center workspace operational. Real browsers with the required capabilities continue to use the WebGL Canvas.
+
+### Artifact changed
+- apps/alina-control-center/frontend/src/AlinaScene.tsx
+
+### Commit
+439d495bc653428e16245d1a34353b7b0da3d786 — fix(alina-3d): preserve Control Center tests when WebGL or ResizeObserver is unavailable by activating the documented renderer fallback
+
+### Status
+FIX_COMMITTED / CI_REVALIDATION_PENDING.
+
+### Improvement
+The fallback path should later become an explicit tested adapter capability contract rather than relying only on browser capability detection.
+
+### Priority
+P0 regression recovery before HumanAgentProfile / AvatarRendererAdapter P2 work.
+
+### Next action
+Collect CI for the correction commit. If green, mark P1 validated and proceed directly to P2. If not green, diagnose and correct without reopening architecture unless a stop condition is reached.
