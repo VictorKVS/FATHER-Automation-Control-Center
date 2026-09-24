@@ -1,5 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 
+const canRenderWebGL = () => typeof window !== "undefined" && typeof window.ResizeObserver !== "undefined" && typeof window.WebGLRenderingContext !== "undefined";
+
 export const sceneAnchors = {
   WORK_TABLE:[0,0,1.8],
   INFORMATION_WALL:[0,0,-2.7],
@@ -31,7 +33,13 @@ function Room(){
 }
 
 export function AlinaScene(){
-  return <div className="scene3d" aria-label="ALINA 3D WORLD">
+  if (!canRenderWebGL()) {
+    return <div className="scene3d scene3d-fallback" aria-label="ALINA 3D WORLD" data-renderer="fallback">
+      <div className="scene3d-legend">3D WORLD · RENDERER FALLBACK · WORKSPACE REMAINS AVAILABLE</div>
+    </div>;
+  }
+
+  return <div className="scene3d" aria-label="ALINA 3D WORLD" data-renderer="webgl">
     <Canvas camera={{position:[0,3.2,7.6],fov:48}} dpr={[1,1.5]}>
       <color attach="background" args={["#02070b"]}/>
       <fog attach="fog" args={["#02070b",7,16]}/>
