@@ -1087,3 +1087,40 @@ SCRIPT_FIX_COMMITTED / LOCAL_RETEST_REQUIRED.
 
 ### Next action
 Pull the corrected branch and rerun scripts/GET_ALINA_TEST_AVATAR.ps1. Capture Downloaded successfully and SHA-256 output, or preserve the next error as evidence for the following correction.
+
+
+## Entry 0064 — local Seed-san VRM verified and first real humanoid scene integration committed
+
+### Local evidence
+Viktor reran scripts/GET_ALINA_TEST_AVATAR.ps1 successfully on the Windows development machine.
+- result: Downloaded successfully.
+- local target: apps/alina-control-center/frontend/public/assets/agents/alina/Seed-san.vrm.
+- SHA-256: 624d0d554bc205bbdc33e22a68a2c3c20edebb3e573011ead8878a65e5329b23.
+- hash record generated locally: Seed-san.sha256.txt.
+
+### Actions
+1. Replaced GENERATE_AT_DOWNLOAD in the tracked asset manifest with the observed SHA-256 and LOCAL_DOWNLOAD_VERIFIED state.
+2. Bound ALINA #001 TEST_ONLY avatar URI to the local web asset /assets/agents/alina/Seed-san.vrm.
+3. Connected the VRM loader to AlinaScene and positioned the loaded humanoid near WORK_TABLE.
+4. Preserved workspace availability: avatar load failure renders a simple local fallback body rather than failing the Control Center.
+5. Removed an invalid Three.js named import before CI.
+
+### Architectural result
+The first ALINA embodiment is now designed to be served from the FATHER application itself. The remote source is acquisition provenance, not a runtime dependency. ALINA identity remains separate from the temporary body.
+
+### Human-readable commits
+- c113f3bae5a2190e0ab455989ea144e2478de817 — record the actual locally observed SHA-256 for the temporary Seed-san VRM.
+- efd0dfb9193a307ed1d53eb4c51f09eea842e3f6 — bind the ALINA #001 test profile to the local Seed-san asset while retaining TEST_ONLY provenance.
+- 0568c8a8d056aff169fca3b4b7be69071060be22 — integrate the local VRM body into the 3D Control Center scene with avatar-specific failure fallback.
+- d70d10755a03d390619f2098576698df00d07caf — correct the scene module import before CI validation.
+
+### Status
+LOCAL_ASSET_VERIFIED.
+FIRST_REAL_VRM_SCENE_INTEGRATION_COMMITTED.
+CI_PENDING / LOCAL_VISUAL_REVIEW_PENDING.
+
+### GAP / improvement
+The downloaded VRM binary and generated hash text exist on the development machine but are not claimed as committed repository binaries. Position/scale/orientation remain provisional until visual inspection. Animation/locomotion is not yet implemented. Bundle-size optimization remains open.
+
+### Next action
+Collect CI. If green, run the Control Center locally, visually inspect ALINA at WORK_TABLE, capture concrete spatial/body issues, then implement P3 locomotion/state-driven movement toward INFORMATION_WALL.
