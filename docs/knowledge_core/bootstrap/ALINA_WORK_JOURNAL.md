@@ -1435,3 +1435,39 @@ VISUAL_ACCEPTANCE_PENDING USER BROWSER/GPU EVIDENCE.
 
 ### Next action
 Run the local polygon and use screenshots to calibrate bone axes/angles and arrival orientation. Do not declare P3 visual completion from CI alone.
+
+
+## Entry 0074 — baseline roadmap frozen for later comparison; mainline restored after ComfyUI side quest
+
+### Trigger
+The development thread temporarily diverged into repairing an old ComfyUI environment. The operator requested that the current roadmap be recorded so future actual progress can be compared against this baseline.
+
+### Baseline roadmap — 2026-09-24
+- P0 Presence Controller — COMPLETE.
+- P1 3D World / Control Center room — COMPLETE.
+- P2 real VRM ALINA body and renderer/profile boundary — COMPLETE for temporary test body.
+- P3 locomotion + base animation — CI VALIDATED; visual acceptance still pending.
+- P4 ALINA interaction with workspace screens — NEXT.
+- P5 human-like behavior: gaze, turns, gestures, state-driven presentation.
+- P6 voice + face + lip-sync.
+- P7 live conversational interaction and interruption/context handling.
+- P8 Visual Intelligence: image/screenshot/sketch/reference -> structured Visual Intent -> specialist/tool pipeline.
+- P9 bind the embodied ALINA to real ALINA Analyst / Knowledge Core / RAG / Graph / Evidence / tools.
+- P10 Human Agent Studio: reusable identity/body/voice/wardrobe/animation/personality/profession packages.
+- P11 Agent Foundation Factory: ALINA creates evidence-backed foundations for future specialists/agents, followed by exam/polygon/gap loops.
+- P12 integrated FATHER engineering platform.
+
+### Mainline execution order
+Immediate mainline:
+P3 visual acceptance -> P4 workspace interaction -> P5 behavior -> P6 voice/face -> P7 live interaction -> P9 real Knowledge Core binding -> ALINA v1 Human Agent.
+P8 Visual Intelligence may be developed around/after ALINA v1 integration when it provides direct value.
+Then P10 -> P11 -> P12.
+
+### Architecture decision
+ComfyUI is not a blocker for P3-P7. It remains a future Content Generator / Human Agent Studio tool and should not drive FATHER architecture. Its current environment repair is deferred unless a later stage explicitly requires it.
+
+### Comparison rule
+Future roadmap reviews should compare actual stage status, evidence, deviations, new dependencies, removed work, elapsed effort and reasons for change against this Entry 0074 baseline. Do not rewrite this baseline retroactively.
+
+### Immediate next action
+Finish P3 with local visual evidence. If visually acceptable, freeze P3 and begin P4 with the analysis-first sequence: P4 analytical passport -> scene/workspace interaction notation -> acceptance tests -> implementation -> test execution -> visual evidence.
