@@ -28,12 +28,12 @@ export const alinaHumanAgentProfile: HumanAgentProfile = {
   displayName: "ALINA",
   professionalIdentityRef: "father://specialists/alina-analyst",
   avatar: {
-    id: "ALINA-TEMP-AVATAR",
+    id: "ALINA-TEMP-SEED-SAN",
     kind: "AVATAR",
-    uri: "father://assets/alina/temp-avatar",
+    uri: "/assets/agents/alina/Seed-san.vrm",
     format: "VRM",
     licenseStatus: "TEST_ONLY",
-    provenanceRef: "father://provenance/alina/temp-avatar",
+    provenanceRef: "father://provenance/alina/seed-san-vrm",
   },
   presentation: {
     presenceMode: "FULL_BODY",
