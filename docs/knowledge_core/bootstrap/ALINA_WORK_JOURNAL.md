@@ -1063,3 +1063,27 @@ The binary is intentionally not represented as if it had already been downloaded
 
 ### Next action
 Validate the loader changes in CI. Then run GET_ALINA_TEST_AVATAR.ps1 on the development machine, capture its SHA-256, connect the local VRM to the R3F scene through a concrete component/adapter, and test visible ALINA #001 placement at WORK_TABLE.
+
+
+## Entry 0063 — Windows PowerShell parser failure in temporary VRM acquisition script corrected
+
+### Trigger
+Local execution of scripts/GET_ALINA_TEST_AVATAR.ps1 on Viktor's Windows PowerShell failed before network access with ParserError at line 34: TerminatorExpectedAtEndOfString. The reported line contained the English contraction in the final informational message.
+
+### Decision and correction
+Treat this as a script portability defect, not a user/environment failure. The acquisition script was rewritten with conservative PowerShell quoting: single-quoted literal strings, concatenation for variable output, and wording without the apostrophe contraction. No download success is claimed yet.
+
+### Result
+Corrected script committed. Local re-execution is required to validate parsing, download the VRM and produce the actual SHA-256 evidence.
+
+### Improvement
+Future Windows helper scripts should prefer conservative ASCII punctuation and simple PowerShell quoting in user-facing literals, and should be locally syntax-checked before being treated as validated.
+
+### Human-readable commit
+eda5a8d6dba4945c8b896a991c0c49783d6b8d4e — repair the temporary VRM acquisition script so Windows PowerShell can parse it reliably before attempting the model download.
+
+### Status
+SCRIPT_FIX_COMMITTED / LOCAL_RETEST_REQUIRED.
+
+### Next action
+Pull the corrected branch and rerun scripts/GET_ALINA_TEST_AVATAR.ps1. Capture Downloaded successfully and SHA-256 output, or preserve the next error as evidence for the following correction.
