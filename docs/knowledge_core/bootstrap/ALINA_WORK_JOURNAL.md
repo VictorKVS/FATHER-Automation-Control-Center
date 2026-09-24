@@ -1020,3 +1020,46 @@ P2 CONTRACT_IMPLEMENTED / CI_PENDING / REAL_AVATAR_NOT_YET_SELECTED.
 
 ### Next action
 Collect CI for P2. If green, select a temporary avatar only from an asset with sufficiently clear provenance/license for the intended test use, record it in the asset manifest, and connect it through a concrete VRM/GLB renderer adapter. Permanent ALINA appearance remains a stop-condition requiring user approval.
+
+
+## Entry 0062 — P2 green; reproducible local VRM acquisition and browser loader prepared
+
+### Human-readable result
+P2 contract work passed CI and the project advanced to the first real-avatar integration boundary. The browser now has the official three-vrm runtime dependency, a VRM loader module, a local ALINA asset slot, an asset manifest and a reproducible PowerShell acquisition script that downloads the temporary model to the local application rather than making runtime identity depend on an external avatar service.
+
+### P2 validation evidence
+- workflow ALINA Control Center M1 run 35971340746, run #69: SUCCESS.
+- Validate automation registry run 35971340632, run #437: SUCCESS.
+- P2 status promoted from CI_PENDING to CONTRACT_VALIDATED.
+
+### Source/licensing correction
+A previous conversational statement described Seed-san as CC0. Source review does not support that classification. The Seed-san README identifies the model as by VirtualCast, Inc. under VRM Public License 1.0. The project therefore records Seed-san as TEST_ONLY_REVIEW_BEFORE_REDISTRIBUTION with attribution required, and explicitly does not label it CC0. This correction is preserved rather than hidden.
+
+### Runtime evidence
+The official @pixiv/three-vrm project documents npm installation, GLTFLoader + VRMLoaderPlugin loading, VRM extraction from gltf.userData.vrm and optional VRMUtils optimization. Its code is MIT licensed. This supports the selected browser loader architecture.
+
+### Artifacts
+- package.json — @pixiv/three-vrm dependency.
+- src/vrmAvatarLoader.ts — GLTFLoader + VRMLoaderPlugin boundary.
+- public/assets/agents/alina/README.md — local asset slot and license warning.
+- public/assets/agents/alina/asset-manifest.json — source/author/license/purpose/integrity contract.
+- scripts/GET_ALINA_TEST_AVATAR.ps1 — reproducible download + SHA-256 generation.
+
+### Human-readable commits
+- 2fac901d55d5f7445b834172637728a0a6267569 — add official MIT-licensed three-vrm loader dependency as the replaceable browser runtime for ALINA #001 VRM bodies.
+- 39d8db78ce4333c9d5c104663560a47e5f36fc31 — add the concrete VRM loading boundary using GLTFLoader/VRMLoaderPlugin and VRM runtime optimizations.
+- 81e423477650e4a2f3d35bd34daa5bad379265ba — create the local ALINA avatar asset slot and document that the temporary body is not permanent ALINA identity.
+- f61794fd633b4d94cde1a1f0edc8aca3e378063d — register Seed-san source, authorship, license review state and test-only purpose in the asset manifest.
+- ba3f7b19f37b1950b9d5f0abddbf3fea4b687d0f — add a reproducible Windows acquisition script that downloads the official sample and records SHA-256 integrity evidence.
+
+### Status
+P2 CONTRACT_VALIDATED.
+VRM_LOADER_IMPLEMENTED / CI_PENDING.
+LOCAL_BINARY_DOWNLOAD_PENDING_ON_DEVELOPMENT_MACHINE.
+PERMANENT_ALINA_APPEARANCE_NOT_SELECTED.
+
+### GAP / improvement
+The binary is intentionally not represented as if it had already been downloaded to Viktor's Windows machine. The script must be run locally to produce the actual Seed-san.vrm and SHA-256 evidence. The generated hash should then be copied into/associated with the asset registry. Bundle-size warning remains open.
+
+### Next action
+Validate the loader changes in CI. Then run GET_ALINA_TEST_AVATAR.ps1 on the development machine, capture its SHA-256, connect the local VRM to the R3F scene through a concrete component/adapter, and test visible ALINA #001 placement at WORK_TABLE.
