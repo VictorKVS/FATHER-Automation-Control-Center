@@ -1339,3 +1339,37 @@ T_POSE_VISUAL_GAP_REMAINS.
 
 ### Next action
 Collect CI for the adapter. Then acquire an actual reviewed idle/walk source, store it locally, calculate SHA-256, update the manifest, bind AnimationIntent to the adapter, and run visual polygon validation. If asset licensing or redistribution rights remain unclear, keep the asset local/test-only rather than committing binaries.
+
+
+## Entry 0071 — VRMA adapter validated; fail-closed local animation acquisition gate implemented
+
+### CI evidence
+The VRMA runtime adapter/provenance-manifest stage passed:
+- ALINA Control Center M1 run 35984194703, run #129: SUCCESS.
+- Validate automation registry run 35984194769, run #509: SUCCESS.
+- tests: 9/9 files, 40/40 tests passed.
+- build: SUCCESS.
+
+### Problem
+The runtime adapter is ready, but directly wiring any downloaded idle/walk file would bypass the evidence/licensing policy and could create a hidden external dependency.
+
+### Implementation
+Added animationAssetRegistry.ts. Runtime publication is fail-closed: an animation becomes usable only when status=LOCAL_VERIFIED and local path, source, license and a syntactically valid SHA-256 are all present.
+
+Added four executable tests proving pending assets, incomplete provenance and malformed hashes are rejected.
+
+Added scripts/REGISTER_ALINA_ANIMATION.ps1 as the operator acquisition gate. It accepts only explicit .vrma input, copies it into the local ALINA animation asset directory, computes SHA-256 and updates source/license/path/status in the manifest. It does not download arbitrary web assets.
+
+### Human-readable commits
+- 78aa0184bff4d864205cd1e8306e6416ef7c713d — create the fail-closed animation registry so only fully evidenced local animation clips reach runtime.
+- aad26efcdc3d5212b0df44dee7066088f1df53c9 — prove the registry rejects pending/incomplete/malformed assets and publishes only verified clips.
+- 1a530e9613eac1231d9aff884f53d4728f2a63ac — add the guarded PowerShell registration utility for local VRMA acquisition, hashing and provenance recording.
+
+### Status
+VRMA_RUNTIME_ADAPTER_VALIDATED.
+ANIMATION_ACQUISITION_GATE_IMPLEMENTED / CI_PENDING.
+NO THIRD_PARTY_ANIMATION_BINARY_COMMITTED.
+T_POSE_VISUAL_GAP_REMAINS UNTIL A REVIEWED CLIP IS PROVIDED/GENERATED.
+
+### Next action
+Validate this gate in CI. Then obtain or generate the first VRMA idle/walk files under acceptable terms, register them through the script, bind the verified map to the runtime adapter, and perform the visual polygon.
