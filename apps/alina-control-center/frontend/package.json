@@ -1,0 +1,36 @@
+{
+  "name": "@father/alina-control-center",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "three": "^0.180.0",
+    "@react-three/fiber": "^9.3.0",
+    "@pixiv/three-vrm": "^3.4.3",
+    "@pixiv/three-vrm-animation": "^3.4.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@testing-library/user-event": "latest",
+    "jsdom": "latest",
+    "vitest": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "ajv": "latest",
+    "@types/node": "latest",
+    "@types/three": "^0.180.0"
+  }
+}
