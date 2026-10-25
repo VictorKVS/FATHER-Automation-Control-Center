@@ -1,0 +1,66 @@
+{
+  "schema_version": "0.1.0",
+  "registry_id": "father-project-registry",
+  "policy": {
+    "source_of_truth": "FATHER-Library (planned)",
+    "git": "Git tracks source revisions; never use Git as live database",
+    "api": "Versioned read-only contracts before write integrations",
+    "sync": "Detect drift; do not auto-overwrite dependent projects",
+    "state": "bootstrap; integration checks not yet operational"
+  },
+  "projects": [
+    {
+      "id": "cybered",
+      "repository": "VictorKVS/CyberED",
+      "role": "education",
+      "knowledge_scope": [
+        "infosec",
+        "osi"
+      ]
+    },
+    {
+      "id": "father-codex",
+      "repository": "VictorKVS/FATHER_CODEX",
+      "role": "coding-agent"
+    },
+    {
+      "id": "father-voice",
+      "repository": "VictorKVS/FATHER_VOICE_BRIDGE",
+      "role": "voice"
+    },
+    {
+      "id": "father-ai-engine",
+      "repository": "VictorKVS/FATHER-Universal-AI-Engine",
+      "role": "ai-engine"
+    },
+    {
+      "id": "father-automation",
+      "repository": "VictorKVS/FATHER-Automation-Control-Center",
+      "role": "orchestration"
+    },
+    {
+      "id": "father-engineering",
+      "repository": "VictorKVS/FATHER-Engineering-Competency-Lab",
+      "role": "competency"
+    },
+    {
+      "id": "father-media",
+      "repository": "VictorKVS/father-media-lab",
+      "role": "media"
+    },
+    {
+      "id": "father-quant",
+      "repository": "VictorKVS/father-quant-lab",
+      "role": "quant"
+    }
+  ],
+  "knowledge_sources": [
+    {
+      "id": "cybered-ib-local",
+      "location_hint": "G:\\\\1\\\\CyberED -IB\\\\00_F402A\\\\site\\\\data",
+      "catalog": "documents_source_full.json",
+      "connection_status": "not_connected",
+      "note": "Local path must be validated on host before indexing"
+    }
+  ]
+}
