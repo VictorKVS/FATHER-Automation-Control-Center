@@ -1,12 +1,14 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.2.0",
   "registry_id": "father-project-registry",
   "policy": {
     "source_of_truth": "FATHER-Library (planned)",
     "git": "Git tracks source revisions; never use Git as live database",
     "api": "Versioned read-only contracts before write integrations",
     "sync": "Detect drift; do not auto-overwrite dependent projects",
-    "state": "bootstrap; integration checks not yet operational"
+    "state": "bootstrap; integration checks not yet operational",
+    "project_organization": "Directions are logical views. One repository can serve several directions; do not duplicate source repositories.",
+    "change_management": "Cross-project changes require impact analysis and compatibility tests before promotion."
   },
   "projects": [
     {
@@ -16,42 +18,76 @@
       "knowledge_scope": [
         "infosec",
         "osi"
+      ],
+      "direction_ids": [
+        "education",
+        "networks",
+        "ib-compliance",
+        "security-engineering",
+        "pentest",
+        "osint",
+        "devsecops",
+        "ai"
       ]
     },
     {
       "id": "father-codex",
       "repository": "VictorKVS/FATHER_CODEX",
-      "role": "coding-agent"
+      "role": "coding-agent",
+      "direction_ids": [
+        "code",
+        "devsecops"
+      ]
     },
     {
       "id": "father-voice",
       "repository": "VictorKVS/FATHER_VOICE_BRIDGE",
-      "role": "voice"
+      "role": "voice",
+      "direction_ids": [
+        "voice"
+      ]
     },
     {
       "id": "father-ai-engine",
       "repository": "VictorKVS/FATHER-Universal-AI-Engine",
-      "role": "ai-engine"
+      "role": "ai-engine",
+      "direction_ids": [
+        "ai",
+        "core"
+      ]
     },
     {
       "id": "father-automation",
       "repository": "VictorKVS/FATHER-Automation-Control-Center",
-      "role": "orchestration"
+      "role": "orchestration",
+      "direction_ids": [
+        "core",
+        "library"
+      ]
     },
     {
       "id": "father-engineering",
       "repository": "VictorKVS/FATHER-Engineering-Competency-Lab",
-      "role": "competency"
+      "role": "competency",
+      "direction_ids": [
+        "competencies"
+      ]
     },
     {
       "id": "father-media",
       "repository": "VictorKVS/father-media-lab",
-      "role": "media"
+      "role": "media",
+      "direction_ids": [
+        "voice"
+      ]
     },
     {
       "id": "father-quant",
       "repository": "VictorKVS/father-quant-lab",
-      "role": "quant"
+      "role": "quant",
+      "direction_ids": [
+        "quant"
+      ]
     }
   ],
   "knowledge_sources": [
@@ -61,6 +97,78 @@
       "catalog": "documents_source_full.json",
       "connection_status": "not_connected",
       "note": "Local path must be validated on host before indexing"
+    }
+  ],
+  "directions": [
+    {
+      "id": "core",
+      "name": "FATHER Core",
+      "scope": "platform, API, contracts, integration"
+    },
+    {
+      "id": "library",
+      "name": "Единая библиотека",
+      "scope": "documents, projects, evidence, provenance, knowledge graph"
+    },
+    {
+      "id": "education",
+      "name": "CyberED",
+      "scope": "learning tracks and assessment"
+    },
+    {
+      "id": "networks",
+      "name": "Сети и OSI",
+      "scope": "OSI, TCP/IP, Ethernet, routing"
+    },
+    {
+      "id": "ib-compliance",
+      "name": "Нормативная ИБ",
+      "scope": "PDn, GIS, KII, FSTEC, FSB"
+    },
+    {
+      "id": "security-engineering",
+      "name": "Инженерия и аудит ИБ",
+      "scope": "threat models, controls, audits"
+    },
+    {
+      "id": "pentest",
+      "name": "Пентест и полигон",
+      "scope": "authorized labs, validation"
+    },
+    {
+      "id": "osint",
+      "name": "OSINT",
+      "scope": "open sources, attribution, graph analysis"
+    },
+    {
+      "id": "devsecops",
+      "name": "DevSecOps",
+      "scope": "CI/CD, containers, Kubernetes, code security"
+    },
+    {
+      "id": "ai",
+      "name": "AI / LLM / RAG",
+      "scope": "models, agents, RAG, AI security"
+    },
+    {
+      "id": "code",
+      "name": "FATHER CODEX",
+      "scope": "programmer agent"
+    },
+    {
+      "id": "voice",
+      "name": "Voice / Media",
+      "scope": "TTS and media services"
+    },
+    {
+      "id": "competencies",
+      "name": "Компетенции агентов",
+      "scope": "skills, learning, evaluation"
+    },
+    {
+      "id": "quant",
+      "name": "Quant Lab",
+      "scope": "quant research"
     }
   ]
 }
